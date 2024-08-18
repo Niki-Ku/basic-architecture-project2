@@ -4,9 +4,14 @@ import { AppDispatch, fetchData } from "../src/store/actions/dataActions";
 import "./App.css";
 import { RootState } from "./store/index";
 import NewPage from "../src/pages/NewPage/NewPage";
-import Header from "../src/pages/Header/Header";
 
 import { Route, Routes } from "react-router-dom";
+import SearchPage from "./pages/SearchPage/SearchPage";
+import HomePage from "./pages/HomePage/HomePage";
+import LoginPage from "./pages/LoginPage/LoginPage";
+import UserPage from "./pages/UserPage/UserPage";
+import Header from "./pages/Header/Header";
+
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -27,11 +32,15 @@ function App() {
   return (
     <div className="App">
       {/* Define routes */}
-      <main>
-        <Routes>
-          <Route path="/new" element={<NewPage />} />
-          <Route path="/" element={<Header />} />
+      <main className="bg-black text-white h-screen">
+        <Header />
+        <Routes >
+          <Route path="/" element={<HomePage />} />
+          <Route path="/search" element={<SearchPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/user" element={<UserPage />} />
         </Routes>
+        <div className="bg-black h-screen"></div>
       </main>
     </div>
   );

@@ -1,24 +1,39 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import NetflixLogo from '../../assets/images/netflix-logo.png';
 
 function Header() {
+  const location = useLocation();
+
+  const activeClass = ( path:string ) => {
+    return location.pathname === path
+    ? "text-lg font-semibold text-white text-orange-500"
+    : "text-lg font-semibold text-white hover:text-orange-500"
+  }
+
   return (
-    <header className="shadow-md p-6 bg-lime-300">
+    <header className="bg-transparent p-6 flex justify-between fixed top-0 left-0 w-full">
       
-      <div className="branding text-4xl font-extrabold text-center mb-6 text-indigo-500">
-        My App
+      <div className="">
+        <Link to="/">
+          <img src={NetflixLogo} alt="Netflix Logo" />
+        </Link>
       </div>
-
-      <div className="text-center text-lg font-light mb-4 text-gray-600">
-        Become better !!!
+      <div>
+        <span></span>
       </div>
-
       <nav>
         <ul className="flex justify-center space-x-6">
           <li className="transform hover:scale-110 transition duration-200">
-            <Link className="text-lg font-semibold text-green-500 hover:text-orange-500" to="/">Home</Link>
+            <Link className={activeClass('/')} to="/">Home</Link>
           </li>
           <li className="transform hover:scale-110 transition duration-200">
-            <Link className="text-lg font-semibold text-green-500 hover:text-orange-500" to="/new">Discover</Link>
+            <Link className={activeClass('/search')} to="/search">Search</Link>
+          </li>
+          <li className="transform hover:scale-110 transition duration-200">
+            <Link className={activeClass('/login')} to="/login">login</Link>
+          </li>
+          <li className="transform hover:scale-110 transition duration-200">
+            <Link className={activeClass('/user')} to="/user">User</Link>
           </li>
         </ul>
       </nav>
