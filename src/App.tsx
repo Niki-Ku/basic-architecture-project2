@@ -10,7 +10,7 @@ import SearchPage from "./pages/SearchPage/SearchPage";
 import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import UserPage from "./pages/UserPage/UserPage";
-import Header from "./pages/Header/Header";
+import Header from "./components/Header/Header";
 
 
 function App() {

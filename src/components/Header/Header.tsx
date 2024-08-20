@@ -1,6 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 import NetflixLogo from '../../assets/images/netflix-logo.png';
+import { links } from '../../config/routeConfig';
 import "./Header.css";
 
 function Header() {
@@ -12,31 +13,31 @@ function Header() {
     : "text-lg font-semibold text-white hover:text-orange-500"
   };
 
-  const links = [
-    {name: 'Home', path: '/'},
-    {name: 'Search', path: '/search'},
-    {name: 'Login', path: '/login'},
-    {name: 'User', path: '/user'},
-  ];
-
   const [open, setOpen] = useState(false);
+  document.body.classList.add(`${open && 'scroll-lock'}`);
 
   return (
-    // <header className="bg-transparent p-6 flex justify-between fixed top-0 left-0 w-full header">
     <header className="md:flex md:justify-between z-20 md:items-center bg-transparent text-center p-6 fixed top-0 left-0 w-full relative">
       <div className="">
         <Link to="/">
           <img src={NetflixLogo} alt="Netflix Logo" />
         </Link>
       </div>
-      <div 
+      <button
         className={`burger-icon ${open ? 'active' : ''}`}
         onClick={() => setOpen(!open)}
+        aria-label="Main Menu"
       >
         <span></span>
-      </div>
-      <nav>
-        <ul className={`md:flex gap-5 bg-slate-900 md:bg-transparent md:z-auto absolute w-full md:static z-[-1] ease-in ${open ? '' : '-translate-y-[500px]'} md:translate-y-0`}>
+      </button>
+      <nav className="flex">
+        <ul 
+          className={`
+          bg-slate-900 absolute w-full left-0 top-0 pt-10 h-screen z-[-1]
+          ease-in transition durarion-1000 ${open ? '' : '-translate-y-[100vh]'} 
+          md:flex md:h-auto md:p-0 gap-5 md:static md:z-auto md:translate-y-0 md:bg-transparent 
+          `}
+        >
           {
             links.map((link) => (
               <li className="transform p-4 md:p-0 hover:scale-110 transition duration-200">

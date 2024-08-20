@@ -1,10 +1,14 @@
+body.scroll-lock {
+  overflow: hidden;
+}
+
 .burger-icon {
   display: block;
   width: 30px;
-  height: 25px;
+  height: 20px;
   position: absolute;
   cursor: pointer;
-  top: 20%;
+  top: 35%;
   right: 6%;
 }
 
@@ -12,6 +16,7 @@
   background-color: #fff;
   position: absolute;
   top: 50%;
+  left: 0;
   width: 100%;
   height: 2px;
   transition: all 0.3s ease 0s;
@@ -25,7 +30,7 @@
   height: 2px;
   position: absolute;
   transition: all 0.3s ease 0s;
-
+  left: 0;
 }
 
 .burger-icon::after {
