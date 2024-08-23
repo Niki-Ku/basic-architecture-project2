@@ -11,7 +11,7 @@ import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import UserPage from "./pages/UserPage/UserPage";
 import Header from "./components/Header/Header";
-
+import Footer from "./components/Footer/Footer";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -31,8 +31,7 @@ function App() {
   console.log(data, "data");
   return (
     <div className="App">
-      {/* Define routes */}
-      <main className="bg-black text-white h-screen">
+      <main className="bg-darkGray text-white grid min-h-[100dvh] grid-rows-[auto_1fr_auto]">
         <Header />
         <Routes >
           <Route path="/" element={<HomePage />} />
@@ -40,7 +39,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/user" element={<UserPage />} />
         </Routes>
-        <div className="bg-black h-screen"></div>
+        <Footer />
       </main>
     </div>
   );

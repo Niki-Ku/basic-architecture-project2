@@ -4,7 +4,7 @@ import NetflixLogo from '../../assets/images/netflix-logo.png';
 import { links } from '../../config/routeConfig';
 import "./Header.css";
 
-function Header() {
+const Header = () => {
   const location = useLocation();
 
   const activeClass = ( path:string ) => {
@@ -17,7 +17,7 @@ function Header() {
   document.body.classList.add(`${open && 'scroll-lock'}`);
 
   return (
-    <header className="md:flex md:justify-between z-20 md:items-center bg-transparent text-center p-6 fixed top-0 left-0 w-full relative">
+    <header className="md:flex md:justify-between z-20 md:items-center bg-black text-center p-6 fixed top-0 left-0 w-full relative">
       <div className="">
         <Link to="/">
           <img src={NetflixLogo} alt="Netflix Logo" />
@@ -40,8 +40,9 @@ function Header() {
         >
           {
             links.map((link) => (
-              <li className="transform p-4 md:p-0 hover:scale-110 transition duration-200">
+              <li key={`li-${link.name}`} className="transform p-4 md:p-0 hover:scale-110 transition duration-200">
                 <Link 
+                  key={link.name}
                   className={activeClass(`${link.path}`)} 
                   to={link.path}
                   onClick={() => setOpen(!open)}
