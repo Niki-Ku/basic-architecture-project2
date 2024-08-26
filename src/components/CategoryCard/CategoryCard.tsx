@@ -1,6 +1,5 @@
 import { accountAndBillingCategory } from '../../config/helpCenterConfig'
 import { Link } from 'react-router-dom';
-import { ReactComponent as UserIcon } from '../../assets/icons/UserIcon.svg'
 
 const CategoryCard = ({  }) => {
   return (
@@ -17,7 +16,6 @@ const CategoryCard = ({  }) => {
       <details>
         <summary>
           <div>
-            <UserIcon style={{stroke: 'red'}} className='w-10 h-10' />
             <accountAndBillingCategory.categoryIcon 
             style={{stroke: `${accountAndBillingCategory.categoryIconColor}`, fill: `${accountAndBillingCategory.categoryIconColor}`,
             color: `${accountAndBillingCategory.categoryIconColor}`,
