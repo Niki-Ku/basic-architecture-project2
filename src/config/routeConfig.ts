@@ -7,27 +7,27 @@ export const links = [
 
 export const footerLinks = [
   {
-    text: 'Phone',
-    url: 'tel:+3809309433',
+    name: 'Phone',
+    path: 'tel:+3809309433',
   },
   {
-    text: 'Email',
-    url: 'mailto:niki.kuzk013@gmail.com',
+    name: 'Email',
+    path: 'mailto:niki.kuzk013@gmail.com',
   },
   {
-    text: 'About Us',
-    url: '/',
+    name: 'About Us',
+    path: '/search',
   },
   {
-    text: 'Contact',
-    url: '/',
+    name: 'Contact',
+    path: '/login',
   },
   {
-    text: 'Support',
-    url: '/',
+    name: 'Support',
+    path: '/user',
   },
   {
-    text: 'FAQs',
-    url: '/',
+    name: 'FAQs',
+    path: '/',
   },
 ];
