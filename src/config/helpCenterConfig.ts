@@ -12,5 +12,15 @@ export const accountAndBillingCategory = {
       subCategoryPath: '/login',
       subCategoryIcon: ArticleIcon,
     },
+    {
+      subCategoryTitle: 'account-settings2',
+      subCategoryPath: '/login',
+      subCategoryIcon: ArticleIcon,
+    },
+    {
+      subCategoryTitle: 'account-settings34 ',
+      subCategoryPath: '/login',
+      subCategoryIcon: ArticleIcon,
+    },
   ]
 };

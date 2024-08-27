@@ -1,35 +1,53 @@
 import { accountAndBillingCategory } from '../../config/helpCenterConfig'
 import { Link } from 'react-router-dom';
+import { ReactComponent as ArrowDownShort } from '../../assets/icons/ArrowDownShort.svg';
+import React from 'react';
 
-const CategoryCard = ({  }) => {
+interface ISubCategories {
+  subCategoryTitle: string;
+  subCategoryPath: string;
+  subCategoryIcon: React.ReactNode;
+}
+
+interface ICategory {
+  categoryIcon: React.ReactNode;
+  categoryIconColor: string;
+  categoryTitle: string;
+  subCategories: ISubCategories[];
+}
+
+interface ICategoryCard {
+  links: ICategory;
+}
+
+const CategoryCard:React.FC<ICategoryCard> = ({ links }) => {
   return (
     <div>
-      {/* <details>
-        <summary>asdfafs</summary>
-        <ul>
-          <li>sdaf</li>
-          <li>sdaf</li>
-          <li>sdaf</li>
-          <li>sdaf</li>
-        </ul>
-      </details> */}
       <details>
-        <summary>
+        <summary className="flex">
           <div>
             <accountAndBillingCategory.categoryIcon 
-            style={{stroke: `${accountAndBillingCategory.categoryIconColor}`, fill: `${accountAndBillingCategory.categoryIconColor}`,
-            color: `${accountAndBillingCategory.categoryIconColor}`,
-            WebkitTextStrokeColor: `${accountAndBillingCategory.categoryIconColor}` }} 
-            className={`stroke-zinc-500 w-10 h-10`} />
+              style={{stroke: `${accountAndBillingCategory.categoryIconColor}`}} 
+              className="w-10 h-10"
+            />
+            {/* <categoryIcon /> */}
           </div>
-          <div>{accountAndBillingCategory.categoryTitle}</div>
+          <div>{links.categoryTitle}</div>
+          <ArrowDownShort className="w-10 h-10" />
         </summary>
         <ul>
-          {accountAndBillingCategory.subCategories.map(subCategory => (
-            <Link key={subCategory.subCategoryTitle} to={subCategory.subCategoryPath}>
-              <subCategory.subCategoryIcon className="w-5 h-5" />
-              <li>{subCategory.subCategoryTitle}</li>
-            </Link>
+          {links.subCategories.map(subCategory => (
+            <div 
+              key={subCategory.subCategoryTitle} 
+              className="flex"
+            >
+              {/* <subCategory.subCategoryIcon className="w-5 h-5" /> */}
+              <Link 
+                to={subCategory.subCategoryPath}
+              >
+                <li>{subCategory.subCategoryTitle}</li>
+              </Link>
+            </div>
           ))}
         </ul>
       </details>

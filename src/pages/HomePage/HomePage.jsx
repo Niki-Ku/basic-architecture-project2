@@ -1,6 +1,7 @@
 import SearchBar from "../../components/SearchBar/SearchBar";
 import CategoryCard from "../../components/CategoryCard/CategoryCard";
 
+import { accountAndBillingCategory } from '../../config/helpCenterConfig'
 
 
 // temporary import 
@@ -13,7 +14,7 @@ const HomePage = () => {
     <div>
       <SearchBar links={footerLinks} />
       Home page
-      <CategoryCard />
+      <CategoryCard links={accountAndBillingCategory} />
     </div>
   )
 };
