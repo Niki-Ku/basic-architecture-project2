@@ -1,16 +1,20 @@
-import { accountAndBillingCategory } from '../../config/helpCenterConfig'
 import { Link } from 'react-router-dom';
-import { ReactComponent as ArrowDownShort } from '../../assets/icons/ArrowDownShort.svg';
 import React from 'react';
+import { ReactComponent as ArticleIcon } from '../../assets/icons/ArticleIcon.svg';
+import { ReactComponent as ArrowDownShort } from '../../assets/icons/ArrowDownShort.svg';
+import { icons } from '../../config/dynamicIcons';
+
+// TODO: remove subcategoryIcon and subcategoryIconColor in interface and in config file
+// style
 
 interface ISubCategories {
   subCategoryTitle: string;
   subCategoryPath: string;
-  subCategoryIcon: React.ReactNode;
+  subCategoryIcon: keyof typeof icons;
 }
 
 interface ICategory {
-  categoryIcon: React.ReactNode;
+  categoryIcon: keyof typeof icons;
   categoryIconColor: string;
   categoryTitle: string;
   subCategories: ISubCategories[];
@@ -21,16 +25,17 @@ interface ICategoryCard {
 }
 
 const CategoryCard:React.FC<ICategoryCard> = ({ links }) => {
+  const CategoryIcon = icons[links.categoryIcon];
+
   return (
     <div>
       <details>
         <summary className="flex">
           <div>
-            <accountAndBillingCategory.categoryIcon 
-              style={{stroke: `${accountAndBillingCategory.categoryIconColor}`}} 
+            <CategoryIcon
               className="w-10 h-10"
+              style={{stroke: `${links.categoryIconColor}`}} 
             />
-            {/* <categoryIcon /> */}
           </div>
           <div>{links.categoryTitle}</div>
           <ArrowDownShort className="w-10 h-10" />
@@ -41,10 +46,8 @@ const CategoryCard:React.FC<ICategoryCard> = ({ links }) => {
               key={subCategory.subCategoryTitle} 
               className="flex"
             >
-              {/* <subCategory.subCategoryIcon className="w-5 h-5" /> */}
-              <Link 
-                to={subCategory.subCategoryPath}
-              >
+              <ArticleIcon className="w-5 h-5 fill-white" />
+              <Link to={subCategory.subCategoryPath}>
                 <li>{subCategory.subCategoryTitle}</li>
               </Link>
             </div>
