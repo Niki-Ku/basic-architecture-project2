@@ -30,4 +30,28 @@ export const footerLinks = [
     name: 'FAQs',
     path: '/',
   },
+  {
+    name: 'Phone',
+    path: 'tel:+3809309433',
+  },
+  {
+    name: 'Email',
+    path: 'mailto:niki.kuzk013@gmail.com',
+  },
+  {
+    name: 'About Us',
+    path: '/search',
+  },
+  {
+    name: 'Contact',
+    path: '/login',
+  },
+  {
+    name: 'Support',
+    path: '/user',
+  },
+  {
+    name: 'FAQs',
+    path: '/',
+  },
 ];

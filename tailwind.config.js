@@ -7,6 +7,7 @@ module.exports = {
         gray: 'rgb(var(--color-gray))',
         darkGray: 'rgb(var(--color-dark-gray))',
         red: 'rgb(var(--color-red))',
+        graySecondary: 'rgb(var(--color-gray-secondary))',
       },
     },
   },

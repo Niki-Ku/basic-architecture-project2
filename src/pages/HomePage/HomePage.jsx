@@ -12,7 +12,9 @@ const HomePage = () => {
 
   return(
     <div>
-      <SearchBar links={footerLinks} />
+      <div className="w-6/12 mx-auto">
+        <SearchBar links={footerLinks} />
+      </div>
       Home page
       <CategoryCard links={accountAndBillingCategory} />
       <CategoryCard links={anotherCategory} />
