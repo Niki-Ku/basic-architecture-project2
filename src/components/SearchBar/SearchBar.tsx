@@ -5,8 +5,9 @@ import { ReactComponent as SearchIcon } from "../../assets/icons/SearchIcon.svg"
 import "./SearchBar.css";
 
 // ask Yra why does removing of x from search input worked from SearchBar.css and didn't from index.css
-// finish styling
-// limit to 5 search results
+// finish styling                 DONE
+// limit to 5 search results      DONE
+// make search results overlap content under searchbar instead of shifting all down
 
 interface SearchBarProps {
   links: {

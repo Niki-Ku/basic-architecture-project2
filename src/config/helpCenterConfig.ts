@@ -1,45 +1,46 @@
+import { title } from "process";
+
 export const accountAndBillingCategory = {
-  categoryIcon: 'UserIcon',
-  categoryIconColor: '#b80f2a',
-  categoryTitle: 'Account and Billing',
+  categoryTitle: 'Paying for Netflix',
   subCategories: [
     {
-      subCategoryTitle: 'account-settings',
+      subCategoryName: 'Account-sfs',
       subCategoryPath: '/login',
-      subCategoryIcon: 'ArticleIcon',
     },
     {
-      subCategoryTitle: 'account-settings2',
+      subCategoryName: 'account-dfings2',
       subCategoryPath: '/login',
-      subCategoryIcon: 'ArticleIcon',
     },
     {
-      subCategoryTitle: 'account-settings34 ',
+      subCategoryName: 'account-aaaaaaaaaaaafsasdfettings34 ',
       subCategoryPath: '/login',
-      subCategoryIcon: 'ArticleIcon',
     },
   ]
 };
 
 export const anotherCategory = {
-  categoryIcon: 'RocketIcon',
-  categoryIconColor: '#b80f2a',
-  categoryTitle: 'Account and Billing',
+  categoryTitle: 'Account settings',
   subCategories: [
     {
-      subCategoryTitle: 'account-settingssfs',
+      subCategoryName: 'account-settingssfs',
       subCategoryPath: '/login',
-      subCategoryIcon: 'ArticleIcon',
     },
     {
-      subCategoryTitle: 'account-settdsings2',
+      subCategoryName: 'account-settdsings2',
       subCategoryPath: '/login',
-      subCategoryIcon: 'ArticleIcon',
     },
     {
-      subCategoryTitle: 'account-fffsettings34 ',
+      subCategoryName: 'account-fffsettings34 ',
       subCategoryPath: '/login',
-      subCategoryIcon: 'ArticleIcon',
     },
   ]
 };
+
+export const accountAndBilling = {
+  title: 'Account and Billing',
+  icon: 'UserIcon',
+  categories: [
+    anotherCategory,
+    accountAndBillingCategory,
+  ]
+}

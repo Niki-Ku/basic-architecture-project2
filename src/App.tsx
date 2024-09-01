@@ -3,13 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, fetchData } from "../src/store/actions/dataActions";
 import "./App.css";
 import { RootState } from "./store/index";
-import NewPage from "../src/pages/NewPage/NewPage";
 
+
+// ask Yura about error 
 import { Route, Routes } from "react-router-dom";
 import SearchPage from "./pages/SearchPage/SearchPage";
 import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import UserPage from "./pages/UserPage/UserPage";
+import FaqPage from "./pages/FaqPage/FaqPage";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 
@@ -38,6 +40,7 @@ function App() {
           <Route path="/search" element={<SearchPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/user" element={<UserPage />} />
+          <Route path="/faq" element={<FaqPage />} />
         </Routes>
         <Footer />
       </main>

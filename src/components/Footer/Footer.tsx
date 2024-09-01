@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { footerLinks } from "../../config/routeConfig";
+import { Route } from "react-router-dom";
+
 
 
 const Footer = () => {
