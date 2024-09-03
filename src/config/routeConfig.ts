@@ -31,27 +31,27 @@ export const footerLinks = [
     path: '/',
   },
   {
-    name: 'Phone',
+    name: 'Phonet',
     path: 'tel:+3809309433',
   },
   {
-    name: 'Email',
+    name: 'Emaila',
     path: 'mailto:niki.kuzk013@gmail.com',
   },
   {
-    name: 'About Us',
+    name: 'About Uss',
     path: '/search',
   },
   {
-    name: 'Contact',
+    name: 'Contactt',
     path: '/login',
   },
   {
-    name: 'Support',
+    name: 'Supportt',
     path: '/user',
   },
   {
-    name: 'FAQs',
+    name: 'FAQsa',
     path: '/',
   },
 ];

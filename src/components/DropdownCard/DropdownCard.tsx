@@ -1,6 +1,5 @@
 import Dropdown from '../Dropdown/Dropdown'
 import { icons } from '../../config/dynamicIcons';
-import { accountAndBilling } from '../../config/helpCenterConfig';
 
 // pass props
 // make interfaces 
@@ -28,11 +27,14 @@ interface IDropdownCard {
   title: string,
   icon?: keyof dynamicIcons;   // temporary optional, change later
   categories: ICategory[];
+  Toggle: (id:string)=>void;
+  open: string;
 }
 
-const DropdownCard:React.FC<IDropdownCard> = ({ title, icon, categories }) => {
+const DropdownCard:React.FC<IDropdownCard> = ({ title, icon, categories, Toggle, open }) => {
+  console.log(open)
   return( 
-    <div className="rounded-lg border border-[gray] text-black">
+    <div className="rounded-lg border border-[gray] text-black overflow-hidden">
       <div>
         <div>{icon}</div> {/* change this line, its not correct rendering of icon */}
         <div>
@@ -40,7 +42,7 @@ const DropdownCard:React.FC<IDropdownCard> = ({ title, icon, categories }) => {
         </div>
       </div>
       {categories.map(category => (
-        <Dropdown links={category} />
+        <Dropdown key={category.categoryTitle} links={category} open={open} Toggle={Toggle} />
       ))}
     </div>
   )

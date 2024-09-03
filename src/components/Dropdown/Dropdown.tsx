@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import React from 'react';
+import React, { useState } from 'react';
 import { ReactComponent as ArticleIcon } from '../../assets/icons/ArticleIcon.svg';
 import { ReactComponent as ArrowDownShort } from '../../assets/icons/ArrowDownShort.svg';
 
@@ -25,12 +25,18 @@ interface ICategory {
 
 interface ICategoryCard {
   links: ICategory;
+  Toggle: (id:string)=>void;
+  open: string;
 }
 
-const CategoryCard:React.FC<ICategoryCard> = ({ links }) => {
+const CategoryCard:React.FC<ICategoryCard> = ({ links, Toggle, open }) => {
   return (
     <div className="bg-white text-black w-full">
-      <details>
+      <details 
+        id={`id-${links.categoryTitle}`} 
+        onToggle={() => Toggle(`id-${links.categoryTitle}`)}
+        open={open === `id-${links.categoryTitle}`}
+      >
         <summary className="flex text-base py-3 cursor-pointer justify-between">
           <strong className="font-bold">{links.categoryTitle}</strong>
           <ArrowDownShort className="w-6 h-6" />
