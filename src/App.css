@@ -2,11 +2,14 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+/* remove this code, its useless */
+
 @layer base {
   :root {
     --color-dark-gray: 24 24 24;
     --color-gray: 115 115 115;
     --color-gray-secondary: 76 73 72;
     --color-red: 229 9 20;
+    --color-transparent-gray: 128 128 128 ;
   }
 }

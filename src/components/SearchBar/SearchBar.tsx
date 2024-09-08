@@ -18,7 +18,10 @@ const SearchBar:React.FC<SearchBarProps> = ({ links }) => {
   const filteredItems = links.filter(item => item.name.toLocaleLowerCase().includes(query.toLocaleLowerCase()));
 
   return (
-    <div className={`h-max w-full rounded p-0.5 z-10 relative bg-gradient-to-r from-[#e50914] from-[-0.08%] via-[#c94ff5] via-[81%] to-[#5b79f1] to-[99.92%] ${query.length > 0 && 'rounded-br-none rounded-bl-none'}`}>
+    <div className={`h-max w-full rounded p-0.5 z-10 relative text-left
+      bg-gradient-to-r from-[#e50914] from-[-0.08%] via-[#c94ff5] via-[81%] to-[#5b79f1] to-[99.92%]
+      ${query.length > 0 && 'rounded-br-none rounded-bl-none'}`}
+    >
       <div className={`rounded overflow-hidden ${query.length > 0 && 'rounded-br-none rounded-bl-none'}`}>
         <form className="relative ">
           <input 

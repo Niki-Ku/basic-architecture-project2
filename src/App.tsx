@@ -4,8 +4,6 @@ import { AppDispatch, fetchData } from "../src/store/actions/dataActions";
 import "./App.css";
 import { RootState } from "./store/index";
 
-
-// ask Yura about error 
 import { Route, Routes } from "react-router-dom";
 import SearchPage from "./pages/SearchPage/SearchPage";
 import HomePage from "./pages/HomePage/HomePage";

@@ -1,17 +1,7 @@
 import Dropdown from '../Dropdown/Dropdown'
 import { icons } from '../../config/dynamicIcons';
 
-// pass props
-// make interfaces 
-// make it so the icons could be passed only that is already in icons object
-// make logic for rendering dropdowns       DONE
-// style 
-
-// ask Yura about repeating iterfaces
-
-interface dynamicIcons {
-  dynamicIcon: string;
-}
+// make interfaces, make separate file with related interfaces
 
 interface ISubCategories {
   subCategoryName: string;
@@ -24,25 +14,29 @@ interface ICategory {
 }
 
 interface IDropdownCard {
-  title: string,
-  icon?: keyof dynamicIcons;   // temporary optional, change later
+  title: string;
+  icon: keyof typeof icons;
+  iconColor: string;
   categories: ICategory[];
-  Toggle: (id:string)=>void;
+  Toggle: (id:string, e: React.MouseEvent)=>void;
   open: string;
 }
 
-const DropdownCard:React.FC<IDropdownCard> = ({ title, icon, categories, Toggle, open }) => {
-  console.log(open)
+const DropdownCard:React.FC<IDropdownCard> = ({ title, icon, iconColor, categories, Toggle, open }) => {
+  const Icon = icons[icon];
   return( 
-    <div className="rounded-lg border border-[gray] text-black overflow-hidden">
-      <div>
-        <div>{icon}</div> {/* change this line, its not correct rendering of icon */}
-        <div>
-          <strong>{title}</strong>
-        </div>
+    <div className="rounded-lg px-3 pt-3 border border-transparentGray4 text-black overflow-hidden">
+      <div className="flex items-center pt-[6px] pb-4 border-b border-transparentGray">
+        <Icon 
+          className="w-5 h-5 mr-4 ml-1"
+          style={{
+            fill: `${iconColor}`,
+          }}
+        />
+        <strong>{title}</strong>
       </div>
-      {categories.map(category => (
-        <Dropdown key={category.categoryTitle} links={category} open={open} Toggle={Toggle} />
+      {categories.map((category, index) => (
+        <Dropdown key={category.categoryTitle} links={category} open={open} id={`id-${title}-${index}`} Toggle={Toggle} />
       ))}
     </div>
   )

@@ -8,6 +8,10 @@ module.exports = {
         darkGray: 'rgb(var(--color-dark-gray))',
         red: 'rgb(var(--color-red))',
         graySecondary: 'rgb(var(--color-gray-secondary))',
+        // transparentGray: 'rgba(var(--color-transparent-gray))',
+        transparentGray: '#80808033',
+        transparentGray4: 'rgba(128, 128, 128, .4)',
+        // refactor colors here
       },
     },
   },
