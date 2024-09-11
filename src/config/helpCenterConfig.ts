@@ -272,3 +272,23 @@ export const quickLinks = [
     link: '/'
   }
 ]
+
+export const popularTopicsLinks = [
+  {
+    title: 'How to sign up for Netflix',
+    link: '/signup'
+  },
+  {
+    title: 'Plans and Pricing',
+    link: '/pricing'
+  },
+  {
+    title: "Can't sign in to Netflix",
+    link: '/signin-help'
+  },
+  {
+    title: 'Parental controls on Netflix',
+    link: '/parental-controls'
+  }
+  
+]

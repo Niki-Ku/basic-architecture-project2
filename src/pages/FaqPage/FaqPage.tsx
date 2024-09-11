@@ -1,23 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import SearchBar from "../../components/SearchBar/SearchBar";
 import DropdownCard from "../../components/DropdownCard/DropdownCard";
 import { ReactComponent as ArrowDown } from "../../assets/icons/ArrowDownFull.svg";
-import { accountAndBilling, startWork, Fix, Watching, quickLinks } from '../../config/helpCenterConfig';
+import { accountAndBilling, startWork, Fix, Watching, quickLinks, popularTopicsLinks } from '../../config/helpCenterConfig';
 import { quickLinksIcons } from '../../config/dynamicIcons';
 // temporary imports
 import { footerLinks } from "../../config/routeConfig";
 import "./FaqPage.css";
 
 // TODO
-// make map of each dropdown card instead of manual rendering   DONE
-// pass icon as a prop instead of manual typing it here   DONE
-// add quick links    DONE
-// add pages and correct titles     DONE
 // make fiexed searchbar    
-// remove border in last element of Quick links
-// make explore topics scroll down to section with Dropdown Cards
-// make links for searchBar     
+// make links for searchBar    
+// try to make an animation with a help of tailwind
+// try to reasign md: sm: xl: ... screen breakpoints for more comfortable working
+
+
+// cant make space after coma in Popular topics like this ", "   (line 42)
 
 const FaqPage = () => {
   const [open, setOpen] = useState('');
@@ -25,33 +24,55 @@ const FaqPage = () => {
     e.preventDefault();
     setOpen(prevOpen => (prevOpen === id ? '' : id));
   };
+  const exploreTopics = useRef<HTMLDivElement | null>(null);
   return(
     <div className="bg-white text-black">
-      <section className="min-h-svh text-center">
-        <h1 className="font-extrabold text-[40px]">How can we help?</h1>
-        <div className="w-6/12 mx-auto">
-          <SearchBar links={footerLinks} />
+      <div className="min-h-[360px]">
+        <section className="flex flex-col justify-center" style={{minHeight: 'calc(100svh - 70px)'}}>
+          <div className="px-3 py-12 grow flex items-center">
+            <div className="w-full max-w-[600px] m-auto">
+              <h1 className="font-extrabold text-[40px] mb-6 text-center">How can we help?</h1>
+              <div className="mb-6">
+                <SearchBar links={footerLinks} />
+              </div>
+              <div className="text-center text-transparentBlack7">
+                <p className="inline font-bold">Popular topics: </p>
+                <div className="inline">
+                  {popularTopicsLinks.map(topic => (
+                    <div key={topic.title} className="inline font-medium after:content-[',']">
+                      <Link to={topic.link} className="underline hover:text-transparentBlack9">{topic.title}</Link>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="mx-auto w-6/12 text-black relative justify-self-end text-center">
+            <button 
+              onClick={() => {exploreTopics.current?.scrollIntoView({behavior: 'smooth'})}} 
+              className='arrow-parent pb-10 inline-block hover:underline' 
+            >
+              <span className="font-bold">Explore Topics</span>
+              <ArrowDown className="arrow h-6 w-6 absolute top-6 left-0 right-0 mx-auto w-[100px]" />
+            </button>
+          </div>
+        </section>
+      </div>
+      <section className="px-3 py-12">
+        <div  ref={exploreTopics} className="mb-10 flex flex-col gap-4 max-w-[600px] m-auto">
+          {[accountAndBilling, startWork, Fix, Watching].map((item, index) => (
+            <DropdownCard 
+              key={index} 
+              title={item.title} 
+              iconColor={item.iconColor} 
+              icon={item.icon} 
+              categories={item.categories} 
+              open={open} 
+              Toggle={onToggle} 
+            />
+          ))}
         </div>
-        <div className="mx-auto w-6/12 text-black relative  text-center">
-          <Link to="/" className='arrow-parent pb-10 inline-block hover:underline' >
-            <span className="font-bold">Explore Topics</span>
-            <ArrowDown className="arrow h-6 w-6 absolute top-6 left-0 right-0 mx-auto w-[100px]" />
-          </Link>
-        </div>
-      </section>
-      <section className="bg-white py-2 w-6/12 mx-auto flex flex-col gap-4">
-        {[accountAndBilling, startWork, Fix, Watching].map((item, index) => (
-          <DropdownCard 
-            key={index} 
-            title={item.title} 
-            iconColor={item.iconColor} 
-            icon={item.icon} 
-            categories={item.categories} 
-            open={open} 
-            Toggle={onToggle} 
-          />
-        ))}
-        <div>
+        <div className=" max-w-[600px] m-auto">
           <h3 className="text-lg font-bold border-b border-transparentGray4 pb-2">Quick Links</h3>
           <ul>
             {quickLinks.map((item, index) => {
@@ -59,11 +80,10 @@ const FaqPage = () => {
               return (
                 <li key={index} className="flex gap-4 items-center py-3 border-b border-transparentGray4 last:border-0" >
                   <Icon className="w-4 h-4" />
-                  <Link to={item.link} className="underline font-bold">{item.title}</Link>
+                  <Link to={item.link} className="underline font-bold hover:text-transparentBlack7">{item.title}</Link>
                 </li>
               )
             })}
-            <Link to="/"></Link>
           </ul>
         </div>
       </section>
