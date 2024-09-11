@@ -18,7 +18,7 @@ const Header = () => {
 
   return (
     <header className="md:flex md:justify-between z-20 md:items-center bg-black text-center p-6 fixed top-0 left-0 w-full relative">
-      <div className="">
+      <div className="max-w-max">
         <Link to="/">
           <img src={NetflixLogo} alt="Netflix Logo" />
         </Link>

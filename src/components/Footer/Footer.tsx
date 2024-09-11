@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { footerLinks } from "../../config/routeConfig";
+import { Route } from "react-router-dom";
+
 
 
 const Footer = () => {
@@ -10,12 +12,12 @@ const Footer = () => {
         <ul className="">
           {footerLinks.map((link) => {
             return (
-              <li key={link.text} className="inline-block w-3/12 min-w-[100px] mb-4 pr-[22px] text-[13px] text-[rgb(var(--color-gray))] ">
+              <li key={link.name} className="inline-block w-3/12 min-w-[100px] mb-4 pr-[22px] text-[13px] text-[rgb(var(--color-gray))] ">
                 <Link 
-                  key={`link-${link.text}`} 
-                  to={link.url}
+                  key={`link-${link.name}`} 
+                  to={link.path}
                   className="hover:underline"
-                >{link.text}</Link>
+                >{link.name}</Link>
               </li>
             )
           })}

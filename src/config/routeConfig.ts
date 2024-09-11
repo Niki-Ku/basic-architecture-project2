@@ -7,27 +7,51 @@ export const links = [
 
 export const footerLinks = [
   {
-    text: 'Phone',
-    url: 'tel:+3809309433',
+    name: 'Phone',
+    path: 'tel:+3809309433',
   },
   {
-    text: 'Email',
-    url: 'mailto:niki.kuzk013@gmail.com',
+    name: 'Email',
+    path: 'mailto:niki.kuzk013@gmail.com',
   },
   {
-    text: 'About Us',
-    url: '/',
+    name: 'About Us',
+    path: '/search',
   },
   {
-    text: 'Contact',
-    url: '/',
+    name: 'Contact',
+    path: '/login',
   },
   {
-    text: 'Support',
-    url: '/',
+    name: 'Support',
+    path: '/user',
   },
   {
-    text: 'FAQs',
-    url: '/',
+    name: 'FAQs',
+    path: '/',
+  },
+  {
+    name: 'Phonet',
+    path: 'tel:+3809309433',
+  },
+  {
+    name: 'Emaila',
+    path: 'mailto:niki.kuzk013@gmail.com',
+  },
+  {
+    name: 'About Uss',
+    path: '/search',
+  },
+  {
+    name: 'Contactt',
+    path: '/login',
+  },
+  {
+    name: 'Supportt',
+    path: '/user',
+  },
+  {
+    name: 'FAQsa',
+    path: '/',
   },
 ];

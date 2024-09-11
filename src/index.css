@@ -17,3 +17,8 @@ code {
   padding: 0;
   box-sizing: border-box;
 }
+
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+}

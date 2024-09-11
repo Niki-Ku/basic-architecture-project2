@@ -1,0 +1,18 @@
+.arrow-parent:hover .arrow {
+  animation-name: arrow-topDown;
+  animation-duration: .35s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: 2;
+}
+
+@keyframes arrow-topDown {
+  0%{
+    top:24px;
+  }
+  50%{
+    top:34px;
+  }
+  100%{
+    top: 24px;
+  }
+}
