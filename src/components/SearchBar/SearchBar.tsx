@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ReactComponent as SearchIcon } from "../../assets/icons/SearchIcon.svg";
+import useDebounce from "../../hooks/useDebounce";
 
 import "./SearchBar.css";
 
@@ -16,6 +17,7 @@ interface SearchBarProps {
 const SearchBar:React.FC<SearchBarProps> = ({ links }) => {
   const [query, setQuery] = useState("");
   const filteredItems = links.filter(item => item.name.toLocaleLowerCase().includes(query.toLocaleLowerCase()));
+  const debouncedFilteredItems = useDebounce(filteredItems);
 
   return (
     <div className={`h-max w-full rounded p-0.5 z-10 relative text-left
@@ -36,7 +38,7 @@ const SearchBar:React.FC<SearchBarProps> = ({ links }) => {
         <div className="bg-white absolute left-0 w-full block rounded-br rounded-bl bg-gradient-to-r from-[#e50914] from-[-0.08%] via-[#c94ff5] via-[81%] to-[#5b79f1] to-[99.92%]">
           <div className="bg-white mt-0 m-[2px] rounded-br rounded-bl">
             <ul className={`${filteredItems.length > 0 && query.length > 0 && "flex flex-col gap-2 p-1"}`}>
-              {query.length > 0 && filteredItems.map((link, index) => {
+              {query.length > 0 && debouncedFilteredItems.map((link, index) => {
                 if (index < 5) return (
                   <li 
                     key={`seach-item-${link.name}`} 
