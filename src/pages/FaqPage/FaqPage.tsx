@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import SearchBar from "../../components/SearchBar/SearchBar";
 import DropdownCard from "../../components/DropdownCard/DropdownCard";
@@ -10,11 +10,9 @@ import { footerLinks } from "../../config/routeConfig";
 import "./FaqPage.css";
 
 // TODO
-// make fiexed searchbar    
 // make links for searchBar    
 // try to make an animation with a help of tailwind
 // try to reasign md: sm: xl: ... screen breakpoints for more comfortable working
-
 
 // cant make space after coma in Popular topics like this ", "   (line 42)
 
@@ -25,15 +23,32 @@ const FaqPage = () => {
     setOpen(prevOpen => (prevOpen === id ? '' : id));
   };
   const exploreTopics = useRef<HTMLDivElement | null>(null);
+  const heading = useRef<HTMLHeadingElement | null>(null);
+  const [ headingIsVisible, setHeadingIsVisible ] = useState(true);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      const entry = entries[0]
+      setHeadingIsVisible(entry.isIntersecting)
+    })
+    if (!heading.current) return;
+    observer.observe(heading?.current);
+  }, [])
+
+
   return(
     <div className="bg-white text-black">
       <div className="min-h-[360px]">
         <section className="flex flex-col justify-center" style={{minHeight: 'calc(100svh - 70px)'}}>
           <div className="px-3 py-12 grow flex items-center">
             <div className="w-full max-w-[600px] m-auto">
-              <h1 className="font-extrabold text-[40px] mb-6 text-center">How can we help?</h1>
-              <div className="mb-6">
-                <SearchBar links={footerLinks} />
+              <h1 ref={heading} className="font-extrabold text-[40px] mb-6 text-center">How can we help?</h1>
+              <div className={`h-[46px] mb-6`} style={headingIsVisible ? {height: 'auto'} : {height: '46px'}}>
+                <div className={`${headingIsVisible ? '' : 'fixed bg-white z-10 w-full left-0 top-0 h-[80px] py-auto border-b border-transparentGray2 flex justify-center items-center'}`} >
+                  <div className={`${headingIsVisible ? '' : 'w-full max-w-[600px]'}`} >
+                    <SearchBar links={footerLinks} />
+                  </div>
+                </div>
               </div>
               <div className="text-center text-transparentBlack7">
                 <p className="inline font-bold">Popular topics: </p>
