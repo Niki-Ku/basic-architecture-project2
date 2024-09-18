@@ -18,7 +18,7 @@ import "./FaqPage.css";
 
 const FaqPage = () => {
   const [open, setOpen] = useState('');
-  const onToggle = (id: string, e: React.MouseEvent) => {
+  const handleDropdownClick = (id: string, e: React.MouseEvent) => {
     e.preventDefault();
     setOpen(prevOpen => (prevOpen === id ? '' : id));
   };
@@ -83,7 +83,7 @@ const FaqPage = () => {
               icon={item.icon} 
               categories={item.categories} 
               open={open} 
-              Toggle={onToggle} 
+              handleDropdownClick={handleDropdownClick} 
             />
           ))}
         </div>

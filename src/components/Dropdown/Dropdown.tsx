@@ -13,19 +13,19 @@ interface ICategory {
   subCategories: ISubCategories[];
 }
 
-interface ICategoryCard {
+interface IDropdown {
   links: ICategory;
-  Toggle: (id:string, e: React.MouseEvent)=>void;
+  handleDropdownClick: (id:string, e: React.MouseEvent)=>void;
   open: string;
   id: string;
 }
 
-const CategoryCard:React.FC<ICategoryCard> = ({ links, Toggle, open, id }) => {
+const Dropdown:React.FC<IDropdown> = ({ links, handleDropdownClick, open, id }) => {
   return (
     <div className="bg-white text-black w-full border-b border-transparentGray last:border-none">
       <details 
         id={`id-${links.categoryTitle}`} 
-        onClick={(e) => Toggle(id, e)}
+        onClick={(e) => handleDropdownClick(id, e)}
         open={open === id}
       >
         <summary className="flex text-base py-3 cursor-pointer justify-between">
@@ -53,4 +53,4 @@ const CategoryCard:React.FC<ICategoryCard> = ({ links, Toggle, open, id }) => {
   )
 };
 
-export default CategoryCard;
+export default Dropdown;

@@ -18,11 +18,11 @@ interface IDropdownCard {
   icon: keyof typeof icons;
   iconColor: string;
   categories: ICategory[];
-  Toggle: (id:string, e: React.MouseEvent)=>void;
+  handleDropdownClick: (id:string, e: React.MouseEvent)=>void;
   open: string;
 }
 
-const DropdownCard:React.FC<IDropdownCard> = ({ title, icon, iconColor, categories, Toggle, open }) => {
+const DropdownCard:React.FC<IDropdownCard> = ({ title, icon, iconColor, categories, handleDropdownClick, open }) => {
   const Icon = icons[icon];
   return( 
     <div className="rounded-lg px-3 pt-3 border border-transparentGray4 text-black overflow-hidden">
@@ -36,7 +36,7 @@ const DropdownCard:React.FC<IDropdownCard> = ({ title, icon, iconColor, categori
         <strong>{title}</strong>
       </div>
       {categories.map((category, index) => (
-        <Dropdown key={category.categoryTitle} links={category} open={open} id={`id-${title}-${index}`} Toggle={Toggle} />
+        <Dropdown key={category.categoryTitle} links={category} open={open} id={`id-${title}-${index}`} handleDropdownClick={handleDropdownClick} />
       ))}
     </div>
   )

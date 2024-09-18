@@ -12,6 +12,7 @@ import UserPage from "./pages/UserPage/UserPage";
 import FaqPage from "./pages/FaqPage/FaqPage";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
+import PrivacyPage from "./pages/PrivacyPage/PrivacyPage";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -39,6 +40,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/user" element={<UserPage />} />
           <Route path="/faq" element={<FaqPage />} />
+          <Route path="/privacy" element={<PrivacyPage />} />
         </Routes>
         <Footer />
       </main>
