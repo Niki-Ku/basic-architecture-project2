@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/static/css/main.b3a00f16.css",
+    "main.js": "/static/js/main.bea12f04.js",
+    "static/js/787.28cb0dcd.chunk.js": "/static/js/787.28cb0dcd.chunk.js",
+    "static/media/RocketIcon.svg": "/static/media/RocketIcon.6e775585094550e74c827099606f0fca.svg",
+    "static/media/DesktopAndPhoneIcon.svg": "/static/media/DesktopAndPhoneIcon.ac4aa11600ebcf943ae5d008fb6640ba.svg",
+    "static/media/LockIcon.svg": "/static/media/LockIcon.ba4cb564931f49647bdf7922795f329c.svg",
+    "static/media/WrenchIcon.svg": "/static/media/WrenchIcon.1562481aaabd7d24f5aaf619587b7a5f.svg",
+    "static/media/LoudSpeakerIcon.svg": "/static/media/LoudSpeakerIcon.71dc1fba9598cd402f18d1767283b561.svg",
+    "static/media/ArrowDownFull.svg": "/static/media/ArrowDownFull.fba8efc6b4ea49d20a8332fa75d2aad6.svg",
+    "static/media/CreditCardIcon.svg": "/static/media/CreditCardIcon.ab76ffba5b96579d32e046b5104cf05c.svg",
+    "static/media/SearchIcon.svg": "/static/media/SearchIcon.50fd2ac59e3fb88940630be02f73f1e9.svg",
+    "index.html": "/index.html",
+    "static/media/ArrowDownShort.svg": "/static/media/ArrowDownShort.be58a60f09e579d727825ab3744892e9.svg",
+    "static/media/QuestionSircleIcon.svg": "/static/media/QuestionSircleIcon.4ca7b8783ea197ae88806150a362c28f.svg",
+    "static/media/LetterIcon.svg": "/static/media/LetterIcon.e5caf0708d5ec21bb5ea03e59466c3e4.svg",
+    "static/media/UserIcon.svg": "/static/media/UserIcon.c06ffb5d0e2f5f04d2b79b66cd3ce3b8.svg",
+    "static/media/ArticleIcon.svg": "/static/media/ArticleIcon.a5a7144ccab673ad5e1db2befe047c90.svg",
+    "main.b3a00f16.css.map": "/static/css/main.b3a00f16.css.map",
+    "main.bea12f04.js.map": "/static/js/main.bea12f04.js.map",
+    "787.28cb0dcd.chunk.js.map": "/static/js/787.28cb0dcd.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b3a00f16.css",
+    "static/js/main.bea12f04.js"
+  ]
+}
