@@ -46,7 +46,7 @@ const PrivacyPage = () => {
       return
     } 
     const observer = new IntersectionObserver((entries) => {
-      const entry = entries[0];
+      // const entry = entries[0];
 
       const activeEntry = entries.find(entry => entry.target.id === activeSection);
       const currentIndex = sectionRefs.current.indexOf(activeEntry?.target as HTMLDivElement);    //rename
