@@ -28,7 +28,7 @@ export const footerLinks = [
   },
   {
     name: 'FAQs',
-    path: '/',
+    path: '/faq',
   },
   {
     name: 'Phonet',
@@ -53,5 +53,9 @@ export const footerLinks = [
   {
     name: 'FAQsa',
     path: '/',
+  },
+  {
+    name: 'privacy',
+    path: '/privacy',
   },
 ];
