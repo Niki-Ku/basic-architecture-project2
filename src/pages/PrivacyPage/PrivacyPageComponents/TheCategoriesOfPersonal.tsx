@@ -1,8 +1,10 @@
 import { forwardRef } from "react";
+import { IPrivacyPageComponents } from "../../../types/privacyInterfaces";
 
-const CollectPICategories = forwardRef<HTMLDivElement>(({}, ref) => (
-  <section id="collectCategories" ref={ref} className="text-black">
-    <h3>The Categories of Personal Information We Collect</h3>
+
+const TheCategoriesOfPersonal = forwardRef<HTMLDivElement, IPrivacyPageComponents>(({ id }, ref) => (
+  <article id={id} ref={ref} className="text-black">
+    <h3 className="text-3xl">The Categories of Personal Information We Collect</h3>
     <p>We collect the following categories of personal information about you:</p>
     <ul>
       <li>Personal details: When you create your Netflix account, we collect your contact information (such as your email address) and authentication information for your login (such as a password). Depending on how you subsequently set up your account and method of payment, and which features you use, we also collect one or more of the following: first and last name, phone number, postal address, and other identifiers you provide to us. If you subscribe to an ad supported subscription plan, we also collect gender and date of birth.</li>
@@ -12,7 +14,7 @@ const CollectPICategories = forwardRef<HTMLDivElement>(({}, ref) => (
       <li>Advertising information: If you subscribe to an ad supported subscription plan, we collect information about the ads on Netflix (“Advertisements,” as defined in the Netflix Terms of Use) that you view or interact with, device information (such as resettable device identifiers), IP addresses, and information provided by Advertising Companies (such as information about your likely interests they have collected or inferred from your visits to other websites and apps). We use this information to display Advertisements to you in the Netflix service (including behavioral advertisements in accordance with your preferences)</li>
     </ul>
 
-  </section>
+  </article>
 ));
 
-export default CollectPICategories;
+export default TheCategoriesOfPersonal;

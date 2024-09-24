@@ -1,33 +1,19 @@
 import { Link } from 'react-router-dom';
-import React from 'react';
+import React, { useRef } from 'react';
 import { ReactComponent as ArrowDownShort } from '../../assets/icons/ArrowDownShort.svg';
 
-// interface ISubCategories {
-//   subCategoryName: string;
-//   subCategoryPath: string;
-// }
-
-// interface ICategory {
-//   categoryTitle: string;
-//   subCategories: ISubCategories[];
-// }
-
-// interface ICategoryCard {
-//   links: ICategory;
-//   Toggle: (id:string, e: React.MouseEvent)=>void;
-//   open: string;
-//   id: string;
-// }
 interface ISubLink {
   title: string;
-  link: string;
+  id: string;
 }
 
 interface ISidebarDropdown {
   title: string;
-  subLinks?: ISubLink[];
+  subLinks?: ISubLink[] | null;
   id: string;
   currentSection?: string;
+  allSections: HTMLDivElement[];
+  setActiveSection: Function ;
 }
 
 // make a dropdown component  DONE
@@ -38,45 +24,60 @@ interface ISidebarDropdown {
 // make interfaces      DONE
 // change id and all related parameters so received parrameters would change accordingly 
 // add scroll to the section on click
+// remove some useless stuff
 
 
-const SidebarDropdown:React.FC<ISidebarDropdown> = ({ title, subLinks, id, currentSection }) => {
+const SidebarDropdown:React.FC<ISidebarDropdown> = ({ title, subLinks, id, currentSection, allSections, setActiveSection }) => {
+  
+  const handleDetailsClick = (e:React.MouseEvent) => {
+    e.preventDefault();
+    setActiveSection(id);
+    allSections.find(section => section.id === id)?.scrollIntoView({behavior: 'smooth'});
+  }
+
+  const handleDetailsChildClick = (e:React.MouseEvent, id:string) => {
+    e.stopPropagation();
+    allSections.find(section => section.id === id)?.scrollIntoView({behavior: 'smooth'})
+  }
+
+
   return (
     <div className="bg-white text-black w-full">
       <details 
-        // id={`id-${}`} 
-        open={id === 'second-el'}
-        onClick={(e) => {e.preventDefault()}}
+        // open={id === 'second-el'}
+        open
+        onClick={(e) => handleDetailsClick(e)}
       >
-        <summary 
-          className={`
-          flex text-base p-2 cursor-pointer justify-between 
-          ${title === currentSection && 'bg-black text-white'}
-          `}
-        >
-          <p>{title}</p>
-          {subLinks && (
-            <ArrowDownShort 
-              className={`
-              w-6 h-6 mr-2 -rotate-90 duration-100 
-              ${id === 'second-el' && 'origin-center rotate-0'} 
-              `} 
-            />
-          )}
-        </summary>
+          <summary 
+            className={`
+              flex text-base p-2 cursor-pointer justify-between 
+              ${id === currentSection && 'bg-black text-white'}
+              `}
+            style={currentSection === "id" ? {color: "white", backgroundColor: "black"} : {}}
+          >
+            <Link to="#collectCategories">
+            <p>{title}</p>
+            {subLinks && (
+              <ArrowDownShort 
+                className={`
+                w-6 h-6 mr-2 -rotate-90 duration-100 
+                ${id === 'second-el' && 'origin-center rotate-0'} 
+                `} 
+              />
+            )}
+          </Link>
+          </summary>
         {subLinks && (
           <ul className="">
             {subLinks.map(link => (
               <div key={link.title} className="mx-5 py-5">
-                <Link 
-                  to={link.link} 
+                <li 
+                  onClick={(e) => handleDetailsChildClick(e, link.id)}
                   className={`
-                  p-2 inline-block w-full
-                  ${link.title === currentSection && 'bg-black text-white'}
-                  `}
-                >
-                  <li className="text-wrap">{link.title}</li>
-                </Link>
+                    p-2 inline-block w-full text-wrap cursor-pointer
+                    ${link.id === currentSection && 'bg-black text-white'}
+                    `}
+                >{link.title}</li>
               </div>
             ))}
           </ul>
@@ -87,3 +88,7 @@ const SidebarDropdown:React.FC<ISidebarDropdown> = ({ title, subLinks, id, curre
 };
 
 export default SidebarDropdown;
+
+
+// TODO
+// restyle or correct styling
