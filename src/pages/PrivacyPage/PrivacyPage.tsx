@@ -16,8 +16,6 @@ import AdvertisingChoices from "./PrivacyPageComponents/AdvertisingChoices";
 // make onpen/close state of each section
 // setActiveSection on click
 
-
-
 const PrivacyPage = () => {
   const [ activeSection, setActiveSection ] = useState('');
   const sectionRefs = useRef<HTMLDivElement[]>([]);
@@ -49,23 +47,59 @@ const PrivacyPage = () => {
       const entry = entries[0];
 
       const activeEntry = entries.find(entry => entry.target.id === activeSection);
-      const currentIndex = sectionRefs.current.indexOf(activeEntry?.target as HTMLDivElement);    //rename
+      const currentEntry = sectionRefs.current.find(el => el.id === entry.target.id);
+      const currentEntryIndex = sectionRefs.current.indexOf(currentEntry as HTMLDivElement);
+      const activeSectionElement = sectionRefs.current.find(el => el.id === activeSection);
+      const activeSectionIndex = sectionRefs.current.indexOf(activeSectionElement as HTMLDivElement);
       // const activeEntryIndex = entries.indexOf(activeEntry!);
-      const prevEntry = entries[currentIndex - 1];
+      const prevEntry = entries[currentEntryIndex - 1];
+      
+      const prevId = sectionRefs.current[currentEntryIndex - 1]?.id;
+
       // const nextEntry = entries[activeEntryIndex + 1];
+      // console.log(currentEntryIndex, activeSectionIndex)
+      // console.log(activeSectionElement?.id, activeSectionIndex)
 
-      if (prevEntry?.isIntersecting) {
-        console.log('prev')
-        console.log(prevEntry)
-        setActiveSection(sectionRefs.current[currentIndex - 1]?.id);
-        return
-      } 
 
-      if (activeEntry && !activeEntry?.isIntersecting) {
+      if (currentEntryIndex - activeSectionIndex <= 1 && currentEntryIndex - activeSectionIndex >= -1 ) {
+        console.log(1)
+        if (entry.target.id === activeSection && !entry.isIntersecting) {
+          console.log(2)
+          // console.log('next')
+          // console.log(entry.target.id, activeSection)
+          setActiveSection(sectionRefs.current[currentEntryIndex + 1]?.id);
+          return
+        }
+        if (entry.target.id === sectionRefs.current[activeSectionIndex - 1]?.id) {
+          console.log('scroll up', entry.target)
 
-        setActiveSection(sectionRefs.current[currentIndex + 1]?.id);
-        return
+          if (activeSectionIndex - currentEntryIndex === -1) {
+            console.log(3)
+            console.log(currentEntryIndex, activeSectionIndex)
+            return
+          }
+        }
       }
+
+
+      // if (currentEntryIndex - activeSectionIndex <= 1 && currentEntryIndex - activeSectionIndex >= -1 ) {
+      //   console.log('1')
+      //   if (activeEntry && !activeEntry?.isIntersecting) {
+      //     setActiveSection(sectionRefs.current[currentEntryIndex + 1]?.id);
+      //     console.log('2')
+      //     return
+      //   } 
+      //   else if (currentEntryIndex - activeSectionIndex === -1) {
+      //     setActiveSection(prevId);
+      //     console.log('3')
+      //     console.log(currentEntryIndex, activeSectionIndex)
+      //     console.log(entry.target.id === sectionRefs.current[activeSectionIndex - 1]?.id)
+      //     return
+      //   }
+      //   // console.log(entry.target)
+      //   return
+      // }
+
     }, options)
 
     sectionRefs.current.forEach(ref => {
