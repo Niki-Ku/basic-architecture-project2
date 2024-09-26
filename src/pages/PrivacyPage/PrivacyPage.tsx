@@ -15,6 +15,7 @@ import AdvertisingChoices from "./PrivacyPageComponents/AdvertisingChoices";
 // fix bug (when you click on section to scroll it into view, active section shows wrong)    DONE
 // make onpen/close state of each section
 // setActiveSection on click
+// clean observer
 
 const PrivacyPage = () => {
   const [ activeSection, setActiveSection ] = useState('');
@@ -23,7 +24,6 @@ const PrivacyPage = () => {
   const options = useMemo(() => {
     return {
       threshold: 0,
-      rootMargin: '-10px'
     }
   }, [])
 
@@ -38,69 +38,39 @@ const PrivacyPage = () => {
   // if current element is intersecting then there is no changes 
   // when current element is no longer intersecting, then set active state to next element
 
+  const observer = new IntersectionObserver((entries) => {
+    
+    const entry = entries[0];
+
+    const activeEntry = entries.find(entry => entry.target.id === activeSection);
+    const currentEntry = sectionRefs.current.find(el => el.id === entry.target.id);
+    const currentEntryIndex = sectionRefs.current.indexOf(currentEntry as HTMLDivElement);
+    const activeSectionElement = sectionRefs.current.find(el => el.id === activeSection);
+    const activeSectionIndex = sectionRefs.current.indexOf(activeSectionElement as HTMLDivElement);
+    const prevEntry = entries[currentEntryIndex - 1];
+    const prevId = sectionRefs.current[currentEntryIndex - 1]?.id;
+    
+    if (currentEntryIndex - activeSectionIndex <= 1 && currentEntryIndex - activeSectionIndex >= -1 ) {
+      // console.log(currentEntryIndex, activeSectionIndex, activeSection, entry.target.id)
+      console.log(activeSectionIndex, activeSection)
+      if (entry.target.id === activeSection && !entry.isIntersecting) {
+        // console.log(currentEntryIndex - activeSectionIndex, currentEntryIndex, activeSectionIndex)
+        setActiveSection(sectionRefs.current[currentEntryIndex + 1]?.id);
+        return
+      }
+      if (sectionRefs.current[activeSectionIndex - 1]?.id === entry.target.id && entry.isIntersecting) {
+        setActiveSection(entry.target.id)
+        return
+      }
+      return
+    }
+  }, options)
+
   useEffect(() => {
     if (activeSection === '') {
       setActiveSection(sectionRefs.current[0].id);
       return
     } 
-    const observer = new IntersectionObserver((entries) => {
-      const entry = entries[0];
-
-      const activeEntry = entries.find(entry => entry.target.id === activeSection);
-      const currentEntry = sectionRefs.current.find(el => el.id === entry.target.id);
-      const currentEntryIndex = sectionRefs.current.indexOf(currentEntry as HTMLDivElement);
-      const activeSectionElement = sectionRefs.current.find(el => el.id === activeSection);
-      const activeSectionIndex = sectionRefs.current.indexOf(activeSectionElement as HTMLDivElement);
-      // const activeEntryIndex = entries.indexOf(activeEntry!);
-      const prevEntry = entries[currentEntryIndex - 1];
-      
-      const prevId = sectionRefs.current[currentEntryIndex - 1]?.id;
-
-      // const nextEntry = entries[activeEntryIndex + 1];
-      // console.log(currentEntryIndex, activeSectionIndex)
-      // console.log(activeSectionElement?.id, activeSectionIndex)
-
-
-      if (currentEntryIndex - activeSectionIndex <= 1 && currentEntryIndex - activeSectionIndex >= -1 ) {
-        console.log(1)
-        if (entry.target.id === activeSection && !entry.isIntersecting) {
-          console.log(2)
-          // console.log('next')
-          // console.log(entry.target.id, activeSection)
-          setActiveSection(sectionRefs.current[currentEntryIndex + 1]?.id);
-          return
-        }
-        if (entry.target.id === sectionRefs.current[activeSectionIndex - 1]?.id) {
-          console.log('scroll up', entry.target)
-
-          if (activeSectionIndex - currentEntryIndex === -1) {
-            console.log(3)
-            console.log(currentEntryIndex, activeSectionIndex)
-            return
-          }
-        }
-      }
-
-
-      // if (currentEntryIndex - activeSectionIndex <= 1 && currentEntryIndex - activeSectionIndex >= -1 ) {
-      //   console.log('1')
-      //   if (activeEntry && !activeEntry?.isIntersecting) {
-      //     setActiveSection(sectionRefs.current[currentEntryIndex + 1]?.id);
-      //     console.log('2')
-      //     return
-      //   } 
-      //   else if (currentEntryIndex - activeSectionIndex === -1) {
-      //     setActiveSection(prevId);
-      //     console.log('3')
-      //     console.log(currentEntryIndex, activeSectionIndex)
-      //     console.log(entry.target.id === sectionRefs.current[activeSectionIndex - 1]?.id)
-      //     return
-      //   }
-      //   // console.log(entry.target)
-      //   return
-      // }
-
-    }, options)
 
     sectionRefs.current.forEach(ref => {
       observer.observe(ref);
@@ -110,6 +80,7 @@ const PrivacyPage = () => {
   useEffect(() => {
     console.log(activeSection)
   })
+
 
   return(
     <div className="bg-white text-black">
@@ -124,7 +95,6 @@ const PrivacyPage = () => {
           <section>
             <h2 
               className={`text-3xl my-10 `} 
-              style={activeSection === "sectionA" ? {color: "white", backgroundColor: "black"} : {}}
               id="section-a" 
               ref={addToRefs}
             > 
@@ -136,16 +106,15 @@ const PrivacyPage = () => {
           </section>
           <section>
             <h2 
-                className={`text-3xl my-10 `} 
-                style={activeSection === "sectionA" ? {color: "white", backgroundColor: "black"} : {}}
-                id="section-b" 
-                ref={addToRefs}
-              > 
-                Section B: Your Rights and Controls
-              </h2>
-              <YourPrivacyRights ref={addToRefs} id="your-privacy-rights" />
-              <ComunicationAndMarketing ref={addToRefs} id="communication-and-marketing-preferences" />
-              <AdvertisingChoices ref={addToRefs} id="advertising-choices" />
+              className={`text-3xl my-10 `} 
+              id="section-b" 
+              ref={addToRefs}
+            > 
+              Section B: Your Rights and Controls
+            </h2>
+            <YourPrivacyRights ref={addToRefs} id="your-privacy-rights" />
+            <ComunicationAndMarketing ref={addToRefs} id="communication-and-marketing-preferences" />
+            <AdvertisingChoices ref={addToRefs} id="advertising-choices" />
           </section>
         </div>
       </div>
