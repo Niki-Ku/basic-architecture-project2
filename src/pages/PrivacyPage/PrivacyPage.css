@@ -1,0 +1,4 @@
+.sideBar {
+  max-height: calc(100vh - 175px);
+  scrollbar-width: none;
+}

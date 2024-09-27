@@ -8,6 +8,7 @@ import HowWeUsePersonal from "./PrivacyPageComponents/HowWeUsePersonal";
 import YourPrivacyRights from "./PrivacyPageComponents/YourPrivacyRights";
 import ComunicationAndMarketing from "./PrivacyPageComponents/ComunicationAndMarketing";
 import AdvertisingChoices from "./PrivacyPageComponents/AdvertisingChoices";
+import "./PrivacyPage.css";
 
 
 // TODO:
@@ -21,11 +22,11 @@ const PrivacyPage = () => {
   const [ activeSection, setActiveSection ] = useState('');
   const sectionRefs = useRef<HTMLDivElement[]>([]);
 
-  const options = useMemo(() => {
-    return {
-      threshold: 0,
-    }
-  }, [])
+  // const options = useMemo(() => {
+  //   return {
+  //     threshold: 0,
+  //   }
+  // }, [])
 
   const addToRefs = (el: HTMLDivElement | null) => {
     if (el && !sectionRefs.current.includes(el)) {
@@ -38,58 +39,98 @@ const PrivacyPage = () => {
   // if current element is intersecting then there is no changes 
   // when current element is no longer intersecting, then set active state to next element
 
-  const observer = new IntersectionObserver((entries) => {
+  // const observer = new IntersectionObserver((entries) => {
     
-    const entry = entries[0];
+  //   const entry = entries[0];
 
-    const activeEntry = entries.find(entry => entry.target.id === activeSection);
-    const currentEntry = sectionRefs.current.find(el => el.id === entry.target.id);
-    const currentEntryIndex = sectionRefs.current.indexOf(currentEntry as HTMLDivElement);
-    const activeSectionElement = sectionRefs.current.find(el => el.id === activeSection);
-    const activeSectionIndex = sectionRefs.current.indexOf(activeSectionElement as HTMLDivElement);
-    const prevEntry = entries[currentEntryIndex - 1];
-    const prevId = sectionRefs.current[currentEntryIndex - 1]?.id;
+  //   const activeEntry = entries.find(entry => entry.target.id === activeSection);
+  //   const currentEntry = sectionRefs.current.find(el => el.id === entry.target.id);
+  //   const currentEntryIndex = sectionRefs.current.indexOf(currentEntry as HTMLDivElement);
+  //   const activeSectionElement = sectionRefs.current.find(el => el.id === activeSection);
+  //   const activeSectionIndex = sectionRefs.current.indexOf(activeSectionElement as HTMLDivElement);
+  //   const prevEntry = entries[currentEntryIndex - 1];
+  //   const prevId = sectionRefs.current[currentEntryIndex - 1]?.id;
     
-    if (currentEntryIndex - activeSectionIndex <= 1 && currentEntryIndex - activeSectionIndex >= -1 ) {
-      // console.log(currentEntryIndex, activeSectionIndex, activeSection, entry.target.id)
-      console.log(activeSectionIndex, activeSection)
-      if (entry.target.id === activeSection && !entry.isIntersecting) {
-        // console.log(currentEntryIndex - activeSectionIndex, currentEntryIndex, activeSectionIndex)
-        setActiveSection(sectionRefs.current[currentEntryIndex + 1]?.id);
-        return
-      }
-      if (sectionRefs.current[activeSectionIndex - 1]?.id === entry.target.id && entry.isIntersecting) {
-        setActiveSection(entry.target.id)
-        return
-      }
-      return
-    }
-  }, options)
+  //   if (currentEntryIndex - activeSectionIndex <= 1 && currentEntryIndex - activeSectionIndex >= -1 ) {
+  //     // console.log(currentEntryIndex, activeSectionIndex, activeSection, entry.target.id)
+  //     console.log(activeSectionIndex, activeSection)
+  //     if (entry.target.id === activeSection && !entry.isIntersecting) {
+  //       // console.log(currentEntryIndex - activeSectionIndex, currentEntryIndex, activeSectionIndex)
+  //       setActiveSection(sectionRefs.current[currentEntryIndex + 1]?.id);
+  //       return
+  //     }
+  //     if (sectionRefs.current[activeSectionIndex - 1]?.id === entry.target.id && entry.isIntersecting) {
+  //       setActiveSection(entry.target.id)
+  //       return
+  //     }
+  //     return
+  //   }
+  // }, options)
 
-  useEffect(() => {
+  const observer = useMemo(() => {
+    return new IntersectionObserver((entries) => {
+      let mostVisible = null;
+      let maxIntersectionRatio = 0;
+  
+      entries.forEach(entry => {
+          if (entry.isIntersecting && entry.intersectionRatio > maxIntersectionRatio) {
+              maxIntersectionRatio = entry.intersectionRatio;
+              mostVisible = entry.target.id;
+          }
+      });
+  
+      if (mostVisible) {
+          setActiveSection(mostVisible);
+      }
+    }, {
+      threshold: [0.1, 0.9] 
+    });
+  }, [])
+
+
+useEffect(() => {
     if (activeSection === '') {
-      setActiveSection(sectionRefs.current[0].id);
-      return
-    } 
+        setActiveSection(sectionRefs.current[0].id);
+    }
 
     sectionRefs.current.forEach(ref => {
-      observer.observe(ref);
-    })
-  }, [activeSection, options])
+        observer.observe(ref);
+    });
+
+    return () => {  
+        sectionRefs.current.forEach(ref => {
+            observer.unobserve(ref);
+        });
+    };
+}, [activeSection]);
+
+  // useEffect(() => {
+  //   if (activeSection === '') {
+  //     setActiveSection(sectionRefs.current[0].id);
+  //     return
+  //   } 
+
+  //   sectionRefs.current.forEach(ref => {
+  //     observer.observe(ref);
+  //   })
+  // }, [activeSection, options])
 
   useEffect(() => {
-    console.log(activeSection)
+    // console.log(activeSection)
   })
 
 
   return(
     <div className="bg-white text-black">
       <div> back to home link and print button here </div>
-      <div className="flex">
-        <div className="max-w-[35%] h-[50dvh] overflow-auto fixed">
+      {/* <div className="flex"> */}
+      <div className="">
+        {/* <div className="h-[50dvh] sticky overflow-auto fixed"> */}
+        <div className="sideBar sticky top-[100px] max-w-[275px] w-[25%] overflow-y-auto float-left border-t-4 border-red">
           <SidebarNavigation activeSection={activeSection} setActiveSection={setActiveSection} allSections={sectionRefs.current} />
         </div>
-        <div className="flex flex-col w-[60%] ml-auto">
+        {/* <div className="flex flex-col w-[60%] ml-auto"> */}
+        <div className="flex flex-col ml-auto">
           <PrivacyStatement id="privacy-statement" ref={addToRefs} />
           <ContactingUs id="contacting-us" ref={addToRefs} />
           <section>
