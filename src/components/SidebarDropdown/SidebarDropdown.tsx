@@ -23,12 +23,12 @@ const SidebarDropdown:React.FC<ISidebarDropdown> = ({ title, subLinks, id, curre
     setActiveSection(id);
     allSections.find(section => section.id === id)?.scrollIntoView({behavior: 'smooth'});
   }
-
+  
   const handleDetailsChildClick = (e:React.MouseEvent, id:string) => {
     e.stopPropagation();
     allSections.find(section => section.id === id)?.scrollIntoView({behavior: 'smooth'})
   }
-
+  
   const [arrowStyles, setArrowStyles] = useState({})
 
   useEffect(() => {
