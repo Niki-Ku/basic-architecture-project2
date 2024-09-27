@@ -10,87 +10,48 @@ import ComunicationAndMarketing from "./PrivacyPageComponents/ComunicationAndMar
 import AdvertisingChoices from "./PrivacyPageComponents/AdvertisingChoices";
 import "./PrivacyPage.css";
 
-
 // TODO:
 // find solution to keep active elements of sidebar in view
-// fix bug (when you click on section to scroll it into view, active section shows wrong)    DONE
 // make onpen/close state of each section
-// setActiveSection on click
-// clean observer
 
 const PrivacyPage = () => {
   const [ activeSection, setActiveSection ] = useState('');
   const sectionRefs = useRef<HTMLDivElement[]>([]);
 
-  // const options = useMemo(() => {
-  //   return {
-  //     threshold: 0,
-  //   }
-  // }, [])
+  const options = useMemo(() => {
+    return {
+      threshold: 0,
+      rootMargin: '-10px'
+    }
+  }, [])
 
   const addToRefs = (el: HTMLDivElement | null) => {
     if (el && !sectionRefs.current.includes(el)) {
       sectionRefs.current.push(el);
     }
   };
-// upgrade if/else statement in observer
-  // set first element as current         DONE 
-  // check if previous element intersecting with page, if yes then set it to current      DONE
-  // if current element is intersecting then there is no changes 
-  // when current element is no longer intersecting, then set active state to next element
 
-  // const observer = new IntersectionObserver((entries) => {
+  const observer = new IntersectionObserver((entries) => {
+    const entry = entries[0];
+    const currentEntryId = entry.target.id;
+    const currentEntryIndex = sectionRefs.current.findIndex(el => el.id === currentEntryId);
+    const activeSectionIndex = sectionRefs.current.findIndex(el => el.id === activeSection);
+    const previouseToActiveSectionId = sectionRefs.current[activeSectionIndex - 1]?.id;
+    const nextSectionId = sectionRefs.current[activeSectionIndex + 1]?.id;
     
-  //   const entry = entries[0];
-
-  //   const activeEntry = entries.find(entry => entry.target.id === activeSection);
-  //   const currentEntry = sectionRefs.current.find(el => el.id === entry.target.id);
-  //   const currentEntryIndex = sectionRefs.current.indexOf(currentEntry as HTMLDivElement);
-  //   const activeSectionElement = sectionRefs.current.find(el => el.id === activeSection);
-  //   const activeSectionIndex = sectionRefs.current.indexOf(activeSectionElement as HTMLDivElement);
-  //   const prevEntry = entries[currentEntryIndex - 1];
-  //   const prevId = sectionRefs.current[currentEntryIndex - 1]?.id;
-    
-  //   if (currentEntryIndex - activeSectionIndex <= 1 && currentEntryIndex - activeSectionIndex >= -1 ) {
-  //     // console.log(currentEntryIndex, activeSectionIndex, activeSection, entry.target.id)
-  //     console.log(activeSectionIndex, activeSection)
-  //     if (entry.target.id === activeSection && !entry.isIntersecting) {
-  //       // console.log(currentEntryIndex - activeSectionIndex, currentEntryIndex, activeSectionIndex)
-  //       setActiveSection(sectionRefs.current[currentEntryIndex + 1]?.id);
-  //       return
-  //     }
-  //     if (sectionRefs.current[activeSectionIndex - 1]?.id === entry.target.id && entry.isIntersecting) {
-  //       setActiveSection(entry.target.id)
-  //       return
-  //     }
-  //     return
-  //   }
-  // }, options)
-
-  const observer = useMemo(() => {
-    return new IntersectionObserver((entries) => {
-      let mostVisible = null;
-      let maxIntersectionRatio = 0;
-  
-      entries.forEach(entry => {
-          if (entry.isIntersecting && entry.intersectionRatio > maxIntersectionRatio) {
-              maxIntersectionRatio = entry.intersectionRatio;
-              mostVisible = entry.target.id;
-          }
-      });
-  
-      if (mostVisible) {
-          setActiveSection(mostVisible);
-      }
-    }, {
-      threshold: [0.1, 0.9] 
-    });
-  }, [])
-
+    if (currentEntryIndex === activeSectionIndex && !entry.isIntersecting) {
+      setActiveSection(nextSectionId);
+      return
+    }
+    if (previouseToActiveSectionId === currentEntryId && entry.isIntersecting) {
+      setActiveSection(currentEntryId)
+      return
+    }
+  }, options)
 
 useEffect(() => {
     if (activeSection === '') {
-        setActiveSection(sectionRefs.current[0].id);
+        setActiveSection(sectionRefs.current[0]?.id);
     }
 
     sectionRefs.current.forEach(ref => {
@@ -98,27 +59,11 @@ useEffect(() => {
     });
 
     return () => {  
-        sectionRefs.current.forEach(ref => {
-            observer.unobserve(ref);
-        });
+      sectionRefs.current.forEach(ref => {
+          observer.unobserve(ref);
+      });
     };
 }, [activeSection]);
-
-  // useEffect(() => {
-  //   if (activeSection === '') {
-  //     setActiveSection(sectionRefs.current[0].id);
-  //     return
-  //   } 
-
-  //   sectionRefs.current.forEach(ref => {
-  //     observer.observe(ref);
-  //   })
-  // }, [activeSection, options])
-
-  useEffect(() => {
-    // console.log(activeSection)
-  })
-
 
   return(
     <div className="bg-white text-black">
