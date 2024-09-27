@@ -123,13 +123,10 @@ useEffect(() => {
   return(
     <div className="bg-white text-black">
       <div> back to home link and print button here </div>
-      {/* <div className="flex"> */}
-      <div className="">
-        {/* <div className="h-[50dvh] sticky overflow-auto fixed"> */}
+      <div>
         <div className="sideBar sticky top-[100px] max-w-[275px] w-[25%] overflow-y-auto float-left border-t-4 border-red">
           <SidebarNavigation activeSection={activeSection} setActiveSection={setActiveSection} allSections={sectionRefs.current} />
         </div>
-        {/* <div className="flex flex-col w-[60%] ml-auto"> */}
         <div className="flex flex-col ml-auto">
           <PrivacyStatement id="privacy-statement" ref={addToRefs} />
           <ContactingUs id="contacting-us" ref={addToRefs} />
