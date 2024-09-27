@@ -47,7 +47,7 @@ const SidebarDropdown:React.FC<ISidebarDropdown> = ({ title, subLinks, id, curre
         open={id === openSection}
         onClick={(e) => handleDetailsClick(e)}
       >
-          <summary 
+        <summary 
             className={`text-base p-2 cursor-pointer list-none`}
             style={currentSection === id ? {color: "white", backgroundColor: "black"} : {}}
           >
@@ -60,7 +60,7 @@ const SidebarDropdown:React.FC<ISidebarDropdown> = ({ title, subLinks, id, curre
               />
             )}
           </Link>
-          </summary>
+        </summary>
         {subLinks && (
           <ul className="">
             {subLinks.map(link => (
