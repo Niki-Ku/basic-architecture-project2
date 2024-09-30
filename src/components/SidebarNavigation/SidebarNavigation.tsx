@@ -44,12 +44,12 @@ const sidebarDropdownLinks = [
 ]
 
 interface ISidebarNavigation {
-  activeSection: string;
+  activeTopic: string;
   allSections: HTMLDivElement[];
-  setActiveSection: Function ;
+  setActiveTopic: Function ;
 }
 
-const SidebarNavigation:React.FC<ISidebarNavigation> =  ({ activeSection, allSections, setActiveSection }) => {
+const SidebarNavigation:React.FC<ISidebarNavigation> =  ({ activeTopic, allSections, setActiveTopic }) => {
   return (
     <div>
       {sidebarDropdownLinks.map(dropdownLink => (
@@ -59,8 +59,8 @@ const SidebarNavigation:React.FC<ISidebarNavigation> =  ({ activeSection, allSec
           id={dropdownLink.id} 
           subLinks={dropdownLink.subLinks} 
           allSections={allSections} 
-          currentSection={activeSection}
-          setActiveSection={setActiveSection}
+          activeTopic={activeTopic}
+          setActiveTopic={setActiveTopic}
          />
       ))}
     </div>

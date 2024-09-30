@@ -11,9 +11,9 @@ interface ISidebarDropdown {
   title: string;
   subLinks?: ISubLink[] | null;
   id: string;
-  currentSection?: string;
+  activeTopic?: string;
   allSections: HTMLDivElement[];
-  setActiveSection: Function ;
+  setActiveTopic: Function ;
 }
 
 // make a dropdown component  DONE
@@ -27,11 +27,11 @@ interface ISidebarDropdown {
 // remove some useless stuff
 
 
-const SidebarDropdown:React.FC<ISidebarDropdown> = ({ title, subLinks, id, currentSection, allSections, setActiveSection }) => {
+const SidebarDropdown:React.FC<ISidebarDropdown> = ({ title, subLinks, id, activeTopic, allSections, setActiveTopic }) => {
   
   const handleDetailsClick = (e:React.MouseEvent) => {
     e.preventDefault();
-    setActiveSection(id);
+    setActiveTopic(id);
     allSections.find(section => section.id === id)?.scrollIntoView({behavior: 'smooth'});
   }
 
@@ -51,9 +51,9 @@ const SidebarDropdown:React.FC<ISidebarDropdown> = ({ title, subLinks, id, curre
           <summary 
             className={`
               flex text-base p-2 cursor-pointer justify-between 
-              ${id === currentSection && 'bg-black text-white'}
+              ${id === activeTopic && 'bg-black text-white'}
               `}
-            style={currentSection === "id" ? {color: "white", backgroundColor: "black"} : {}}
+            style={activeTopic === "id" ? {color: "white", backgroundColor: "black"} : {}}
           >
             <Link to="#collectCategories">
             <p>{title}</p>
@@ -75,7 +75,7 @@ const SidebarDropdown:React.FC<ISidebarDropdown> = ({ title, subLinks, id, curre
                   onClick={(e) => handleDetailsChildClick(e, link.id)}
                   className={`
                     p-2 inline-block w-full text-wrap cursor-pointer
-                    ${link.id === currentSection && 'bg-black text-white'}
+                    ${link.id === activeTopic && 'bg-black text-white'}
                     `}
                 >{link.title}</li>
               </div>
