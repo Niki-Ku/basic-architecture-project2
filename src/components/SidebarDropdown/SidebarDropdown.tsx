@@ -12,15 +12,16 @@ interface ISidebarDropdown {
   subLinks?: ISubLink[] | null;
   id: string;
   openSection?: string;
-  currentSection?: string;
+  activeTopic?: string;
   allSections: HTMLDivElement[];
-  setActiveSection: Function ;
+  setActiveTopic: Function ;
 }
 
-const SidebarDropdown:React.FC<ISidebarDropdown> = ({ title, subLinks, id, currentSection, allSections, setActiveSection, openSection }) => {
+const SidebarDropdown:React.FC<ISidebarDropdown> = ({ title, subLinks, id, activeTopic, allSections, setActiveTopic, openSection }) => {
+  
   const handleDetailsClick = (e:React.MouseEvent) => {
     e.preventDefault();
-    setActiveSection(id);
+    setActiveTopic(id);
     allSections.find(section => section.id === id)?.scrollIntoView({behavior: 'smooth'});
   }
   
@@ -32,24 +33,24 @@ const SidebarDropdown:React.FC<ISidebarDropdown> = ({ title, subLinks, id, curre
   const [arrowStyles, setArrowStyles] = useState({})
 
   useEffect(() => {
-    if (id === openSection && id === currentSection) {
+    if (openSection === `${id}-dropdown` && id === activeTopic) {
       setArrowStyles({transform: 'rotate(0deg)', transformOrigin: 'center', fill: 'white'})
-    } else if (id === openSection) {
+    } else if (`${id}-dropdown` === openSection) {
       setArrowStyles({transform: 'rotate(0deg)', transformOrigin: 'center'})
     } else {
       setArrowStyles({})
     }
-  }, [openSection, currentSection, id])
+  }, [openSection, activeTopic, id])
   
   return (
     <div className="bg-white text-black w-full">
       <details 
-        open={id === openSection}
+        open={openSection === `${id}-dropdown`}
         onClick={(e) => handleDetailsClick(e)}
       >
         <summary 
             className={`text-base p-2 cursor-pointer list-none`}
-            style={currentSection === id ? {color: "white", backgroundColor: "black"} : {}}
+            style={activeTopic === id ? {color: "white", backgroundColor: "black"} : {}}
           >
             <Link to="#collectCategories" className="flex justify-between">
             <p>{title}</p>
@@ -68,7 +69,7 @@ const SidebarDropdown:React.FC<ISidebarDropdown> = ({ title, subLinks, id, curre
                 <li 
                   onClick={(e) => handleDetailsChildClick(e, link.id)}
                   className={`p-2 inline-block w-full text-wrap cursor-pointer`}
-                  style={currentSection === link.id ? {color: "white", backgroundColor: "black"} : {}}
+                  style={activeTopic === link.id ? {color: "white", backgroundColor: "black"} : {}}
                 >
                   {link.title}
                 </li>
