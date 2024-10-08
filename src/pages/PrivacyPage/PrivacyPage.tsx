@@ -8,19 +8,29 @@ import HowWeUsePersonal from "./PrivacyPageComponents/HowWeUsePersonal";
 import YourPrivacyRights from "./PrivacyPageComponents/YourPrivacyRights";
 import ComunicationAndMarketing from "./PrivacyPageComponents/ComunicationAndMarketing";
 import AdvertisingChoices from "./PrivacyPageComponents/AdvertisingChoices";
-
+import "./PrivacyPage.css";
 
 // TODO:
 // find solution to keep active elements of sidebar in view
-// fix bug (when you click on section to scroll it into view, active section shows wrong)    DONE
 // make onpen/close state of each section
-// setActiveSection on click
-
-
+// pass openSection value as props to components
+// useMemo
 
 const PrivacyPage = () => {
-  const [ activeSection, setActiveSection ] = useState('');
+  const [ activeTopic, setActiveTopic ] = useState('');
+  const [ openSection, setOpenSection ] = useState('');
+  const topicRefs = useRef<HTMLDivElement[]>([]);
   const sectionRefs = useRef<HTMLDivElement[]>([]);
+  const activeTopicRef = useRef(activeTopic);
+  const activeSectionRef = useRef(openSection); 
+
+  useEffect(() => {
+    activeTopicRef.current = activeTopic;
+  }, [activeTopic]);
+
+  useEffect(() => {
+    activeSectionRef.current = openSection;
+  }, [openSection]);
 
   const options = useMemo(() => {
     return {
@@ -30,67 +40,95 @@ const PrivacyPage = () => {
   }, [])
 
   const addToRefs = (el: HTMLDivElement | null) => {
+    if (el && !topicRefs.current.includes(el)) {
+      topicRefs.current.push(el);
+    }
+  };
+
+  const addToSectionRefs = (el: HTMLDivElement | null) => {
     if (el && !sectionRefs.current.includes(el)) {
       sectionRefs.current.push(el);
     }
-  };
-// upgrade if/else statement in observer
-  // set first element as current         DONE 
-  // check if previous element intersecting with page, if yes then set it to current      DONE
-  // if current element is intersecting then there is no changes 
-  // when current element is no longer intersecting, then set active state to next element
+  }
 
-  useEffect(() => {
-    if (activeSection === '') {
-      setActiveSection(sectionRefs.current[0].id);
+  const handleIntersection = (
+    entries: IntersectionObserverEntry[],
+    refs:React.MutableRefObject<HTMLDivElement[]>, 
+    activeRef:React.MutableRefObject<string>,
+    setActive:React.Dispatch<React.SetStateAction<string>>
+  ) => {
+    const entry = entries[0];
+    const currentEntryId = entry.target.id;
+    const currentEntryIndex = refs.current.findIndex(el => el.id === currentEntryId);
+    const activeSectionIndex = refs.current.findIndex(el => el.id === activeRef.current);
+    const previouseToActiveSectionId = refs.current[activeSectionIndex - 1]?.id;
+    const nextSectionId = refs.current[activeSectionIndex + 1]?.id;
+    
+    if (currentEntryIndex === activeSectionIndex && !entry.isIntersecting) {
+      setActive(nextSectionId);
       return
-    } 
-    const observer = new IntersectionObserver((entries) => {
-      // const entry = entries[0];
+    }
+    if (previouseToActiveSectionId === currentEntryId && entry.isIntersecting) {
+      setActive(currentEntryId)
+      return
+    }
+  }
 
-      const activeEntry = entries.find(entry => entry.target.id === activeSection);
-      const currentIndex = sectionRefs.current.indexOf(activeEntry?.target as HTMLDivElement);    //rename
-      // const activeEntryIndex = entries.indexOf(activeEntry!);
-      const prevEntry = entries[currentIndex - 1];
-      // const nextEntry = entries[activeEntryIndex + 1];
+  const topicObserver = new IntersectionObserver((entries) => {
+    handleIntersection(entries, topicRefs, activeTopicRef, setActiveTopic)
+  }, options);
+  
+  const sectionObserver = new IntersectionObserver((entries) => {
+    handleIntersection(entries, sectionRefs, activeSectionRef, setOpenSection)
+  }, options);
 
-      if (prevEntry?.isIntersecting) {
-        console.log('prev')
-        console.log(prevEntry)
-        setActiveSection(sectionRefs.current[currentIndex - 1]?.id);
-        return
-      } 
+useEffect(() => {
+    if (activeTopic === '') {
+        setActiveTopic(topicRefs.current[0]?.id);
+    }
 
-      if (activeEntry && !activeEntry?.isIntersecting) {
+    topicRefs.current.forEach(ref => {
+        topicObserver.observe(ref);
+    });
 
-        setActiveSection(sectionRefs.current[currentIndex + 1]?.id);
-        return
-      }
-    }, options)
+    return () => {  
+      topicRefs.current.forEach(ref => {
+          topicObserver.unobserve(ref);
+      });
+    };
+}, []);
 
-    sectionRefs.current.forEach(ref => {
-      observer.observe(ref);
-    })
-  }, [activeSection, options])
 
-  useEffect(() => {
-    console.log(activeSection)
+useEffect(() => {
+  if (openSection === '') {
+    setOpenSection(sectionRefs.current[0].id);
+  }
+
+  sectionRefs.current.forEach(ref => {
+    sectionObserver.observe(ref);
   })
+
+  return () => {
+    sectionRefs.current.forEach(ref => {
+      sectionObserver.unobserve(ref);
+  });
+  }
+}, []);
 
   return(
     <div className="bg-white text-black">
       <div> back to home link and print button here </div>
-      <div className="flex">
-        <div className="max-w-[35%] h-[50dvh] overflow-auto fixed">
-          <SidebarNavigation activeSection={activeSection} setActiveSection={setActiveSection} allSections={sectionRefs.current} />
+      <div>
+        <div className="sideBar sticky top-[100px] max-w-[275px] w-[25%] overflow-y-auto float-left border-t-4 border-red">
+          <SidebarNavigation activeTopic={activeTopic} setActiveTopic={setActiveTopic} allSections={topicRefs.current} openSection={openSection} />
         </div>
-        <div className="flex flex-col w-[60%] ml-auto">
+        <div className="flex flex-col ml-auto">
           <PrivacyStatement id="privacy-statement" ref={addToRefs} />
           <ContactingUs id="contacting-us" ref={addToRefs} />
-          <section>
+          <section ref={addToSectionRefs} id="hidden-section" className=""></section>
+          <section ref={addToSectionRefs} id="section-a-dropdown">
             <h2 
               className={`text-3xl my-10 `} 
-              style={activeSection === "sectionA" ? {color: "white", backgroundColor: "black"} : {}}
               id="section-a" 
               ref={addToRefs}
             > 
@@ -100,18 +138,17 @@ const PrivacyPage = () => {
             <WhereWeCollectPersonal ref={addToRefs} id="where-we-collect-personal-information-from" />
             <HowWeUsePersonal ref={addToRefs} id="how-we-use-your-personal-information" />
           </section>
-          <section>
+          <section ref={addToSectionRefs} id="section-b-dropdown">
             <h2 
-                className={`text-3xl my-10 `} 
-                style={activeSection === "sectionA" ? {color: "white", backgroundColor: "black"} : {}}
-                id="section-b" 
-                ref={addToRefs}
-              > 
-                Section B: Your Rights and Controls
-              </h2>
-              <YourPrivacyRights ref={addToRefs} id="your-privacy-rights" />
-              <ComunicationAndMarketing ref={addToRefs} id="communication-and-marketing-preferences" />
-              <AdvertisingChoices ref={addToRefs} id="advertising-choices" />
+              className={`text-3xl my-10 `} 
+              id="section-b" 
+              ref={addToRefs}
+            > 
+              Section B: Your Rights and Controls
+            </h2>
+            <YourPrivacyRights ref={addToRefs} id="your-privacy-rights" />
+            <ComunicationAndMarketing ref={addToRefs} id="communication-and-marketing-preferences" />
+            <AdvertisingChoices ref={addToRefs} id="advertising-choices" />
           </section>
         </div>
       </div>
