@@ -74,13 +74,17 @@ const PrivacyPage = () => {
     }
   }
 
-  const topicObserver = new IntersectionObserver((entries) => {
-    handleIntersection(entries, topicRefs, activeTopicRef, setActiveTopic)
-  }, options);
+  const topicObserver = useMemo(() => {
+    return new IntersectionObserver((entries) => {
+      handleIntersection(entries, topicRefs, activeTopicRef, setActiveTopic)
+    }, options);
+  }, [options])
   
-  const sectionObserver = new IntersectionObserver((entries) => {
-    handleIntersection(entries, sectionRefs, activeSectionRef, setOpenSection)
-  }, options);
+  const sectionObserver = useMemo(() => {
+    return new IntersectionObserver((entries) => {
+      handleIntersection(entries, sectionRefs, activeSectionRef, setOpenSection)
+    }, options);
+  }, [options]) 
 
 useEffect(() => {
     if (activeTopic === '') {
@@ -96,7 +100,7 @@ useEffect(() => {
           topicObserver.unobserve(ref);
       });
     };
-}, []);
+}, [openSection, activeTopic, topicObserver]);
 
 
 useEffect(() => {
@@ -113,7 +117,7 @@ useEffect(() => {
       sectionObserver.unobserve(ref);
   });
   }
-}, []);
+}, [openSection, sectionObserver]);
 
   return(
     <div className="bg-white text-black">
