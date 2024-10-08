@@ -11,6 +11,7 @@ module.exports = {
         transparentGray: '#80808033',
         transparentGray4: 'rgba(128, 128, 128, .4)',
         transparentGray2: 'rgba(128, 128, 128, .2)',
+        transparentBlack1: 'rgba(0, 0, 0, .1)',
         transparentBlack7: 'rgba(0, 0, 0, .7)',
         transparentBlack9: 'rgba(0, 0, 0, .9)',
       },
