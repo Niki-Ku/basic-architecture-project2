@@ -87,8 +87,10 @@ const PrivacyPage = () => {
   }, [options]) 
 
 useEffect(() => {
+  const currentTopicRefs = topicRefs.current;
+
     if (activeTopic === '') {
-        setActiveTopic(topicRefs.current[0]?.id);
+        setActiveTopic(currentTopicRefs[0]?.id);
     }
 
     topicRefs.current.forEach(ref => {
@@ -96,7 +98,7 @@ useEffect(() => {
     });
 
     return () => {  
-      topicRefs.current.forEach(ref => {
+      currentTopicRefs.forEach(ref => {
           topicObserver.unobserve(ref);
       });
     };
@@ -104,8 +106,9 @@ useEffect(() => {
 
 
 useEffect(() => {
+  const currentSectionRefs = sectionRefs.current;
   if (openSection === '') {
-    setOpenSection(sectionRefs.current[0].id);
+    setOpenSection(currentSectionRefs[0].id);
   }
 
   sectionRefs.current.forEach(ref => {
@@ -113,7 +116,7 @@ useEffect(() => {
   })
 
   return () => {
-    sectionRefs.current.forEach(ref => {
+    currentSectionRefs.forEach(ref => {
       sectionObserver.unobserve(ref);
   });
   }
