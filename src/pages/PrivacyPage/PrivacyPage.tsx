@@ -74,17 +74,23 @@ const PrivacyPage = () => {
     }
   }
 
-  const topicObserver = new IntersectionObserver((entries) => {
-    handleIntersection(entries, topicRefs, activeTopicRef, setActiveTopic)
-  }, options);
+  const topicObserver = useMemo(() => {
+    return new IntersectionObserver((entries) => {
+      handleIntersection(entries, topicRefs, activeTopicRef, setActiveTopic)
+    }, options);
+  }, [options])
   
-  const sectionObserver = new IntersectionObserver((entries) => {
-    handleIntersection(entries, sectionRefs, activeSectionRef, setOpenSection)
-  }, options);
+  const sectionObserver = useMemo(() => {
+    return new IntersectionObserver((entries) => {
+      handleIntersection(entries, sectionRefs, activeSectionRef, setOpenSection)
+    }, options);
+  }, [options]) 
 
 useEffect(() => {
+  const currentTopicRefs = topicRefs.current;
+
     if (activeTopic === '') {
-        setActiveTopic(topicRefs.current[0]?.id);
+        setActiveTopic(currentTopicRefs[0]?.id);
     }
 
     topicRefs.current.forEach(ref => {
@@ -92,16 +98,17 @@ useEffect(() => {
     });
 
     return () => {  
-      topicRefs.current.forEach(ref => {
+      currentTopicRefs.forEach(ref => {
           topicObserver.unobserve(ref);
       });
     };
-}, []);
+}, [openSection, activeTopic, topicObserver]);
 
 
 useEffect(() => {
+  const currentSectionRefs = sectionRefs.current;
   if (openSection === '') {
-    setOpenSection(sectionRefs.current[0].id);
+    setOpenSection(currentSectionRefs[0].id);
   }
 
   sectionRefs.current.forEach(ref => {
@@ -109,11 +116,11 @@ useEffect(() => {
   })
 
   return () => {
-    sectionRefs.current.forEach(ref => {
+    currentSectionRefs.forEach(ref => {
       sectionObserver.unobserve(ref);
   });
   }
-}, []);
+}, [openSection, sectionObserver]);
 
   return(
     <div className="bg-white text-black">
