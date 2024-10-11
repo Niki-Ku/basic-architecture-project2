@@ -9,6 +9,8 @@ import YourPrivacyRights from "./PrivacyPageComponents/YourPrivacyRights";
 import ComunicationAndMarketing from "./PrivacyPageComponents/ComunicationAndMarketing";
 import AdvertisingChoices from "./PrivacyPageComponents/AdvertisingChoices";
 import "./PrivacyPage.css";
+import { Link } from "react-router-dom";
+import Button from "../../components/Button/Button";
 
 // TODO:
 // find solution to keep active elements of sidebar in view
@@ -123,8 +125,26 @@ useEffect(() => {
 }, [openSection, sectionObserver]);
 
   return(
-    <div className="bg-white text-black-default">
-      <div> back to home link and print button here </div>
+    <div className="bg-white text-black">
+      {/* TODO
+          this component should have left arrow
+          back to FAQ link
+          button for print 
+          and fixed button for sidebar navigation, like menu burger button
+      */}
+      <div>
+        <ul>
+          <li>
+            icon
+          </li>
+          <li>
+            <Link to="/faq">Back to Help Home</Link>
+          </li>
+        </ul>
+        <div>
+          <Button label="Print" variant="secondary"></Button>
+        </div>
+      </div>
       <div>
         <div className="sideBar sticky top-[100px] max-w-[275px] w-[25%] overflow-y-auto float-left border-t-4 border-red-default">
           <SidebarNavigation activeTopic={activeTopic} setActiveTopic={setActiveTopic} allSections={topicRefs.current} openSection={openSection} />
