@@ -17,8 +17,8 @@ const Button: React.FC<ButtonProps> = ({
     icon
 }) => {
     const buttonStyles = {
-        primary: 'bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded flex justify-center items-center gap-2',
-        secondary: 'bg-gray-300 hover:bg-gray-400 text-black py-2 px-4 rounded flex justify-center items-center gap-2',
+        primary: 'bg-red-default hover:bg-red-secondary text-white py-2 px-4 rounded flex justify-center items-center gap-2',
+        secondary: 'bg-black-10 hover:bg-black-30 text-black py-2 px-4 rounded flex justify-center items-center gap-2',
     };
     let Icon: any;
     icon ? Icon = buttonIcons[icon] : Icon = null;
