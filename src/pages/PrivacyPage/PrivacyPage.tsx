@@ -11,6 +11,7 @@ import AdvertisingChoices from "./PrivacyPageComponents/AdvertisingChoices";
 import "./PrivacyPage.css";
 import { Link } from "react-router-dom";
 import Button from "../../components/Button/Button";
+import { ReactComponent as ArrowDownFull } from "../../assets/icons/ArrowDownFull.svg";
 
 // TODO:
 // find solution to keep active elements of sidebar in view
@@ -125,62 +126,72 @@ useEffect(() => {
 }, [openSection, sectionObserver]);
 
   return(
-    <div className="bg-white text-black">
+    <div className="bg-white text-black-default pt-8 pb-12">
       {/* TODO
-          this component should have left arrow
-          back to FAQ link
-          button for print 
+          this component should have left arrow     DONE
+          back to FAQ link      DONE
+          button for print  
+            try to fix print view
           and fixed button for sidebar navigation, like menu burger button
+            add burger menu to button
+            add onClick
       */}
-      <div>
-        <ul>
-          <li>
-            icon
-          </li>
-          <li>
-            <Link to="/faq">Back to Help Home</Link>
-          </li>
-        </ul>
-        <div>
-          <Button label="Print" variant="secondary"></Button>
+      <div className="px-3">
+        <div className="flex items-center relative">
+          <ul className="grow flex mb-8">
+            <li className="flex items-center">
+              <ArrowDownFull className="w-5 h-5 mr-2 rotate-90" />
+            </li>
+            <li>
+              <Link to="/faq" className="hover:underline hover:text-black-70">Back to Help Home</Link>
+            </li>
+          </ul>
+          <div className="mb-8">
+            <Button label="Print" variant="secondary" icon="PrinterIcon" onClick={() => window.print()}></Button>
+          </div>
+          <div className="md:hidden w-[80px]">
+            <div className="fixed top-[102px] right-3 z-10">
+              <div className="bg-white">
+                <Button label="menu" variant="secondary"></Button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="relative">
+          <div className="sideBar sticky top-[100px] max-w-[275px] w-[25%] overflow-y-auto float-left border-t-4 border-red-default">
+            <SidebarNavigation activeTopic={activeTopic} setActiveTopic={setActiveTopic} allSections={topicRefs.current} openSection={openSection} />
+          </div>
+          <div className="flex flex-col ml-auto">
+            <PrivacyStatement id="privacy-statement" ref={addToRefs} />
+            <ContactingUs id="contacting-us" ref={addToRefs} />
+            <section ref={addToSectionRefs} id="hidden-section" className=""></section>
+            <section ref={addToSectionRefs} id="section-a-dropdown">
+              <h2 
+                className={`text-3xl my-10 `} 
+                id="section-a" 
+                ref={addToRefs}
+              > 
+                Section A: Our Collection, Use, and Disclosure of Personal Information
+              </h2>
+              <TheCategoriesOfPersonal ref={addToRefs} id="the-categories-of-personal-information-we-collect" />
+              <WhereWeCollectPersonal ref={addToRefs} id="where-we-collect-personal-information-from" />
+              <HowWeUsePersonal ref={addToRefs} id="how-we-use-your-personal-information" />
+            </section>
+            <section ref={addToSectionRefs} id="section-b-dropdown">
+              <h2 
+                className={`text-3xl my-10 `} 
+                id="section-b" 
+                ref={addToRefs}
+              > 
+                Section B: Your Rights and Controls
+              </h2>
+              <YourPrivacyRights ref={addToRefs} id="your-privacy-rights" />
+              <ComunicationAndMarketing ref={addToRefs} id="communication-and-marketing-preferences" />
+              <AdvertisingChoices ref={addToRefs} id="advertising-choices" />
+            </section>
+          </div>
         </div>
       </div>
-      <div>
-        <div className="sideBar sticky top-[100px] max-w-[275px] w-[25%] overflow-y-auto float-left border-t-4 border-red-default">
-          <SidebarNavigation activeTopic={activeTopic} setActiveTopic={setActiveTopic} allSections={topicRefs.current} openSection={openSection} />
-        </div>
-        <div className="flex flex-col ml-auto">
-          <PrivacyStatement id="privacy-statement" ref={addToRefs} />
-          <ContactingUs id="contacting-us" ref={addToRefs} />
-          <section ref={addToSectionRefs} id="hidden-section" className=""></section>
-          <section ref={addToSectionRefs} id="section-a-dropdown">
-            <h2 
-              className={`text-3xl my-10 `} 
-              id="section-a" 
-              ref={addToRefs}
-            > 
-              Section A: Our Collection, Use, and Disclosure of Personal Information
-            </h2>
-            <TheCategoriesOfPersonal ref={addToRefs} id="the-categories-of-personal-information-we-collect" />
-            <WhereWeCollectPersonal ref={addToRefs} id="where-we-collect-personal-information-from" />
-            <HowWeUsePersonal ref={addToRefs} id="how-we-use-your-personal-information" />
-          </section>
-          <section ref={addToSectionRefs} id="section-b-dropdown">
-            <h2 
-              className={`text-3xl my-10 `} 
-              id="section-b" 
-              ref={addToRefs}
-            > 
-              Section B: Your Rights and Controls
-            </h2>
-            <YourPrivacyRights ref={addToRefs} id="your-privacy-rights" />
-            <ComunicationAndMarketing ref={addToRefs} id="communication-and-marketing-preferences" />
-            <AdvertisingChoices ref={addToRefs} id="advertising-choices" />
-          </section>
-        </div>
-      </div>
-        {/* remove in the end */}
-        <div className="min-h-[200dvh]"></div>
     </div>
   )
 };
