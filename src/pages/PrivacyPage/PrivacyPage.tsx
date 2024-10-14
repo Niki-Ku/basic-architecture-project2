@@ -103,7 +103,6 @@ useEffect(() => {
     };
 }, [openSection, activeTopic, topicObserver]);
 
-
 useEffect(() => {
   const currentSectionRefs = sectionRefs.current;
   if (openSection === '') {
@@ -174,9 +173,10 @@ const handleBurgerButtonClick = () => {
             />
           </div>
           <div className="flex flex-col ml-auto md:max-w-[70%]">
-            <PrivacyStatement id="privacy-statement" ref={addToRefs} />
-            <ContactingUs id="contacting-us" ref={addToRefs} />
-            <section ref={addToSectionRefs} id="hidden-section" className=""></section>
+            <section ref={addToSectionRefs} id="hidden-section">
+              <PrivacyStatement id="privacy-statement" ref={addToRefs} />
+              <ContactingUs id="contacting-us" ref={addToRefs} />
+            </section>
             <section ref={addToSectionRefs} id="section-a-dropdown">
               <h2 
                 className={`text-3xl my-10 `} 
