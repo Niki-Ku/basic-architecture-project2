@@ -1,0 +1,85 @@
+body.scroll-lock {
+  overflow: hidden;
+}
+
+.burger-icon,
+.burger-icon-black {
+  display: block;
+  width: 30px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.burger-icon span,
+.burger-icon-black span {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 0.125rem;
+  transition: all 0.3s ease 0s;
+}
+
+.burger-icon span {
+  background-color: #fff;
+}
+
+.burger-icon-black span {
+  background-color: black;
+}
+
+.burger-icon-black::after,
+.burger-icon-black::before,
+.burger-icon::after,
+.burger-icon::before {
+  content: '';
+  width: 100%;
+  height: 0.125rem;
+  position: absolute;
+  transition: all 0.3s ease 0s;
+  left: 0;
+} 
+
+.burger-icon-black::after,
+.burger-icon-black::before {
+  background-color: black;
+}
+
+.burger-icon::after,
+.burger-icon::before {
+  background-color: #fff;
+}
+
+.burger-icon::after,
+.burger-icon-black::after {
+  bottom: 0;
+}
+
+.burger-icon::before,
+.burger-icon-black::before {
+  top: 0;
+}
+
+
+.burger-icon.active::before,
+.burger-icon-black.active::before {
+  transform: rotate(45deg);
+  top: 50%;
+}
+
+.burger-icon.active::after,
+.burger-icon-black.active::after {
+  transform: rotate(-45deg);
+  top: 50%;
+}
+
+.burger-icon.active span,
+.burger-icon-black.active span {
+  transform: scale(0);
+}
+
+@media (min-width:768px) {
+  .burger-icon {
+    display: none;
+  }
+}
