@@ -11,17 +11,13 @@ import AdvertisingChoices from "./PrivacyPageComponents/AdvertisingChoices";
 import "./PrivacyPage.css";
 import { Link } from "react-router-dom";
 import Button from "../../components/Button/Button";
+import BurgerButton from "../../components/BurgerButton/BurgerButton";
 import { ReactComponent as ArrowDownFull } from "../../assets/icons/ArrowDownFull.svg";
-
-// TODO:
-// find solution to keep active elements of sidebar in view
-// make onpen/close state of each section
-// pass openSection value as props to components
-// useMemo
 
 const PrivacyPage = () => {
   const [ activeTopic, setActiveTopic ] = useState('');
   const [ openSection, setOpenSection ] = useState('');
+  const [ isMobileSidebarOpen, setIsMobileSidebarOpen ] = useState(false);
   const topicRefs = useRef<HTMLDivElement[]>([]);
   const sectionRefs = useRef<HTMLDivElement[]>([]);
   const activeTopicRef = useRef(activeTopic);
@@ -125,18 +121,13 @@ useEffect(() => {
   }
 }, [openSection, sectionObserver]);
 
+const handleBurgerButtonClick = () => {
+  setIsMobileSidebarOpen(prev => !prev);
+};
+
   return(
-    <div className="bg-white text-black-default pt-8 pb-12">
-      {/* TODO
-          this component should have left arrow     DONE
-          back to FAQ link      DONE
-          button for print  
-            try to fix print view
-          and fixed button for sidebar navigation, like menu burger button
-            add burger menu to button
-            add onClick
-      */}
-      <div className="px-3">
+    <div className="bg-white text-black-default pt-8 pb-12 flex justify-center">
+      <div className="px-3 max-w-[1248px]">
         <div className="flex items-center relative">
           <ul className="grow flex mb-8">
             <li className="flex items-center">
@@ -146,22 +137,43 @@ useEffect(() => {
               <Link to="/faq" className="hover:underline hover:text-black-70">Back to Help Home</Link>
             </li>
           </ul>
-          <div className="mb-8">
+          <div className="mb-8 self-start">
             <Button label="Print" variant="secondary" icon="PrinterIcon" onClick={() => window.print()}></Button>
           </div>
-          <div className="md:hidden w-[80px]">
+          <div className="md:hidden w-[60px]">
             <div className="fixed top-[102px] right-3 z-10">
-              <div className="bg-white">
-                <Button label="menu" variant="secondary"></Button>
+              <div className="bg-white relative">
+                <BurgerButton 
+                  onClick={handleBurgerButtonClick}
+                  isOpen={isMobileSidebarOpen}
+                  variant="burgerBlack" 
+                  background="transparentBlack"
+                  ariaLabel="Open Sidebar Navigation Button"
+                ></BurgerButton>
+                {isMobileSidebarOpen && (
+                  <div className="absolute right-0 w-[309px] p-2 bg-gray-light rounded-xl">
+                    <SidebarNavigation 
+                      activeTopic={activeTopic} 
+                      setActiveTopic={setActiveTopic} 
+                      allSections={topicRefs.current} 
+                      openSection={openSection}
+                    />
+                  </div>
+                )}
               </div>
             </div>
           </div>
         </div>
         <div className="relative">
-          <div className="sideBar sticky top-[100px] max-w-[275px] w-[25%] overflow-y-auto float-left border-t-4 border-red-default">
-            <SidebarNavigation activeTopic={activeTopic} setActiveTopic={setActiveTopic} allSections={topicRefs.current} openSection={openSection} />
+          <div className="sideBar mr-10 hidden md:block sticky top-[100px] max-w-[275px] w-[25%] overflow-y-auto float-left border-t-4 border-red-default">
+            <SidebarNavigation 
+              activeTopic={activeTopic} 
+              setActiveTopic={setActiveTopic} 
+              allSections={topicRefs.current} 
+              openSection={openSection}
+            />
           </div>
-          <div className="flex flex-col ml-auto">
+          <div className="flex flex-col ml-auto md:max-w-[70%]">
             <PrivacyStatement id="privacy-statement" ref={addToRefs} />
             <ContactingUs id="contacting-us" ref={addToRefs} />
             <section ref={addToSectionRefs} id="hidden-section" className=""></section>
