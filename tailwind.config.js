@@ -13,6 +13,7 @@ module.exports = {
           dark: 'rgb(24, 24, 24)',
           secondary: 'rgb(76, 73, 72)',
           white: 'rgb(250, 250, 250)',
+          light: 'rgb(239, 239, 239)',
           20: 'rgba(128, 128, 128, .2)',
           40: 'rgba(128, 128, 128, .4)',
         },
