@@ -43,7 +43,7 @@ const SidebarDropdown:React.FC<ISidebarDropdown> = ({ title, subLinks, id, activ
   }, [openSection, activeTopic, id])
   
   return (
-    <div className="bg-white text-black-default w-full">
+    <div className="text-black-default w-full">
       <details 
         open={openSection === `${id}-dropdown`}
         onClick={(e) => handleDetailsClick(e)}
