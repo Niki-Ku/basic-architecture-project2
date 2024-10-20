@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import CookieConsentBanner from "../../components/CookieConsentBanner/CookieConsentBanner";
 
 const HomePage = () => {
 
@@ -18,6 +19,7 @@ const HomePage = () => {
         <br />
         <br />
         <span>In process:</span>
+        <CookieConsentBanner />
       </div>
     </div>
   )
