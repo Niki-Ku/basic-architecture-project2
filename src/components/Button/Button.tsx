@@ -19,8 +19,8 @@ const Button: React.FC<ButtonProps> = ({
     icon
 }) => {
     const buttonStyles = {
-        primary: 'bg-red-default hover:bg-red-secondary text-white py-2 px-4 rounded flex justify-center items-center gap-2',
-        secondary: 'bg-black-10 hover:bg-black-30 text-black-default py-2 px-4 rounded flex justify-center items-center gap-2',
+        primary: 'bg-red-default hover:bg-red-secondary text-white py-2 px-4 rounded flex justify-center items-center gap-2 inline-block',
+        secondary: 'bg-black-10 hover:bg-black-30 text-black-default py-2 px-4 rounded flex justify-center items-center gap-2 inline-block',
     };
     const iconStyles = {
         black: 'fill-black-default w-5 h-5 fill-black inline-block',
