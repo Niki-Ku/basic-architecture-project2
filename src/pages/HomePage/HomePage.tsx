@@ -19,7 +19,6 @@ const HomePage = () => {
         <br />
         <br />
         <span>In process:</span>
-        <CookieConsentBanner />
       </div>
     </div>
   )
