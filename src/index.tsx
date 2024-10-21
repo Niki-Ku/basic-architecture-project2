@@ -6,6 +6,13 @@ import "./tailwind.output.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import store from "./store/index";
+import { firebaseConfig } from "./config/firebaseConfig";
+import { getFirestore, collection } from 'firebase/firestore'
+import { initializeApp } from "firebase/app"; 
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+export const colRef = collection(db, 'test');
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

@@ -1,6 +1,26 @@
 import { Link } from "react-router-dom";
+import { colRef } from "../..";
+import { getDocs } from "firebase/firestore"
+import { useEffect } from "react";
 
 const HomePage = () => {
+
+  const getDataFromDb = async () => {
+    const snapshot = await getDocs(colRef);
+    const data:any = []
+    snapshot.forEach(doc => {
+      data.push({ ...doc.data(), id: doc.id })
+    })
+    console.log(data)
+  }
+
+  useEffect(() => {
+    try{
+      getDataFromDb();
+    } catch (err) {
+      console.log(err);
+    }
+  }, [])
 
   return(
     <div>
