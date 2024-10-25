@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, fetchData } from "../src/store/actions/dataActions";
 import "./App.css";
@@ -14,15 +14,42 @@ import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import PrivacyPage from "./pages/PrivacyPage/PrivacyPage";
 import TermsOfUsePage from "./pages/TermsOfUsePage/TermsOfUsePage";
+import CookieConsentBanner from "./components/CookieConsentBanner/CookieConsentBanner";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
+  const [isBannerVisible, setIsBannerVisible] = useState(false);
 
   const data = useSelector((state: RootState) => state.yourStateSlice.data);
   const loading = useSelector(
     (state: RootState) => state.yourStateSlice.loading
   );
   const error = useSelector((state: RootState) => state.yourStateSlice.error);
+
+  useEffect(() => {
+    const cookieConsent = document.cookie
+      .split('; ')
+      .find(row => row.startsWith('cookieConsent='));
+    
+    if (!cookieConsent) {
+      setIsBannerVisible(true);
+    }
+  }, []);
+
+  const setCookie = (name: string, value: string, days: number): void => {
+    const expires = new Date(Date.now() + days * 864e5).toUTCString();
+    document.cookie = `${name}=${value}; expires=${expires}; path=/`;
+  };
+
+  const handleAccept = (): void => {
+    setCookie('cookieConsent', 'accepted', 30); // Set for 30 days
+    setIsBannerVisible(false);
+  };
+
+  const handleDecline = (): void => {
+    setCookie('cookieConsent', 'declined', 30); // Set for 30 days
+    setIsBannerVisible(false);
+  };
 
   useEffect(() => {
     dispatch(fetchData());
@@ -45,6 +72,9 @@ function App() {
           <Route path="/termsofuse" element={<TermsOfUsePage />} />
         </Routes>
         <Footer />
+        {isBannerVisible && (
+          <CookieConsentBanner onAcceptClick={handleAccept} onDeclineClick={handleDecline} />
+        )}
       </main>
     </div>
   );
