@@ -14,6 +14,7 @@ import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import PrivacyPage from "./pages/PrivacyPage/PrivacyPage";
 import TermsOfUsePage from "./pages/TermsOfUsePage/TermsOfUsePage";
+import InvestorRelationsPage from "./pages/InvestorRelationsPage/InvestorRelationsPage";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -43,6 +44,7 @@ function App() {
           <Route path="/faq" element={<FaqPage />} />
           <Route path="/privacy" element={<PrivacyPage />} />
           <Route path="/termsofuse" element={<TermsOfUsePage />} />
+          <Route path="/investors" element={<InvestorRelationsPage />} />
         </Routes>
         <Footer />
       </main>

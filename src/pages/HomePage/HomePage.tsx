@@ -18,6 +18,8 @@ const HomePage = () => {
         <br />
         <br />
         <span>In process:</span>
+        <br />
+        <Link to="/investors" className="underline">Investors Relations page</Link>
       </div>
     </div>
   )

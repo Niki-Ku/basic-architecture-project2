@@ -3,6 +3,9 @@ module.exports = {
   darkMode: false, 
   theme: {
     extend: {
+      backgroundImage: {
+        'cafe': "url('/src/assets/images/netflix-cafe.jpg')",
+      },
       colors: {
         red : {
           default: 'rgb(229, 9, 20)',
@@ -23,6 +26,10 @@ module.exports = {
           30: 'rgba(0, 0, 0, .3)',
           70: 'rgba(0, 0, 0, .7)',
           90: 'rgba(0, 0, 0, .9)',
+          warm: {
+            default: 'rgb(34, 31, 31)',
+            60: 'rgba(34, 31, 31, .6)',
+          },
         },
       },
     },
