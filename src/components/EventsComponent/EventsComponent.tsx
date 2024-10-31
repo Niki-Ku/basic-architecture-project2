@@ -1,0 +1,84 @@
+import { Link } from "react-router-dom";
+import { ReactComponent as LinkIcon } from "../../assets/icons/LinkIcon.svg";
+import { ReactComponent as ExcelIcon } from "../../assets/icons/EcxelFileIcon.svg";
+import { ReactComponent as PdfIcon } from "../../assets/icons/PdfFileIcon.svg";
+// TODO
+// make canvas with dark shadow and red border on bottom on hover state       DONE
+// add props like: title, data, and links for video , letter , financial Statements and Transcript    DONE
+// add icons    DONE
+// style it
+// add link to all events   DONE
+
+interface IEvent {
+	title: string;
+	titleLink: string;
+	date: Date;
+	videoLink: string;
+	letterLink: string;
+	financialLink: string;
+	transcriptLink: string;
+}
+
+interface IEvents {
+	netflixEvents: IEvent[];
+}
+
+const EventsComponent: React.FC<IEvents> = ({ netflixEvents }) => {
+	return (
+		<div className="w-full h-min bg-white hover:border-b-red-default hover:border-b-8 drop-shadow-2xl px-8 py-10">
+			{netflixEvents.map((e) => (
+				<div className="text-black-default">
+					<Link
+						className="text-lg font-normal block my-3 firts:mt-0 md:text-2xl"
+						to={e.titleLink}
+					>
+						{e.title}
+					</Link>
+					<p className="font-bold text-xs mb-3 md:text-sm">
+						{e.date.toLocaleDateString("en-US", {
+							year: "numeric",
+							month: "long",
+							day: "numeric",
+						})}
+						{e.date.toLocaleTimeString("en-US", {
+							hour: "2-digit",
+							minute: "2-digit",
+							timeZoneName: "short",
+						})}
+					</p>
+					<div className="flex flex-col gap-2 text-sm md:flex-row flex-wrap md:text-lg gap-x-5">
+						<div>
+							<Link className="flex gap-2 flex-nowrap" to={e.videoLink}>
+								<LinkIcon className="w-5 h-5" />
+								Video Interview
+							</Link>
+						</div>
+						<div>
+							<Link className="flex gap-2 flex-nowrap" to={e.letterLink}>
+								<PdfIcon className="w-5 h-5" />
+								Letter to Shareholders
+							</Link>
+						</div>
+						<div>
+							<Link className="flex gap-2 flex-nowrap" to={e.financialLink}>
+								<ExcelIcon className="w-5 h-5" />
+								Financial Statements
+							</Link>
+						</div>
+						<div>
+							<Link className="flex gap-2 flex-nowrap" to={e.transcriptLink}>
+								<PdfIcon className="w-5 h-5" />
+								Transcript
+							</Link>
+						</div>
+					</div>
+				</div>
+			))}
+			<Link className="font-bold md:text-lg text-red-default mt-4 block" to="#">
+				All Events
+			</Link>
+		</div>
+	);
+};
+
+export default EventsComponent;
