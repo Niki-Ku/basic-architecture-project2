@@ -15,10 +15,17 @@ import Footer from "./components/Footer/Footer";
 import PrivacyPage from "./pages/PrivacyPage/PrivacyPage";
 import TermsOfUsePage from "./pages/TermsOfUsePage/TermsOfUsePage";
 import CookieConsentBanner from "./components/CookieConsentBanner/CookieConsentBanner";
+import PromotionalBanner from "./components/PromotionalBanner/PromotionalBanner";
+import Banner from './assets/images/movie-trendy-banner-vector.jpg'
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
   const [isBannerVisible, setIsBannerVisible] = useState(false);
+  const [isPromotionalBannerVisible, setIsPromotionalBannerVisible] = useState(true);
+
+  const handlePromotionalBannerClose = () => {
+    setIsPromotionalBannerVisible(false);
+  }
 
   const data = useSelector((state: RootState) => state.yourStateSlice.data);
   const loading = useSelector(
@@ -74,6 +81,9 @@ function App() {
         <Footer />
         {isBannerVisible && (
           <CookieConsentBanner onAcceptClick={handleAccept} onDeclineClick={handleDecline} />
+        )}
+        {isPromotionalBannerVisible && (
+          <PromotionalBanner image={Banner} alt="our new show" onCloseClick={handlePromotionalBannerClose}/>
         )}
       </main>
     </div>
