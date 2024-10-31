@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
+import CookieConsentBanner from "../../components/CookieConsentBanner/CookieConsentBanner";
 import { colRef } from "../..";
-import { getDocs } from "firebase/firestore"
+import { getDocs } from "firebase/firestore";
 import { useEffect } from "react";
 
 const HomePage = () => {
