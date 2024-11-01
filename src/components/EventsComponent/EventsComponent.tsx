@@ -2,12 +2,6 @@ import { Link } from "react-router-dom";
 import { ReactComponent as LinkIcon } from "../../assets/icons/LinkIcon.svg";
 import { ReactComponent as ExcelIcon } from "../../assets/icons/EcxelFileIcon.svg";
 import { ReactComponent as PdfIcon } from "../../assets/icons/PdfFileIcon.svg";
-// TODO
-// make canvas with dark shadow and red border on bottom on hover state       DONE
-// add props like: title, data, and links for video , letter , financial Statements and Transcript    DONE
-// add icons    DONE
-// style it
-// add link to all events   DONE
 
 interface IEvent {
 	title: string;
@@ -29,7 +23,7 @@ const EventsComponent: React.FC<IEvents> = ({ netflixEvents }) => {
 			{netflixEvents.map((e) => (
 				<div className="text-black-default">
 					<Link
-						className="text-lg font-normal block my-3 firts:mt-0 md:text-2xl"
+						className="text-lg font-normal block my-3 firts:mt-0 md:text-2xl hover:text-red-default"
 						to={e.titleLink}
 					>
 						{e.title}
@@ -48,25 +42,25 @@ const EventsComponent: React.FC<IEvents> = ({ netflixEvents }) => {
 					</p>
 					<div className="flex flex-col gap-2 text-sm md:flex-row flex-wrap md:text-lg gap-x-5">
 						<div>
-							<Link className="flex gap-2 flex-nowrap" to={e.videoLink}>
+							<Link className="flex gap-2 flex-nowrap hover:text-red-default" to={e.videoLink}>
 								<LinkIcon className="w-5 h-5" />
 								Video Interview
 							</Link>
 						</div>
 						<div>
-							<Link className="flex gap-2 flex-nowrap" to={e.letterLink}>
+							<Link className="flex gap-2 flex-nowrap hover:text-red-default" to={e.letterLink}>
 								<PdfIcon className="w-5 h-5" />
 								Letter to Shareholders
 							</Link>
 						</div>
 						<div>
-							<Link className="flex gap-2 flex-nowrap" to={e.financialLink}>
+							<Link className="flex gap-2 flex-nowrap hover:text-red-default" to={e.financialLink}>
 								<ExcelIcon className="w-5 h-5" />
 								Financial Statements
 							</Link>
 						</div>
 						<div>
-							<Link className="flex gap-2 flex-nowrap" to={e.transcriptLink}>
+							<Link className="flex gap-2 flex-nowrap hover:text-red-default" to={e.transcriptLink}>
 								<PdfIcon className="w-5 h-5" />
 								Transcript
 							</Link>
