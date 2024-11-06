@@ -1,11 +1,16 @@
 {
   "welcome": "Ласкаво просимо",
-  "hello_world": "Привіт, світ!",
-  "change_language": "Змінити мову",
-  "home": "Головна",
-  "about": "Про нас",
-  "contact": "Контакти",
-  "settings": "Налаштування",
-  "profile": "Профіль",
-  "logout": "Вийти"
+  "description": "Це приклад українською мовою.",
+  "chooseLanguage": "Виберіть мову",
+  "en": "English",
+  "uk": "Українська",
+  "hr": "Hrvatski",
+  "es": "Español",
+  "phone": "Телефон",
+  "email": "Електронна пошта",
+  "aboutUs": "Про нас",
+  "contact": "Контакт",
+  "support": "Підтримка",
+  "faq": "Часті питання",
+  "questionsContactUs": "Питання? Зв'яжіться з нами"
 }

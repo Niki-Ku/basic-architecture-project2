@@ -1,11 +1,16 @@
 {
   "welcome": "Dobrodošli",
-  "hello_world": "Pozdrav svijete!",
-  "change_language": "Promijeni jezik",
-  "home": "Početna",
-  "about": "O nama",
+  "description": "Ovo je primjer na hrvatskom jeziku.",
+  "chooseLanguage": "Odaberite jezik",
+  "en": "English",
+  "uk": "Українська",
+  "hr": "Hrvatski",
+  "es": "Español",
+  "phone": "Telefon",
+  "email": "E-pošta",
+  "aboutUs": "O nama",
   "contact": "Kontakt",
-  "settings": "Postavke",
-  "profile": "Profil",
-  "logout": "Odjava"
+  "support": "Podrška",
+  "faq": "Česta pitanja",
+  "questionsContactUs": "Pitanja? Kontaktirajte nas"  
 }

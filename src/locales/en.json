@@ -1,4 +1,17 @@
 {
   "welcome": "Welcome",
-  "description": "This is an example in English."
+  "description": "This is an example in English.",
+  "chooseLanguage": "Choose Language",
+  "en": "English",
+  "uk": "Українська",
+  "hr": "Hrvatski",
+  "es": "Español",
+  "phone": "Phone",
+  "email": "Email",
+  "aboutUs": "About Us",
+  "contact": "Contact",
+  "support": "Support",
+  "faq": "FAQ",
+  "questionsContactUs": "Questions? Contact us"
 }
+
