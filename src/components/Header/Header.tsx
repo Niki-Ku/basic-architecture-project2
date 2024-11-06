@@ -3,8 +3,15 @@ import { useState } from "react";
 import NetflixLogo from '../../assets/images/netflix-logo.png';
 import { links } from '../../config/routeConfig';
 import "./Header.css";
+import ToggleButton from "../ToggleButton/ToggleButton";
 
-const Header = () => {
+const Header = ({
+  darkMode,
+  handleDarkModeChange
+}: {
+  darkMode: string,
+  handleDarkModeChange: () => void
+}) => {
   const location = useLocation();
 
   const activeClass = ( path:string ) => {
@@ -52,6 +59,9 @@ const Header = () => {
               </li>
             ))
           }
+          <li>
+            <ToggleButton id="toggle" checked={darkMode === "dark"} onChange={handleDarkModeChange} />
+          </li>
         </ul>
       </nav>
     </header>
