@@ -2,11 +2,9 @@ import { ReactComponent as ArrowDownFull } from "../../assets/icons/ArrowDownFul
 import { Link } from "react-router-dom";
 import Button from "../../components/Button/Button";
 import { useTranslation } from "react-i18next";
-import i18n from "i18next";
 
 const TermsOfUsePage = () => {
 const { t } = useTranslation();
-console.log(i18n.language);
 
   return(
     <div className="bg-white text-black-default pt-8 pb-12 flex justify-center">
