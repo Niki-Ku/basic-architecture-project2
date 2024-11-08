@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
-import { BrowserRouter as Router } from "react-router-dom"; // Step 1: Import
+import { BrowserRouter as Router } from "react-router-dom";
 import "./tailwind.output.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
@@ -9,6 +9,7 @@ import store from "./store/index";
 import { firebaseConfig } from "./config/firebaseConfig";
 import { getFirestore, collection } from 'firebase/firestore'
 import { initializeApp } from "firebase/app"; 
+import "./i18n"
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
@@ -20,7 +21,7 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <Provider store={store}>
-    <Router> 
+    <Router>
       <App />
     </Router>
   </Provider>

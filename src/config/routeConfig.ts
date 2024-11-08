@@ -7,27 +7,27 @@ export const links = [
 
 export const footerLinks = [
   {
-    name: 'Phone',
+    name: 'phone',
     path: 'tel:+3809309433',
   },
   {
-    name: 'Email',
+    name: 'email',
     path: 'mailto:niki.kuzk013@gmail.com',
   },
   {
-    name: 'About Us',
+    name: 'aboutUs',
     path: '/search',
   },
   {
-    name: 'Contact',
+    name: 'contact',
     path: '/login',
   },
   {
-    name: 'Support',
+    name: 'support',
     path: '/user',
   },
   {
-    name: 'FAQs',
+    name: 'faq',
     path: '/faq',
   },
   {
