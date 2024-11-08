@@ -1,0 +1,16 @@
+{
+  "welcome": "Bienvenido",
+  "description": "Este es un ejemplo en español.",
+  "chooseLanguage": "Elige el idioma",
+  "en": "English",
+  "uk": "Українська",
+  "hr": "Hrvatski",
+  "es": "Español",
+  "phone": "Teléfono",
+  "email": "Correo electrónico",
+  "aboutUs": "Sobre nosotros",
+  "contact": "Contacto",
+  "support": "Soporte",
+  "faq": "Preguntas frecuentes",
+  "questionsContactUs": "¿Preguntas? Contáctanos"
+}

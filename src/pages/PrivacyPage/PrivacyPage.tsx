@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import Button from "../../components/Button/Button";
 import BurgerButton from "../../components/BurgerButton/BurgerButton";
 import { ReactComponent as ArrowDownFull } from "../../assets/icons/ArrowDownFull.svg";
+import { useTranslation} from "react-i18next";
 
 const PrivacyPage = () => {
   const [ activeTopic, setActiveTopic ] = useState('');
@@ -21,7 +22,8 @@ const PrivacyPage = () => {
   const topicRefs = useRef<HTMLDivElement[]>([]);
   const sectionRefs = useRef<HTMLDivElement[]>([]);
   const activeTopicRef = useRef(activeTopic);
-  const activeSectionRef = useRef(openSection); 
+  const activeSectionRef = useRef(openSection);
+  const { t } = useTranslation();
 
   useEffect(() => {
     activeTopicRef.current = activeTopic;
@@ -133,11 +135,11 @@ const handleBurgerButtonClick = () => {
               <ArrowDownFull className="w-5 h-5 mr-2 rotate-90" />
             </li>
             <li>
-              <Link to="/faq" className="hover:underline hover:text-black-70">Back to Help Home</Link>
+              <Link to="/faq" className="hover:underline hover:text-black-70">{t('backToHelpHome')}</Link>
             </li>
           </ul>
           <div className="mb-8 self-start">
-            <Button label="Print" variant="secondary" icon="PrinterIcon" onClick={() => window.print()}></Button>
+            <Button label={t('print')} variant="secondary" icon="PrinterIcon" onClick={() => window.print()}></Button>
           </div>
           <div className="md:hidden w-[60px]">
             <div className="fixed top-[102px] right-3 z-10">
@@ -147,7 +149,7 @@ const handleBurgerButtonClick = () => {
                   isOpen={isMobileSidebarOpen}
                   variant="burgerBlack" 
                   background="transparentBlack"
-                  ariaLabel="Open Sidebar Navigation Button"
+                  ariaLabel={t('openSidebarButtonAriaLabel')}
                 ></BurgerButton>
                 {isMobileSidebarOpen && (
                   <div className="absolute right-0 w-[309px] p-2 bg-gray-light rounded-xl">
@@ -182,8 +184,8 @@ const handleBurgerButtonClick = () => {
                 className={`text-3xl my-10 `} 
                 id="section-a" 
                 ref={addToRefs}
-              > 
-                Section A: Our Collection, Use, and Disclosure of Personal Information
+              >
+                {t('sectionA')}
               </h2>
               <TheCategoriesOfPersonal ref={addToRefs} id="the-categories-of-personal-information-we-collect" />
               <WhereWeCollectPersonal ref={addToRefs} id="where-we-collect-personal-information-from" />
@@ -194,8 +196,8 @@ const handleBurgerButtonClick = () => {
                 className={`text-3xl my-10 `} 
                 id="section-b" 
                 ref={addToRefs}
-              > 
-                Section B: Your Rights and Controls
+              >
+                {t('sectionB')}
               </h2>
               <YourPrivacyRights ref={addToRefs} id="your-privacy-rights" />
               <ComunicationAndMarketing ref={addToRefs} id="communication-and-marketing-preferences" />

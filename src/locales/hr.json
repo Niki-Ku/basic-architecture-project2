@@ -1,0 +1,16 @@
+{
+  "welcome": "Dobrodošli",
+  "description": "Ovo je primjer na hrvatskom jeziku.",
+  "chooseLanguage": "Odaberite jezik",
+  "en": "English",
+  "uk": "Українська",
+  "hr": "Hrvatski",
+  "es": "Español",
+  "phone": "Telefon",
+  "email": "E-pošta",
+  "aboutUs": "O nama",
+  "contact": "Kontakt",
+  "support": "Podrška",
+  "faq": "Česta pitanja",
+  "questionsContactUs": "Pitanja? Kontaktirajte nas"  
+}
