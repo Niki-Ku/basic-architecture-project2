@@ -82,7 +82,7 @@ function App() {
   console.log(data, "data");
   return (
     <div className={`App ${darkMode.darkMode === "dark" && 'dark-theme'}`}>
-      <main className="bg-gray-dark text-text-default grid min-h-[100dvh] grid-rows-[auto_1fr_auto]">
+      <main className="bg-bg-primary text-secondary grid min-h-[100dvh] grid-rows-[auto_1fr_auto]">
         <Header darkMode={darkMode.darkMode} handleDarkModeChange={handleDarkModeChange} />
         <Routes >
           <Route path="/" element={<HomePage />} />

@@ -31,13 +31,16 @@ module.exports = {
           hover: 'rgb(var(--toggle-hover))',
           text: 'rgb(var(--toggle-text))',
         },
+        bg: {
+          primary: 'rgb(var(--color-gray-dark))',
+        }
       },
       text: {
         default: 'rgb(var(--text-default))',
         secondary: 'rgb(var(--text-secondary))',
         highlight: 'rgb(var(--text-highlight))',
         hover: 'rgb(var(--text-hover))',
-      }
+      },
     },
   },
   variants: {
