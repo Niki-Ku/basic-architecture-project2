@@ -31,8 +31,8 @@ export const footerLinks = [
     path: '/faq',
   },
   {
-    name: 'Phonet',
-    path: 'tel:+3809309433',
+    name: 'System Status',
+    path: 'https://nclone.instatus.com/',
   },
   {
     name: 'Emaila',
