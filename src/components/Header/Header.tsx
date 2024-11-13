@@ -2,8 +2,8 @@ import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 import NetflixLogo from '../../assets/images/netflix-logo.png';
 import { links } from '../../config/routeConfig';
-import "./Header.css";
 import ToggleButton from "../ToggleButton/ToggleButton";
+import BurgerButton from "../BurgerButton/BurgerButton";
 
 const Header = ({
   darkMode,
@@ -21,7 +21,8 @@ const Header = ({
   };
 
   const [open, setOpen] = useState(false);
-  document.body.classList.add(`${open && 'scroll-lock'}`);
+  const bodyClass = document.body.classList;
+  open ? bodyClass.add('overflow-hidden') : bodyClass.remove('overflow-hidden');
 
   return (
     <header className="md:flex md:justify-between z-20 md:items-center bg-black-default text-center p-6 fixed top-0 left-0 w-full relative">
@@ -30,13 +31,9 @@ const Header = ({
           <img src={NetflixLogo} alt="Netflix Logo" />
         </Link>
       </div>
-      <button
-        className={`burger-icon ${open ? 'active' : ''}`}
-        onClick={() => setOpen(!open)}
-        aria-label="Main Menu"
-      >
-        <span></span>
-      </button>
+      <div className="absolute top-[20%] right-[6%] md:hidden">
+        <BurgerButton isOpen={open} variant="burger" ariaLabel="Main menu" onClick={() => setOpen(!open)} />
+      </div>
       <nav className="flex">
         <ul 
           className={`

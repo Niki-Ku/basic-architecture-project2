@@ -8,11 +8,11 @@ const Footer = () => {
   return (
     <footer className="w-full min-h-full bg-gray-dark py-3 ">
       <div className="w-[90%] mx-auto mb-40">
-        <p className="font-light text-normal text-gray-default mb-7">{t('questionsContactUs')}</p>
+        <p className="font-light text-normal text-text-secondary mb-7">{t('questionsContactUs')}</p>
         <ul className="grow">
           {footerLinks.map((link) => {
             return (
-              <li key={link.name} className="inline-block w-3/12 min-w-[100px] mb-4 pr-[22px] text-[13px] text-gray-default ">
+              <li key={link.name} className="inline-block w-3/12 min-w-[100px] mb-4 pr-[22px] text-[13px] text-text-secondary ">
                 <Link 
                   key={`link-${link.name}`} 
                   to={link.path}

@@ -33,13 +33,23 @@ module.exports = {
         },
         bg: {
           primary: 'rgb(var(--color-gray-dark))',
+          secondary: 'rgb(var(--bg-secondary))',
+          hover: 'rgb(var(--color-gray-hover))',
+          accent: 'rgb(var(--bg-accent))',
+        },
+        text: {
+          default: 'rgb(var(--text-default))',
+          secondary: 'rgb(var(--text-secondary))',
+          highlight: 'rgb(var(--text-highlight))',
+          hover: 'rgb(var(--text-hover))',
+          accent: 'rgb(var(--text-accent))',
+          transparent: {
+            90: 'rgba(var(--text-default), 0.9)',
+            70: 'rgba(var(--text-default), 0.7)',
+            40: 'rgba(var(--text-default), 0.4)',
+            10: 'rgba(var(--text-default), 0.1)',
+          }
         }
-      },
-      text: {
-        default: 'rgb(var(--text-default))',
-        secondary: 'rgb(var(--text-secondary))',
-        highlight: 'rgb(var(--text-highlight))',
-        hover: 'rgb(var(--text-hover))',
       },
     },
   },

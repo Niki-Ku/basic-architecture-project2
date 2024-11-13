@@ -34,7 +34,7 @@ const SidebarDropdown:React.FC<ISidebarDropdown> = ({ title, subLinks, id, activ
 
   useEffect(() => {
     if (openSection === `${id}-dropdown` && id === activeTopic) {
-      setArrowStyles({transform: 'rotate(0deg)', transformOrigin: 'center', fill: 'white'})
+      setArrowStyles({transform: 'rotate(0deg)', transformOrigin: 'center', fill: 'rgb(var(--text-accent))'})
     } else if (`${id}-dropdown` === openSection) {
       setArrowStyles({transform: 'rotate(0deg)', transformOrigin: 'center'})
     } else {
@@ -43,20 +43,20 @@ const SidebarDropdown:React.FC<ISidebarDropdown> = ({ title, subLinks, id, activ
   }, [openSection, activeTopic, id])
   
   return (
-    <div className="text-black-default w-full">
+    <div className="text-text-default w-full">
       <details 
         open={openSection === `${id}-dropdown`}
         onClick={(e) => handleDetailsClick(e)}
       >
         <summary 
             className={`text-base p-2 cursor-pointer list-none`}
-            style={activeTopic === id ? {color: "white", backgroundColor: "black"} : {}}
+            style={activeTopic === id ? {color: "rgb(var(--text-accent))", backgroundColor: "rgb(var(--bg-accent))"} : {}}
           >
             <Link to="#collectCategories" className="flex justify-between">
             <p>{title}</p>
             {subLinks && (
               <ArrowDownShort 
-                className={`w-6 h-6 mr-2 fill-black-default -rotate-90 duration-100 shrink-0`} 
+                className={`w-6 h-6 mr-2 fill-text-default -rotate-90 duration-100 shrink-0`} 
                 style={arrowStyles}
               />
             )}
@@ -69,7 +69,7 @@ const SidebarDropdown:React.FC<ISidebarDropdown> = ({ title, subLinks, id, activ
                 <li 
                   onClick={(e) => handleDetailsChildClick(e, link.id)}
                   className={`p-2 inline-block w-full text-wrap cursor-pointer`}
-                  style={activeTopic === link.id ? {color: "white", backgroundColor: "black"} : {}}
+                  style={activeTopic === link.id ? {color: "rgb(var(--text-accent))", backgroundColor: "rgb(var(--bg-accent))"} : {}}
                 >
                   {link.title}
                 </li>
