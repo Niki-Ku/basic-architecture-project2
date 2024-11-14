@@ -3,9 +3,11 @@ import { useState } from "react";
 import NetflixLogo from '../../assets/images/netflix-logo.png';
 import { links } from '../../config/routeConfig';
 import "./Header.css";
+import { useTranslation } from "react-i18next";
 
 const Header = () => {
   const location = useLocation();
+  const { t } = useTranslation();
 
   const activeClass = ( path:string ) => {
     return location.pathname === path
@@ -47,7 +49,7 @@ const Header = () => {
                   to={link.path}
                   onClick={() => setOpen(!open)}
                 >
-                  {link.name}
+                  {t(link.name)}
                 </Link>
               </li>
             ))

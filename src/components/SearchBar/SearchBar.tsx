@@ -4,6 +4,7 @@ import { ReactComponent as SearchIcon } from "../../assets/icons/SearchIcon.svg"
 import useDebounce from "../../hooks/useDebounce";
 
 import "./SearchBar.css";
+import { useTranslation } from "react-i18next";
 
 // ask Yra why does removing of x from search input worked from SearchBar.css and didn't from index.css
 
@@ -14,7 +15,8 @@ interface SearchBarProps {
   }[];
 }
 
-const SearchBar:React.FC<SearchBarProps> = ({ links }) => {
+const SearchBar: React.FC<SearchBarProps> = ({ links }) => {
+  const { t } = useTranslation();
   const [query, setQuery] = useState("");
   const filteredItems = links.filter(item => item.name.toLocaleLowerCase().includes(query.toLocaleLowerCase()));
   const debouncedFilteredItems = useDebounce(filteredItems);
@@ -30,7 +32,7 @@ const SearchBar:React.FC<SearchBarProps> = ({ links }) => {
             onChange={(e) => setQuery(e.target.value)} 
             type="search" 
             value={query}
-            placeholder="Type a question, topic or issue"
+            placeholder={t('typeQuestionTopicOrIssue')}
             className="w-full text-black-default text-base pl-[52px] appearance-none pr-4 py-[9px] focus:outline-none"
           />
           <SearchIcon className="w-6 h-6 fill-gray-secondary absolute top-[9px] left-3.5 pointer-events-none" />
@@ -44,7 +46,7 @@ const SearchBar:React.FC<SearchBarProps> = ({ links }) => {
                     className="bg-white text-black-default mx-4 hover:bg-gray-white cursor-pointer border-b border-border-black-10 last:border-0 py-[9px]"
                   >
                     <Link to={link.path} className="text-base">
-                      {link.name}
+                      {t(link.name)}
                     </Link>
                   </li>
                 )
