@@ -38,6 +38,8 @@ const HomePage = () => {
         <br />
         <Link to="/termsofuse" className="underline">Terms of Use</Link>
         <br />
+        <Link to="https://nclone.instatus.com/" className="underline">System Status Page</Link>
+        <br />
         <br />
         <span>In process:</span>
       </div>

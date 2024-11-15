@@ -8,6 +8,7 @@ import { quickLinksIcons } from '../../config/dynamicIcons';
 // temporary imports
 import { footerLinks } from "../../config/routeConfig";
 import "./FaqPage.css";
+import { useTranslation } from 'react-i18next';
 
 // TODO
 // make links for searchBar    
@@ -17,6 +18,7 @@ import "./FaqPage.css";
 // cant make space after coma in Popular topics like this ", "   (line 42)
 
 const FaqPage = () => {
+  const { t } = useTranslation();
   const [open, setOpen] = useState('');
   const handleDropdownClick = (id: string, e: React.MouseEvent) => {
     e.preventDefault();
@@ -42,7 +44,7 @@ const FaqPage = () => {
         <section className="flex flex-col justify-center" style={{minHeight: 'calc(100svh - 70px)'}}>
           <div className="px-3 py-12 grow flex items-center">
             <div className="w-full max-w-[600px] m-auto">
-              <h1 ref={heading} className="font-extrabold text-[40px] mb-6 text-center">How can we help?</h1>
+              <h1 ref={heading} className="font-extrabold text-[40px] mb-6 text-center">{t('how_can_we_help')}</h1>
               <div className={`h-[46px] mb-6`} style={headingIsVisible ? {height: 'auto'} : {height: '46px'}}>
                 <div className={`${headingIsVisible ? '' : 'fixed bg-bg-primary z-10 w-full left-0 top-0 h-[80px] py-auto border-b border-text-transparent-40 flex justify-center items-center'}`} >
                   <div className={`${headingIsVisible ? '' : 'w-full max-w-[600px]'}`} >
@@ -51,11 +53,11 @@ const FaqPage = () => {
                 </div>
               </div>
               <div className="text-center text-text-transparent-70">
-                <p className="inline font-bold">Popular topics: </p>
+                <p className="inline font-bold">{t('popular_topics')}: </p>
                 <div className="inline">
                   {popularTopicsLinks.map(topic => (
                     <div key={topic.title} className="inline font-medium mr-1 after:content-[','] last:after:content-['']">
-                      <Link to={topic.link} className="underline hover:text-text-accent">{topic.title}</Link>
+                      <Link to={topic.link} className="underline hover:text-text-accent">{t(topic.title)}</Link>
                     </div>
                   ))}
                 </div>
@@ -67,7 +69,7 @@ const FaqPage = () => {
               onClick={() => {exploreTopics.current?.scrollIntoView({behavior: 'smooth'})}} 
               className='arrow-parent pb-10 inline-block hover:underline' 
             >
-              <span className="font-bold">Explore Topics</span>
+              <span className="font-bold">{t('explore_topics')}</span>
               <ArrowDown className="arrow h-6 w-6 absolute top-6 left-0 right-0 mx-auto w-[100px] fill-text-default" />
             </button>
           </div>
@@ -78,7 +80,7 @@ const FaqPage = () => {
           {[accountAndBilling, startWork, Fix, Watching].map((item, index) => (
             <DropdownCard 
               key={index} 
-              title={item.title} 
+              title={t(item.title)} 
               iconColor={item.iconColor} 
               icon={item.icon} 
               categories={item.categories} 
@@ -88,14 +90,14 @@ const FaqPage = () => {
           ))}
         </div>
         <div className=" max-w-[600px] m-auto">
-          <h3 className="text-lg font-bold border-b border-text-hover pb-2">Quick Links</h3>
+          <h3 className="text-lg font-bold border-b border-text-hover pb-2">{t('quick_links')}</h3>
           <ul>
             {quickLinks.map((item, index) => {
               const Icon = quickLinksIcons[item.icon] 
               return (
                 <li key={index} className="flex gap-4 items-center py-3 border-b border-text-hover last:border-0" >
                   <Icon className="w-4 h-4 fill-text-default" />
-                  <Link to={item.link} className="underline font-bold hover:text-text-transparent-70">{item.title}</Link>
+                  <Link to={item.link} className="underline font-bold hover:text-text-transparent-70">{t(item.title)}</Link>
                 </li>
               )
             })}

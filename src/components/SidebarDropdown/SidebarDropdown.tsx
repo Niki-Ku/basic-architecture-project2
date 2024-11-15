@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import React, {useEffect, useState} from 'react';
 import { ReactComponent as ArrowDownShort } from '../../assets/icons/ArrowDownShort.svg';
+import { useTranslation } from 'react-i18next';
 
 interface ISubLink {
   title: string;
@@ -18,7 +19,7 @@ interface ISidebarDropdown {
 }
 
 const SidebarDropdown:React.FC<ISidebarDropdown> = ({ title, subLinks, id, activeTopic, allSections, setActiveTopic, openSection }) => {
-  
+  const { t } = useTranslation();
   const handleDetailsClick = (e:React.MouseEvent) => {
     e.preventDefault();
     setActiveTopic(id);
@@ -53,7 +54,7 @@ const SidebarDropdown:React.FC<ISidebarDropdown> = ({ title, subLinks, id, activ
             style={activeTopic === id ? {color: "rgb(var(--text-accent))", backgroundColor: "rgb(var(--bg-accent))"} : {}}
           >
             <Link to="#collectCategories" className="flex justify-between">
-            <p>{title}</p>
+            <p>{t(title)}</p>
             {subLinks && (
               <ArrowDownShort 
                 className={`w-6 h-6 mr-2 fill-text-default -rotate-90 duration-100 shrink-0`} 
@@ -71,7 +72,7 @@ const SidebarDropdown:React.FC<ISidebarDropdown> = ({ title, subLinks, id, activ
                   className={`p-2 inline-block w-full text-wrap cursor-pointer`}
                   style={activeTopic === link.id ? {color: "rgb(var(--text-accent))", backgroundColor: "rgb(var(--bg-accent))"} : {}}
                 >
-                  {link.title}
+                  {t(link.title)}
                 </li>
               </div>
             ))}
