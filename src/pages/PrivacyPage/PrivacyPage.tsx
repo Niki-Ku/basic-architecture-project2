@@ -127,15 +127,15 @@ const handleBurgerButtonClick = () => {
 };
 
   return(
-    <div className="bg-white text-black-default pt-8 pb-12 flex justify-center">
+    <div className="bg-bg-default text-text-default pt-8 pb-12 flex justify-center">
       <div className="px-3 max-w-[1248px]">
         <div className="flex items-center relative">
           <ul className="grow flex mb-8">
             <li className="flex items-center">
-              <ArrowDownFull className="w-5 h-5 mr-2 rotate-90" />
+              <ArrowDownFull className="w-5 h-5 mr-2 rotate-90 fill-text-default" />
             </li>
             <li>
-              <Link to="/faq" className="hover:underline hover:text-black-70">{t('backToHelpHome')}</Link>
+              <Link to="/faq" className="hover:underline hover:text-text-hover">{t('backToHelpHome')}</Link>
             </li>
           </ul>
           <div className="mb-8 self-start">
@@ -143,7 +143,7 @@ const handleBurgerButtonClick = () => {
           </div>
           <div className="md:hidden w-[60px]">
             <div className="fixed top-[102px] right-3 z-10">
-              <div className="bg-white relative">
+              <div className="bg-bg-default relative">
                 <BurgerButton 
                   onClick={handleBurgerButtonClick}
                   isOpen={isMobileSidebarOpen}
@@ -152,7 +152,7 @@ const handleBurgerButtonClick = () => {
                   ariaLabel={t('openSidebarButtonAriaLabel')}
                 ></BurgerButton>
                 {isMobileSidebarOpen && (
-                  <div className="absolute right-0 w-[309px] p-2 bg-gray-light rounded-xl">
+                  <div className="absolute right-0 w-[309px] p-2 bg-bg-secondary rounded-xl">
                     <SidebarNavigation 
                       activeTopic={activeTopic} 
                       setActiveTopic={setActiveTopic} 

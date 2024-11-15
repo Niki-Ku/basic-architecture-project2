@@ -7,12 +7,12 @@ const TermsOfUsePage = () => {
 const { t } = useTranslation();
 
   return(
-    <div className="bg-white text-black-default pt-8 pb-12 flex justify-center">
+    <div className="bg-bg-primary text-text-default pt-8 pb-12 flex justify-center">
       <div className="px-3 max-w-[1248px]">
         <div className="flex items-center relative">
           <ul className="grow flex mb-8">
             <li className="flex items-center">
-              <ArrowDownFull className="w-5 h-5 mr-2 rotate-90" />
+              <ArrowDownFull className="w-5 h-5 mr-2 rotate-90 fill-text-default" />
             </li>
             <li>
               <Link to="/faq" className="hover:underline hover:text-black-70">{t('backToHelpHome')}</Link>

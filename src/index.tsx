@@ -7,24 +7,27 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import store from "./store/index";
 import { firebaseConfig } from "./config/firebaseConfig";
-import { getFirestore, collection } from 'firebase/firestore'
-import { initializeApp } from "firebase/app"; 
+import { getFirestore, collection } from "firebase/firestore";
+import { initializeApp } from "firebase/app";
+import { ThemeProvider } from "./context/ThemeContext";
 import "./i18n"
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-export const colRef = collection(db, 'test');
+export const colRef = collection(db, "test");
 
 const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
+	document.getElementById("root") as HTMLElement
 );
 
 root.render(
-  <Provider store={store}>
-    <Router>
-      <App />
-    </Router>
-  </Provider>
+	<ThemeProvider>
+		<Provider store={store}>
+			<Router>
+				<App />
+			</Router>
+		</Provider>
+	</ThemeProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

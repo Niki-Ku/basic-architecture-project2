@@ -17,11 +17,26 @@ import TermsOfUsePage from "./pages/TermsOfUsePage/TermsOfUsePage";
 import CookieConsentBanner from "./components/CookieConsentBanner/CookieConsentBanner";
 import PromotionalBanner from "./components/PromotionalBanner/PromotionalBanner";
 import Banner from './assets/images/movie-trendy-banner-vector.jpg'
+import { useThemeContext } from "./context/ThemeContext";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
   const [isBannerVisible, setIsBannerVisible] = useState(false);
   const [isPromotionalBannerVisible, setIsPromotionalBannerVisible] = useState(true);
+  const darkMode = useThemeContext();
+
+  useEffect(() => {
+    const theme = localStorage.getItem('theme');
+    darkMode.setDarkMode(theme || "dark")
+   }, [])
+
+  const handleDarkModeChange = () => {
+    darkMode.setDarkMode(prev => {
+      const newTheme = prev === "dark" ? "light" : "dark";
+      localStorage.setItem("theme", newTheme);
+      return newTheme;
+    });
+  }
 
   const handlePromotionalBannerClose = () => {
     setIsPromotionalBannerVisible(false);
@@ -66,9 +81,9 @@ function App() {
   if (error) return <p>Error: {error}</p>;
   console.log(data, "data");
   return (
-    <div className="App">
-      <main className="bg-gray-dark text-white grid min-h-[100dvh] grid-rows-[auto_1fr_auto]">
-        <Header />
+    <div className={`App ${darkMode.darkMode === "dark" && 'dark-theme'}`}>
+      <main className="bg-bg-primary text-text-default grid min-h-[100dvh] grid-rows-[auto_1fr_auto]">
+        <Header darkMode={darkMode.darkMode} handleDarkModeChange={handleDarkModeChange} />
         <Routes >
           <Route path="/" element={<HomePage />} />
           <Route path="/search" element={<SearchPage />} />

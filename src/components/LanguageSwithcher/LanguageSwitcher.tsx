@@ -45,12 +45,12 @@ const LanguageSwitcher = () => {
 
 	return (
 		<div
-			className={`bg-white rounded-xl p-[1px] relative w-full h-full ${
+			className={`bg-text-default rounded-xl p-[1px] relative w-full h-full ${
 				isOpen && "rounded-b-none"
 			}`}
 		>
 			<div
-				className={`bg-gray-dark rounded-xl px-2 h-full w-full ${
+				className={`bg-bg-primary rounded-xl px-2 h-full w-full ${
 					isOpen && "rounded-b-none"
 				}`}
 			>
@@ -58,16 +58,16 @@ const LanguageSwitcher = () => {
 					onClick={() => {
 						setIsOpen(!isOpen);
 					}}
-					className="text-white w-full h-full flex justify-between items-center"
+					className="text-text-secondary w-full h-full flex justify-between items-center"
 					aria-label={t("chooseLanguage")}
 				>
 					<span className={"block"}>{t("chooseLanguage")}</span>
-					<span className="border-t-8 border-x-8 border-x-transparent border-t-white"></span>
+					<span className="border-t-8 border-x-8 border-x-transparent border-t-text-secondary"></span>
 				</button>
 				{isOpen && (
-					<div className="bg-white p-[1px] pt-0 rounded-b-xl w-full left-0 absolute">
+					<div className="bg-text-default p-[1px] pt-0 rounded-b-xl w-full left-0 absolute">
 						<ul
-							className="bg-gray-dark text-white rounded-b-xl"
+							className="bg-bg-primary text-text-secondary rounded-b-xl"
 							role="listbox"
 						>
 							{menuItems.map((item, index) => (
@@ -76,7 +76,7 @@ const LanguageSwitcher = () => {
 									role="option"
 									aria-selected={language === item.value}
 									onClick={() => handleLanguageClick(item.value)}
-									className="cursor-pointer border-white aria-selected:bg-black-70 hover:bg-gray-20 border-b last:border-0 first:border-t last:rounded-b-xl"
+									className="cursor-pointer border-bg-default aria-selected:bg-text-transparent-40 aria-selected:text-text-default hover:bg-text-transparent-10 border-b last:border-0 first:border-t last:rounded-b-xl"
 								>
 									<button className="w-full text-start px-2 py-1 flex justify-center">
 										{item.label}
