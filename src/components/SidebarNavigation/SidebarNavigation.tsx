@@ -2,41 +2,41 @@ import SidebarDropdown from "../SidebarDropdown/SidebarDropdown";
 
 const sidebarDropdownLinks = [
   {
-    title: 'Contacting Us',
+    title: 'contactingUs',
     id: 'contacting-us',
   },
   {
-    title: 'Section A: Our Collection, Use, and Disclosure of Personal Information',
+    title: 'sectionA',
     id: 'section-a',
     subLinks: [
       {
-        title: "The Categories of Personal Information We Collect",
+        title: "theCategoriesOfPersonalInformationWeCollect",
         id: "the-categories-of-personal-information-we-collect",
       },
       {
-        title: "Where We Collect Personal Information From",
+        title: "whereWeCollectPersonalInformationFrom",
         id: "where-we-collect-personal-information-from",
       },
       {
-        title: "How We Use Your Personal Information",
+        title: "howWeUseYourPersonalInformation",
         id: "how-we-use-your-personal-information",
       },
     ]
   },
   {
-    title: 'Section B: Your Rights and Controls',
+    title: 'sectionB',
     id: 'section-b',
     subLinks: [
       {
-        title: "Your Privacy Rights",
+        title: "yourPrivacyRights",
         id: "your-privacy-rights",
       },
       {
-        title: "Communication and Marketing Preferences",
+        title: "communicationAndMarketingPreferences",
         id: "communication-and-marketing-preferences",
       },
       {
-        title: "Advertising Choices",
+        title: "advertisingChoices",
         id: "advertising-choices",
       },
     ]
