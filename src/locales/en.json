@@ -156,6 +156,11 @@
   "letterToShareholders": "Letter to Shareholders",
   "financialStatements": "Financial Statements",
   "transcript": "Transcript",
-  "allEvents": "All Events"
+  "allEvents": "All Events",
+  "errorPage": {
+    "lostYourWay": "Lost your way?",
+    "description": "Sorry, we can't find that page. You'll find lots to explore on the home page.",
+    "errorCode": "Error code"
+  }
 }
 

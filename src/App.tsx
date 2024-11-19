@@ -18,6 +18,7 @@ import CookieConsentBanner from "./components/CookieConsentBanner/CookieConsentB
 import PromotionalBanner from "./components/PromotionalBanner/PromotionalBanner";
 import Banner from './assets/images/movie-trendy-banner-vector.jpg'
 import { useThemeContext } from "./context/ThemeContext";
+import ErrorPage from "./pages/ErrorPage/ErrorPage";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -92,6 +93,7 @@ function App() {
           <Route path="/faq" element={<FaqPage />} />
           <Route path="/privacy" element={<PrivacyPage />} />
           <Route path="/termsofuse" element={<TermsOfUsePage />} />
+          <Route path="*" element={<ErrorPage />} />
         </Routes>
         <Footer />
         {isBannerVisible && (

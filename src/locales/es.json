@@ -12,5 +12,10 @@
   "contact": "Contacto",
   "support": "Soporte",
   "faq": "Preguntas frecuentes",
-  "questionsContactUs": "¿Preguntas? Contáctanos"
+  "questionsContactUs": "¿Preguntas? Contáctanos",
+  "errorPage": {
+    "lostYourWay": "¿Perdiste el camino?",
+    "description": "Lo sentimos, no podemos encontrar esa página. Encontrarás mucho por explorar en la página de inicio.",
+    "errorCode": "Código de error"
+  }
 }
