@@ -17,7 +17,7 @@ const ErrorPage = () => {
 				</h1>
 				<p className="text-xl my-5">{t("errorPage.description")}</p>
 				<Link to="/">
-					<Button variant="secondary" label={`Netflix ${t('home')}`}></Button>
+					<Button variant="white" label={`Netflix ${t('home')}`}></Button>
 				</Link>
 			</div>
 			<div>
