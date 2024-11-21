@@ -7,24 +7,26 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useQuery } from "react-query";
 import Button from "../../components/Button/Button";
+import { fetchUpcomingMovies } from "../../api/MoviesApi";
+
+interface Film {
+  title: string;
+  poster_path: string;
+}
 
 const HomePage = () => {
   const [page, setPage] = useState(1);
-  const options = {
-    method: 'GET',
-    url: 'https://api.themoviedb.org/3/movie/upcoming',
-    params: {language: 'en-US', page: page.toString()},
-    headers: {
-      accept: 'application/json',
-      Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxZWQ0ODJlNGY4ZGM1MGYwY2JjOTliMTUyMGNlZTk0MCIsIm5iZiI6MTczMTY3OTg1NS4zNzQ4OTg0LCJzdWIiOiI2NzMzODBlN2JlZmQ0OWMwYmI2NTg2Y2MiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.hes-rcLEPWkGVMJM3VZmbTvlCbP0dxvrHQ3hnzzfJJA'
-    }
-  };
+  const options = fetchUpcomingMovies(page)
   
-  const testFetch = async() => {
-    const data = await axios.request(options)
-    return data.data
+  const testFetch = async () => {
+    try {
+      const data = await axios.request(options)
+      return data.data
+    } catch (error) {
+      console.log(error);
+    }
   }
-  const { data } = useQuery(['data', page], testFetch, {refetchOnWindowFocus: false});
+  const { data, isError, isLoading } = useQuery<{ results: Film[] }>(['data', page], testFetch, {refetchOnWindowFocus: false});
 
 
   const getDataFromDb = async () => {
@@ -42,7 +44,11 @@ const HomePage = () => {
     } catch (err) {
       console.log(err);
     }
+    console.log(data)
   }, [])
+
+  if (isLoading) return <p>Loading...</p>;
+  if (isError) return <p>Error fetching data</p>;
 
   return(
     <div className="min-h-[100svh]">
@@ -68,9 +74,9 @@ const HomePage = () => {
         <Button label="previous" onClick={() => setPage((prev) => prev - 1)}></Button>
         <Button label="next" onClick={() => setPage((prev) => prev + 1)}></Button>
         <div className="flex w-full overflow-auto">
-          {data?.results.map((d:any) => (
-            <img key={d.title} className="w-[300px]" src={`https://image.tmdb.org/t/p/w500${d.poster_path}`} alt="aaa" />
-          ))}
+          {data && data?.results.length > 0 ? data.results.map((d) => (
+            <img key={d.title} className="w-[300px]" src={`https://image.tmdb.org/t/p/w500${d.poster_path}`} alt={`${d.title} poster`} />
+          )) : 'No data available'}
         </div>
       </div>
     </div>
