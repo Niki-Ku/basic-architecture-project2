@@ -3,6 +3,9 @@ module.exports = {
   darkMode: 'class',
   theme: {
     extend: {
+      backgroundImage: {
+        'error-image': "url('/src/assets/images/error-bg.png')"
+      },
       colors: {
         red: {
           default: 'rgb(var(--color-red))',

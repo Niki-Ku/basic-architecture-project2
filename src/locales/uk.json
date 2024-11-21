@@ -156,5 +156,10 @@
   "letterToShareholders": "Лист акціонерам",
   "financialStatements": "Фінансова звітність",
   "transcript": "Транскрипт",
-  "allEvents": "Усі події"
+  "allEvents": "Усі події",
+  "errorPage": {
+    "lostYourWay": "Заблукали?",
+    "description": "Вибачте, ми не можемо знайти цю сторінку. Ви знайдете багато цікавого на головній сторінці.",
+    "errorCode": "Код помилки"
+  }
 }

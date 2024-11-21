@@ -12,5 +12,10 @@
   "contact": "Kontakt",
   "support": "Podrška",
   "faq": "Česta pitanja",
-  "questionsContactUs": "Pitanja? Kontaktirajte nas"  
+  "questionsContactUs": "Pitanja? Kontaktirajte nas",
+  "errorPage": {
+    "lostYourWay": "Izgubili ste put?",
+    "description": "Nažalost, ne možemo pronaći tu stranicu. Puno toga možete istražiti na početnoj stranici.",
+    "errorCode": "Šifra pogreške"
+  }
 }
