@@ -11,6 +11,9 @@ import { getFirestore, collection } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
 import { ThemeProvider } from "./context/ThemeContext";
 import "./i18n"
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const queryClient = new QueryClient();
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
@@ -24,7 +27,9 @@ root.render(
 	<ThemeProvider>
 		<Provider store={store}>
 			<Router>
-				<App />
+				<QueryClientProvider client={queryClient}> 
+					<App />
+				</QueryClientProvider>
 			</Router>
 		</Provider>
 	</ThemeProvider>
