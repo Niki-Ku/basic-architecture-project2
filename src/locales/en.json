@@ -161,6 +161,8 @@
     "lostYourWay": "Lost your way?",
     "description": "Sorry, we can't find that page. You'll find lots to explore on the home page.",
     "errorCode": "Error code"
-  }
+  },
+  "movie": "Movie",
+  "addToWatchlist": "Add this movie to your watchlist"
 }
 
