@@ -17,10 +17,15 @@ module.exports = {
           light: 'rgb(var(--color-gray-light))',
           secondary: 'rgb(var(--color-gray-secondary))',
           white: 'rgb(var(--color-gray-white))',
-          20: 'rgba(var(--color-gray-20), 0.2)',
           40: 'rgba(var(--color-gray-40), 0.4)',
+          static: 'rgba(var(--color-gray-static), 0.4)',
         },
         black: {
+          black: {
+            absolute: 'rgb(var(--color-black-total))',
+            10: 'rgba(var(--color-black-total), 0.1)',
+            30: 'rgba(var(--color-black-total), 0.3)',
+          },
           default: 'rgb(var(--color-black))',
           10: 'rgba(var(--color-black), 0.1)',
           30: 'rgba(var(--color-black), 0.3)',
