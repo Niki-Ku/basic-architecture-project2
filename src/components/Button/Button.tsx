@@ -21,14 +21,18 @@ const Button: React.FC<ButtonProps> = ({
     disabled
 }) => {
     const buttonStyles = {
-        primary: `bg-red-default hover:bg-red-secondary text-text-default py-2 px-4 rounded inline-flex justify-center items-center gap-2 ${disabled ? 'bg-gray-default hover:bg-gray-default' : ''}`,
-        secondary: `bg-gray-secondary hover:bg-bg-hover text-text-default py-2 px-4 rounded inline-flex justify-center items-center gap-2 ${disabled ? 'bg-gray-default hover:bg-gray-default' : ''}`,
-        white: `bg-white hover:bg-bg-hover text-black-default py-2 px-4 rounded inline-flex justify-center items-center gap-2 ${disabled ? 'bg-gray-default hover:bg-gray-default' : ''}`,
+        primary: `bg-red-default hover:bg-red-secondary text-text-default py-2 px-4 rounded inline-flex justify-center items-center gap-2`,
+        secondary: `bg-gray-secondary hover:bg-bg-hover text-text-default py-2 px-4 rounded inline-flex justify-center items-center gap-2`,
+        white: `bg-white hover:bg-bg-hover text-black-default py-2 px-4 rounded inline-flex justify-center items-center gap-2`,
     };
     const iconStyles = {
         black: 'w-5 h-5 fill-text-default inline-block',
         white: 'w-5 h-5 fill-text-default inline-block',
     }
+    const styles = {
+        backgroundColor: disabled ? '#d1d5db' : '',
+        color: disabled ? '#222222' : '',
+      };
     let Icon: any;
     icon ? Icon = buttonIcons[icon] : Icon = null;
     return (
@@ -37,6 +41,7 @@ const Button: React.FC<ButtonProps> = ({
             className={buttonStyles[variant]}
             onClick={onClick}
             disabled={disabled}
+            style={styles}
         >   
             {icon && <Icon className={iconStyles[iconVariant]} />}
             {label}
