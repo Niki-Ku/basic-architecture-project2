@@ -4,7 +4,8 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        'error-image': "url('/src/assets/images/error-bg.png')"
+        'error-image': "url('/src/assets/images/error-bg.png')",
+        'posters': "url('/src/assets/images/sign-in.jpg')"
       },
       colors: {
         red: {
