@@ -5,50 +5,47 @@ import { ReactComponent as PasswordShow } from "../../assets/icons/passwordShow.
 import { ReactComponent as PasswordHide } from "../../assets/icons/passwordHide.svg";
 import Button from "../../components/Button/Button";
 import { Link, useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import { registrationSchema } from "../../schemas/yupSchemas";
+
+interface IRegistration {
+	email: string;
+	password: string;
+	passwordRepeat: string;
+	termsAndService: boolean;
+}
 
 const SignUpPage = () => {
 	const { t } = useTranslation();
 	const [passwordType, setPasswordType] = useState<string>("password");
-	const [emailError, setEmailError] = useState<string>("");
-	const [passwordError, setPasswordError] = useState<string>("");
-	const [passwordRepeatError, setPasswordRepeatError] = useState<string>("");
-	const [termsService, setTermsService] = useState<boolean>(false);
 	const [loading, setLoading] = useState<boolean>(false);
-	const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-	const passwordRegex =
-		/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/;
 	const navigate = useNavigate();
 
 	const showPassClick = () => {
 		setPasswordType((prev) => (prev === "password" ? "text" : "password"));
 	};
 
-	const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
-		const formData = new FormData(e.currentTarget);
-		const email = formData.get("email") as string;
-		const password = formData.get("password") as string;
-		const passwordRepeat = formData.get("repeat") as string;
-
-		const emailIsValid = emailRegex.test(email);
-		const passwordIsValid = passwordRegex.test(password);
-		const passwordsMatch = password === passwordRepeat;
-
-		setEmailError(emailIsValid ? "" : "email-error");
-		setPasswordError(passwordIsValid ? "" : "password-error");
-		setPasswordRepeatError(passwordsMatch ? "" : "password-repeat-error");
-
-		if (emailIsValid && passwordIsValid && passwordsMatch) {
-			try {
-				setLoading(true);
-				await doCreateUserWithEmailAndPassword(email, password);
-				setLoading(false);
-				navigate("/");
-			} catch (error) {
-				console.log(error);
-			}
+	const onSubmit = async () => {
+		try {
+			setLoading(true);
+			await doCreateUserWithEmailAndPassword(values.email, values.password);
+			setLoading(false);
+			navigate("/");
+		} catch (error) {
+			console.log(error);
 		}
-  };
+	}
+
+	const {values, handleBlur, isSubmitting, errors, touched, handleChange, handleSubmit} = useFormik<IRegistration>({
+		initialValues: {
+			email: "",
+			password: "",
+			passwordRepeat: "",
+			termsAndService: false
+		},
+		onSubmit,
+		validationSchema: registrationSchema
+	})
 
 	return (
 		<div className="relative">
@@ -62,18 +59,21 @@ const SignUpPage = () => {
 				{loading ? (
 					<div>Loading</div>
 				) : (
-					<form onSubmit={onSubmit} className="flex flex-col gap-5 mt-6">
+					<form onSubmit={handleSubmit} className="flex flex-col gap-5 mt-6">
 						<div>
 							<input
 								type="text"
+								value={values.email}	
+								onChange={handleChange}
+								onBlur={handleBlur}
 								placeholder={t("email")}
 								name="email"
 								className={`w-full h-10 border ${
-									emailError ? "border-red-default" : "border-bg-hover"
+									errors.email && touched.email ? "border-red-default" : "border-bg-hover"
 								} px-4 rounded bg-transparent`}
 							/>
 							<div className="text-red-default font-light text-sm">
-								{emailError && <span>{t(emailError)}</span>}
+								{errors.email && touched.email && <span>{t(errors.email)}</span>}
 							</div>
 						</div>
 						<div className="relative">
@@ -95,34 +95,41 @@ const SignUpPage = () => {
 							</div>
 							<input
 								type={passwordType}
+								value={values.password}	
+								onChange={handleChange}
+								onBlur={handleBlur}
 								placeholder={t("password")}
 								name="password"
-								className={`w-full h-10 border ${
-									passwordError ? "border-red-default" : "border-bg-hover"
-								} px-4 rounded bg-transparent`}
+								className={`w-full h-10 border px-4 rounded bg-transparent ${
+									errors.password && touched.password ? "border-red-default" : "border-bg-hover"
+								}`}
 							/>
 							<div className="text-red-default font-light text-sm">
-								{passwordError && <span>{t(passwordError)}</span>}
+								{errors.password && touched.password && <span>{t(errors.password)}</span>}
 							</div>
 						</div>
 						<div>
 							<input
 								type={passwordType}
+								value={values.passwordRepeat}	
+								onChange={handleChange}
+								onBlur={handleBlur}
 								placeholder={t("repeat-password")}
-								name="repeat"
+								name="passwordRepeat"
 								className={`w-full h-10 border ${
-									passwordRepeatError ? "border-red-default" : "border-bg-hover"
+									errors.passwordRepeat && touched.passwordRepeat ? "border-red-default" : "border-bg-hover"
 								} px-4 rounded bg-transparent`}
 							/>
 							<div className="text-red-default font-light text-sm">
-								{passwordRepeatError && <span>{t(passwordRepeatError)}</span>}
+								{errors.passwordRepeat && touched.passwordRepeat && <span>{t(errors.passwordRepeat)}</span>}
 							</div>
 						</div>
 						<div className="text-sm flex">
 							<input
-								checked={termsService}
-								onChange={() => setTermsService((prev) => !prev)}
-								name="terms and service"
+								checked={values.termsAndService}
+								onChange={handleChange}
+								onBlur={handleBlur}
+								name="termsAndService"
 								type="checkbox"
 								id="terms-and-service"
 								className="self-start mt-[5px] mr-2"
@@ -152,7 +159,7 @@ const SignUpPage = () => {
 						<Button
 							label={t("register")}
 							type="submit"
-							disabled={!termsService}
+							disabled={!values.termsAndService || isSubmitting}
 						/>
 					</form>
 				)}

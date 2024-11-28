@@ -2,7 +2,7 @@ import { createContext, ReactNode, useContext, useEffect, useState } from "react
 import { auth } from "../index";
 import { onAuthStateChanged } from "firebase/auth";
 
-const AuthContext = createContext<any>(undefined);  //temporary any type user, change later
+const AuthContext = createContext<unknown>(undefined);  //temporary any type user, change later
 
 export const useAuth = () => {
   return useContext(AuthContext);
