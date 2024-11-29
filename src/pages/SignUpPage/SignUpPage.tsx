@@ -51,118 +51,120 @@ const SignUpPage = () => {
 		<div className="relative">
 			<div
 				className="
-        w-full h-[calc(100svh-70px)] md:h-[calc(100svh-78px)]
+        w-full h-[calc(100svh-70px)] md:h-[calc(100svh-78px)] min-h-[550px]
         bg-posters absolute"
 			></div>
-			<div className="w-full h-[calc(100svh-70px)] sm:rounded sm:h-[500px] sm:mt-10 sm:w-[450px] mx-auto px-[5%] bg-black-default sm:bg-black-70 z-10 relative">
-				<h1 className="text-2xl sm:pt-10 sm:text-4xl text-white">{t("sign-up")}</h1>
-				{loading ? (
-					<div>Loading</div>
-				) : (
-					<form onSubmit={handleSubmit} className="flex flex-col gap-5 mt-6">
-						<div>
-							<input
-								type="text"
-								value={values.email}	
-								onChange={handleChange}
-								onBlur={handleBlur}
-								placeholder={t("email")}
-								name="email"
-								className={`w-full h-10 border ${
-									errors.email && touched.email ? "border-red-default" : "border-bg-hover"
-								} px-4 rounded bg-transparent`}
-							/>
-							<div className="text-red-default font-light text-sm">
-								{errors.email && touched.email && <span>{t(errors.email)}</span>}
+			<div className="w-full h-[calc(100svh-70px)] min-h-[550px]">
+				<div className="w-full h-[calc(100svh-70px)] sm:rounded sm:h-[500px] sm:mt-10 sm:w-[450px] mx-auto px-[5%] bg-black-default sm:bg-black-70 z-10 relative">
+					<h1 className="text-2xl sm:pt-10 sm:text-4xl text-white">{t("sign-up")}</h1>
+					{loading ? (
+						<div>Loading</div>
+					) : (
+						<form onSubmit={handleSubmit} className="flex flex-col gap-5 mt-6">
+							<div>
+								<input
+									type="text"
+									value={values.email}	
+									onChange={handleChange}
+									onBlur={handleBlur}
+									placeholder={t("email")}
+									name="email"
+									className={`w-full h-10 border ${
+										errors.email && touched.email ? "border-red-default" : "border-bg-hover"
+									} px-4 rounded bg-transparent`}
+								/>
+								<div className="text-red-default font-light text-sm">
+									{errors.email && touched.email && <span>{t(errors.email)}</span>}
+								</div>
 							</div>
-						</div>
-						<div className="relative">
-							<div
-								onClick={showPassClick}
-								className="absolute top-0 right-0 h-10 w-10  flex justify-center items-center"
-							>
-								<button
-									type="button"
-									aria-label={t("show-hide-password")}
-									className="hover:bg-gray-secondary p-1 rounded-full"
+							<div className="relative">
+								<div
+									onClick={showPassClick}
+									className="absolute top-0 right-0 h-10 w-10  flex justify-center items-center"
 								>
-									{passwordType === "password" ? (
-										<PasswordShow className="w-5 h-4 stroke-white" />
-									) : (
-										<PasswordHide className="w-5 h-4 stroke-white" />
-									)}
-								</button>
+									<button
+										type="button"
+										aria-label={t("show-hide-password")}
+										className="hover:bg-gray-secondary p-1 rounded-full"
+									>
+										{passwordType === "password" ? (
+											<PasswordShow className="w-5 h-4 stroke-white" />
+										) : (
+											<PasswordHide className="w-5 h-4 stroke-white" />
+										)}
+									</button>
+								</div>
+								<input
+									type={passwordType}
+									value={values.password}	
+									onChange={handleChange}
+									onBlur={handleBlur}
+									placeholder={t("password")}
+									name="password"
+									className={`w-full h-10 border px-4 rounded bg-transparent ${
+										errors.password && touched.password ? "border-red-default" : "border-bg-hover"
+									}`}
+								/>
+								<div className="text-red-default font-light text-sm">
+									{errors.password && touched.password && <span>{t(errors.password)}</span>}
+								</div>
 							</div>
-							<input
-								type={passwordType}
-								value={values.password}	
-								onChange={handleChange}
-								onBlur={handleBlur}
-								placeholder={t("password")}
-								name="password"
-								className={`w-full h-10 border px-4 rounded bg-transparent ${
-									errors.password && touched.password ? "border-red-default" : "border-bg-hover"
-								}`}
-							/>
-							<div className="text-red-default font-light text-sm">
-								{errors.password && touched.password && <span>{t(errors.password)}</span>}
+							<div>
+								<input
+									type={passwordType}
+									value={values.passwordRepeat}	
+									onChange={handleChange}
+									onBlur={handleBlur}
+									placeholder={t("repeat-password")}
+									name="passwordRepeat"
+									className={`w-full h-10 border ${
+										errors.passwordRepeat && touched.passwordRepeat ? "border-red-default" : "border-bg-hover"
+									} px-4 rounded bg-transparent`}
+								/>
+								<div className="text-red-default font-light text-sm">
+									{errors.passwordRepeat && touched.passwordRepeat && <span>{t(errors.passwordRepeat)}</span>}
+								</div>
 							</div>
-						</div>
-						<div>
-							<input
-								type={passwordType}
-								value={values.passwordRepeat}	
-								onChange={handleChange}
-								onBlur={handleBlur}
-								placeholder={t("repeat-password")}
-								name="passwordRepeat"
-								className={`w-full h-10 border ${
-									errors.passwordRepeat && touched.passwordRepeat ? "border-red-default" : "border-bg-hover"
-								} px-4 rounded bg-transparent`}
-							/>
-							<div className="text-red-default font-light text-sm">
-								{errors.passwordRepeat && touched.passwordRepeat && <span>{t(errors.passwordRepeat)}</span>}
+							<div className="text-sm flex">
+								<input
+									checked={values.termsAndService}
+									onChange={handleChange}
+									onBlur={handleBlur}
+									name="termsAndService"
+									type="checkbox"
+									id="terms-and-service"
+									className="self-start mt-[5px] mr-2"
+								/>
+								<label className="text-white" htmlFor="terms-and-service">
+									{t("i-agree-to")}
+									{" "}
+									<Link
+										to="/termsofuse"
+										target="blank"
+										className="text-blue-600 hover:underline"
+									>
+										{t("termsOfUse")}
+									</Link>
+									{" "}
+									{t("and")}
+									{" "}
+									<Link
+										to="/privacy"
+										target="blank"
+										className="text-blue-600 hover:underline"
+									>
+										{t("privacy-policy")}
+									</Link>
+								</label>
 							</div>
-						</div>
-						<div className="text-sm flex">
-							<input
-								checked={values.termsAndService}
-								onChange={handleChange}
-								onBlur={handleBlur}
-								name="termsAndService"
-								type="checkbox"
-								id="terms-and-service"
-								className="self-start mt-[5px] mr-2"
+							<Button
+								label={t("register")}
+								type="submit"
+								disabled={!values.termsAndService || isSubmitting}
 							/>
-							<label className="text-white" htmlFor="terms-and-service">
-                {t("i-agree-to")}
-                {" "}
-								<Link
-									to="/termsofuse"
-									target="blank"
-									className="text-blue-600 hover:underline"
-								>
-									{t("termsOfUse")}
-                </Link>
-                {" "}
-                {t("and")}
-                {" "}
-								<Link
-									to="/privacy"
-									target="blank"
-									className="text-blue-600 hover:underline"
-								>
-									{t("privacy-policy")}
-								</Link>
-							</label>
-						</div>
-						<Button
-							label={t("register")}
-							type="submit"
-							disabled={!values.termsAndService || isSubmitting}
-						/>
-					</form>
-				)}
+						</form>
+					)}
+				</div>
 			</div>
 		</div>
 	);
