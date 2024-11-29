@@ -19,6 +19,7 @@ import PromotionalBanner from "./components/PromotionalBanner/PromotionalBanner"
 import Banner from './assets/images/movie-trendy-banner-vector.jpg'
 import { useThemeContext } from "./context/ThemeContext";
 import ErrorPage from "./pages/ErrorPage/ErrorPage";
+import SignUpPage from "./pages/SignUpPage/SignUpPage";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -94,6 +95,7 @@ function App() {
           <Route path="/privacy" element={<PrivacyPage />} />
           <Route path="/termsofuse" element={<TermsOfUsePage />} />
           <Route path="*" element={<ErrorPage />} />
+          <Route path="/sign-up" element={<SignUpPage />} />
         </Routes>
         <Footer />
         {isBannerVisible && (

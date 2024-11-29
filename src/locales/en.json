@@ -162,6 +162,18 @@
     "description": "Sorry, we can't find that page. You'll find lots to explore on the home page.",
     "errorCode": "Error code"
   },
+  "password-error": "Password must be 8-16 characters long, include at least one uppercase letter, one lowercase letter, one number, and one special character.",
+  "email-error": "Please enter a valid email address containing '@' and a domain (e.g., example@domain.com).",
+  "password-repeat-error": "Passwords do not match.",
+  "sign-up": "Sign up",
+  "password": "Password",
+  "repeat-password": "Password repeat",
+  "register": "Register",
+  "show-hide-password": "Show/Hide Password",
+  "i-agree-to": "I agree to the",
+  "privacy-policy": "Privacy Policy",
+  "and": "and",
+  "required": "Required",
   "movie": "Movie",
   "addToWatchlist": "Add this movie to your watchlist"
 }
