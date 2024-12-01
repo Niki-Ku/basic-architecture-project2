@@ -7,7 +7,6 @@ import { RootState } from "./store/index";
 import { Route, Routes } from "react-router-dom";
 import SearchPage from "./pages/SearchPage/SearchPage";
 import HomePage from "./pages/HomePage/HomePage";
-import LoginPage from "./pages/LoginPage/LoginPage";
 import UserPage from "./pages/UserPage/UserPage";
 import FaqPage from "./pages/FaqPage/FaqPage";
 import Header from "./components/Header/Header";
@@ -20,6 +19,8 @@ import Banner from './assets/images/movie-trendy-banner-vector.jpg'
 import { useThemeContext } from "./context/ThemeContext";
 import ErrorPage from "./pages/ErrorPage/ErrorPage";
 import SignUpPage from "./pages/SignUpPage/SignUpPage";
+import SignInPage from "./pages/SignInPage/SignInPage";
+import PrivateRoute from "./context/PrivateRoute";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -89,13 +90,15 @@ function App() {
         <Routes >
           <Route path="/" element={<HomePage />} />
           <Route path="/search" element={<SearchPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/user" element={<UserPage />} />
+          <Route path="/login" element={<SignInPage />} />
           <Route path="/faq" element={<FaqPage />} />
           <Route path="/privacy" element={<PrivacyPage />} />
           <Route path="/termsofuse" element={<TermsOfUsePage />} />
           <Route path="*" element={<ErrorPage />} />
           <Route path="/sign-up" element={<SignUpPage />} />
+          <Route element={<PrivateRoute />}>
+            <Route path="/user" element={<UserPage />} />
+          </Route>
         </Routes>
         <Footer />
         {isBannerVisible && (

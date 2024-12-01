@@ -1,8 +1,14 @@
 export const links = [
   { name: 'home', path: '/' },
   { name: 'search', path: '/search' },
-  { name: 'login', path: '/login' },
   { name: 'user', path: '/user' },
+];
+
+export const unauthorizedLinks = [
+  { name: 'home', path: '/' },
+  { name: 'search', path: '/search' },
+  { name: 'login', path: '/login' },
+  { name: 'register', path: '/sign-up'}
 ];
 
 export const footerLinks = [
