@@ -1,6 +1,4 @@
 import { Link } from "react-router-dom";
-import Banner from '../../assets/images/movie-trendy-banner-vector.jpg'
-import PromotionalBanner from "../../components/PromotionalBanner/PromotionalBanner";
 import { colRef } from "../..";
 import { getDocs } from "firebase/firestore"
 import { useEffect, useState } from "react";
@@ -8,7 +6,6 @@ import axios from "axios";
 import { useQuery } from "react-query";
 import Button from "../../components/Button/Button";
 import { fetchGenres, fetchUpcomingMovies } from "../../api/MoviesApi";
-import FilmCard from "../../components/FilmCard/FilmCard";
 import { useTranslation } from "react-i18next";
 import HorizontalScroller from "../../components/HorizontalScroller/HorizontalScroller";
 
@@ -100,14 +97,9 @@ const HomePage = () => {
         <br />
         <Button label="previous" onClick={() => setPage((prev) => prev - 1)}></Button>
         <Button label="next" onClick={() => setPage((prev) => prev + 1)}></Button>
-        {/* <div className="w-full overflow-x-auto flex gap-2">
-          {data && genersData && data?.results.length > 0 ? data.results.map((d) => (
-            <FilmCard key={d.title} cardData={d} genres={genersData.genres} link="#" inWatchlist={true} onBookmarkClick={() => {}} />
-          )) : 'No data available'}
-        </div> */}
         {
           data && genersData && data?.results.length > 0 && 
-            <HorizontalScroller films={data.results} genres={genersData.genres} onBookmarkClick={() => console.log('temporary nothing')} />
+            <HorizontalScroller link="/" heading="upcoming" films={data.results} genres={genersData.genres} onBookmarkClick={() => console.log('temporary nothing')} />
         }
       </div>
     </div>

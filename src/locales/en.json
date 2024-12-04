@@ -175,6 +175,9 @@
   "and": "and",
   "required": "Required",
   "movie": "Movie",
-  "addToWatchlist": "Add this movie to your watchlist"
+  "addToWatchlist": "Add this movie to your watchlist",
+  "slide-left": "Slide Left",
+  "slide-right": "Slide Right",
+  "upcoming": "Upcoming"
 }
 
