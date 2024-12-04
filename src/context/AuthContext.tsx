@@ -1,24 +1,34 @@
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 import { auth } from "../index";
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, User } from "firebase/auth";
 
-const AuthContext = createContext<unknown>(undefined);  //temporary any type user, change later
-
-export const useAuth = () => {
-  return useContext(AuthContext);
+interface IAuthContextType {
+  currentUser: User | null;
+  userLoggedIn: boolean;
+  loading: boolean;
 }
 
+const AuthContext = createContext<IAuthContextType | undefined>(undefined);
+
+export const useAuth = (): IAuthContextType => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth must be used within an AuthContextProvider");
+  }
+  return context;
+};
+
 export const AuthContextProvider = ({ children } : { children: ReactNode }) => {
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [userLoggedIn, setUserLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => { 
+  useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, initializeUser);
     return unsubscribe;
   }, [])
 
-  const initializeUser = async (user: any) => {    //temporary any type user, change later
+  const initializeUser = async (user: User | null) => {  
     if (user) {
       setCurrentUser({ ...user });
       setUserLoggedIn(true);
