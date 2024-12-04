@@ -30,7 +30,8 @@ const FilmCard: React.FC<movieCardProps> = ({
 }) => {
   const { t } = useTranslation();
 	return (
-		<div className="w-[200px] h-300px flex-shrink-0">
+		// <div className="w-[200px] h-300px flex-shrink-0">
+		<div className="snap-start">
 			<Link to={link}>
 				<div className="group overflow-hidden rounded-2xl relative">
 					<div className="absolute w-full h-full bg-black-black-30 -top-full group-hover:top-0 right-0">
@@ -45,7 +46,8 @@ const FilmCard: React.FC<movieCardProps> = ({
 						</button>
 					</div>
 					<img
-						className="w-[200px] h-[300px] ablsoute object-cover"
+						// className="w-[200px] h-[300px] ablsoute object-cover"
+						className="w-full ablsoute object-cover"
 						src={`https://image.tmdb.org/t/p/w500${cardData.poster_path}`}
 						alt={cardData.title + t('movie')}
 					/>
