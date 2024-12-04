@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, GoogleAuthProvider, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, updatePassword } from "firebase/auth";
+import { setPersistence, createUserWithEmailAndPassword, GoogleAuthProvider, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, updatePassword, Persistence } from "firebase/auth";
 import { auth } from "../index";
 
 export const doCreateUserWithEmailAndPassword = async (email: string, password:string) => {
@@ -32,4 +32,8 @@ export const doSendEmailVerification = () => {
   return sendEmailVerification(auth.currentUser!, {
     url: `${window.location.origin}/home`
   })
+}
+
+export const doSetPersistence = async (persistence: Persistence) => {
+  await setPersistence(auth, persistence);
 }

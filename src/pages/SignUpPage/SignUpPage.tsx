@@ -1,12 +1,13 @@
 import { useTranslation } from "react-i18next";
 import { doCreateUserWithEmailAndPassword } from "../../services/firebaseAuth";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ReactComponent as PasswordShow } from "../../assets/icons/passwordShow.svg";
 import { ReactComponent as PasswordHide } from "../../assets/icons/passwordHide.svg";
 import Button from "../../components/Button/Button";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { registrationSchema } from "../../schemas/yupSchemas";
+import { useAuth } from "../../context/AuthContext";
 
 interface IRegistration {
 	email: string;
@@ -20,6 +21,12 @@ const SignUpPage = () => {
 	const [passwordType, setPasswordType] = useState<string>("password");
 	const [loading, setLoading] = useState<boolean>(false);
 	const navigate = useNavigate();
+
+	const { userLoggedIn } = useAuth();
+
+	useEffect(() => {
+		userLoggedIn && navigate("/");
+	}, []);
 
 	const showPassClick = () => {
 		setPasswordType((prev) => (prev === "password" ? "text" : "password"));
@@ -68,6 +75,7 @@ const SignUpPage = () => {
 									onChange={handleChange}
 									onBlur={handleBlur}
 									placeholder={t("email")}
+									aria-label={t("email")}
 									name="email"
 									className={`w-full h-10 border ${
 										errors.email && touched.email ? "border-red-default" : "border-bg-hover"
@@ -100,6 +108,7 @@ const SignUpPage = () => {
 									onChange={handleChange}
 									onBlur={handleBlur}
 									placeholder={t("password")}
+									aria-label={t("password")}
 									name="password"
 									className={`w-full h-10 border px-4 rounded bg-transparent ${
 										errors.password && touched.password ? "border-red-default" : "border-bg-hover"
@@ -116,6 +125,7 @@ const SignUpPage = () => {
 									onChange={handleChange}
 									onBlur={handleBlur}
 									placeholder={t("repeat-password")}
+									aria-label={t("repeat-password")}
 									name="passwordRepeat"
 									className={`w-full h-10 border ${
 										errors.passwordRepeat && touched.passwordRepeat ? "border-red-default" : "border-bg-hover"

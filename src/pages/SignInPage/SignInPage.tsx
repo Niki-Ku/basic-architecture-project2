@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
-import { doSignInWithEmailAndPassword } from "../../services/firebaseAuth";
-import { useEffect, useState } from "react";
+import { doSignInWithEmailAndPassword, doSetPersistence } from "../../services/firebaseAuth";
+import { useCallback, useEffect, useState } from "react";
 import { ReactComponent as PasswordShow } from "../../assets/icons/passwordShow.svg";
 import { ReactComponent as PasswordHide } from "../../assets/icons/passwordHide.svg";
 import Button from "../../components/Button/Button";
@@ -9,63 +9,84 @@ import { useFormik } from "formik";
 import { signInSchema } from "../../schemas/yupSchemas";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useAuth } from "../../context/AuthContext";
+import {
+	browserLocalPersistence,
+	browserSessionPersistence,
+} from "firebase/auth";
+import useDebounce from "../../hooks/useDebounce";
 
 interface ISignIn {
 	email: string;
 	password: string;
+	rememberMe: boolean;
 }
 
 const SignInPage = () => {
 	const { t } = useTranslation();
 	const [passwordType, setPasswordType] = useState<string>("password");
-	const [passwordError, setPasswordError] = useState("");
+	const [passwordState, setPasswordState] = useState({
+		error: "",
+		errorCount: 0, 
+	})
 	const [loading, setLoading] = useState<boolean>(false);
-  const [passwordErrorCount, setPasswordErrorCount] = useState<number>(0);
-  const [captchaValue, setCaptchaValue] = useState<string | null>('');
+	const [captchaValue, setCaptchaValue] = useState<string | null>("");
 	const navigate = useNavigate();
-  const siteKey = process.env.REACT_APP_RECAPTCHA_SITE_KEY;
-  const { userLoggedIn } = useAuth();
-  
-  useEffect(() => {
-    userLoggedIn && navigate('/')
-  }, [])
+	const siteKey = process.env.REACT_APP_RECAPTCHA_SITE_KEY;
+	const { userLoggedIn } = useAuth();
+
+	useEffect(() => {
+		userLoggedIn && navigate("/");
+	}, []);
 
 	const showPassClick = () => {
 		setPasswordType((prev) => (prev === "password" ? "text" : "password"));
 	};
 
+	const handleError = (errorCode: string) => {
+		if (errorCode === "auth/invalid-credential") {
+			setPasswordState((prev) => {
+				return {
+					...prev,
+					error: "invalid-credential",
+					errorCount: prev.errorCount + 1
+				}
+			})
+		} else {
+			setPasswordState((prev) => ({...prev, error: errorCode}))
+			console.log(errorCode);
+		}
+	}
+
 	const onSubmit = async () => {
+		const persistence = values.rememberMe
+		? browserLocalPersistence
+		: browserSessionPersistence;
 		try {
 			setLoading(true);
+			await doSetPersistence(persistence);
 			await doSignInWithEmailAndPassword(values.email, values.password);
 			navigate("/");
 		} catch (error: any) {
-      if (error.code === "auth/invalid-credential") {
-				setPasswordError("invalid-credential");
-				setPasswordErrorCount((prev) => prev + 1);
-			} else {
-        setPasswordError(error.code);
-				console.log(error.code);
-			}
-    } finally {
+			handleError(error.code)
+		} finally {
 			setLoading(false);
-    }
+		}
 	};
 
-	const {
-		values,
-		handleBlur,
-		isSubmitting,
-		handleChange,
-		handleSubmit,
-	} = useFormik<ISignIn>({
-		initialValues: {
-			email: "",
-			password: "",
-		},
-		onSubmit,
-		validationSchema: signInSchema,
-	});
+	const handleCaptchaChange = useCallback(
+		useDebounce((value:string) => setCaptchaValue(value), 300), []
+	)
+
+	const { values, handleBlur, isSubmitting, handleChange, handleSubmit } =
+		useFormik<ISignIn>({
+			initialValues: {
+				email: "",
+				password: "",
+				rememberMe: false,
+			},
+			onSubmit,
+			validationSchema: signInSchema,
+		});
 
 	return (
 		<div className="relative">
@@ -80,7 +101,7 @@ const SignInPage = () => {
 						{t("sign-in")}
 					</h1>
 					{loading ? (
-						<div>Loading</div>
+						<div>{t('loading')}</div>
 					) : (
 						<form onSubmit={handleSubmit} className="flex flex-col gap-5 mt-6">
 							<div>
@@ -90,6 +111,7 @@ const SignInPage = () => {
 									onChange={handleChange}
 									onBlur={handleBlur}
 									placeholder={t("email")}
+									aria-label={t("email")}
 									name="email"
 									className="w-full h-10 border px-4 rounded bg-transparent border-bg-hover"
 								/>
@@ -117,23 +139,40 @@ const SignInPage = () => {
 									onChange={handleChange}
 									onBlur={handleBlur}
 									placeholder={t("password")}
+									aria-label={t("password")}
 									name="password"
 									className="w-full h-10 border px-4 rounded bg-transparent border-bg-hover"
 								/>
 								<div className="text-red-default font-light text-sm">
-									{passwordError && <span>{t(passwordError)}</span>}
+									{passwordState.error && <span>{t(passwordState.error)}</span>}
 								</div>
 							</div>
-							{passwordErrorCount > 2 && (
-								<div>
-									<ReCAPTCHA sitekey={`${siteKey}`} onChange={(val) => setCaptchaValue(val)} />
-								</div>
-							)}
 							<Button
 								label={t("sign-in")}
 								type="submit"
-								disabled={isSubmitting || (passwordErrorCount > 2 && !captchaValue)}
+								disabled={
+									isSubmitting || (passwordState.errorCount > 2 && !captchaValue)
+								}
 							/>
+							<div className="flex items-center gap-2">
+								<input
+									type="checkbox"
+									checked={values.rememberMe}
+									name="rememberMe"
+									onChange={handleChange}
+									id="remember"
+									className="h-5 w-5 p-5"
+								/>
+								<label htmlFor="remember">{t('remember-me')}</label>
+							</div>
+							{passwordState.errorCount > 2 && (
+								<div>
+									<ReCAPTCHA
+										sitekey={`${siteKey}`}
+										onChange={(val) => handleCaptchaChange}
+									/>
+								</div>
+							)}
 						</form>
 					)}
 				</div>

@@ -178,7 +178,9 @@
   "addToWatchlist": "Add this movie to your watchlist",
   "sign-in": "Sign in",
   "invalid-credential": "Invalid credentials",
-  "sign-out": "Log Out"
+  "sign-out": "Log Out",
+  "loading": "Loading",
+  "remember-me": "Remember me"
 
 }
 
