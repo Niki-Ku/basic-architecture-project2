@@ -1,12 +1,13 @@
 import { useTranslation } from "react-i18next";
 import { doCreateUserWithEmailAndPassword } from "../../services/firebaseAuth";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ReactComponent as PasswordShow } from "../../assets/icons/passwordShow.svg";
 import { ReactComponent as PasswordHide } from "../../assets/icons/passwordHide.svg";
 import Button from "../../components/Button/Button";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { registrationSchema } from "../../schemas/yupSchemas";
+import { useAuth } from "../../context/AuthContext";
 
 interface IRegistration {
 	email: string;
@@ -20,6 +21,12 @@ const SignUpPage = () => {
 	const [passwordType, setPasswordType] = useState<string>("password");
 	const [loading, setLoading] = useState<boolean>(false);
 	const navigate = useNavigate();
+
+	const { userLoggedIn } = useAuth();
+
+	useEffect(() => {
+		userLoggedIn && navigate("/");
+	}, []);
 
 	const showPassClick = () => {
 		setPasswordType((prev) => (prev === "password" ? "text" : "password"));
@@ -51,14 +58,14 @@ const SignUpPage = () => {
 		<div className="relative">
 			<div
 				className="
-        w-full h-[calc(100svh-70px)] md:h-[calc(100svh-78px)]
+        w-full h-[calc(100svh-70px)] md:h-[calc(100svh-78px)] min-h-[550px]
         bg-posters absolute"
 			></div>
-			<div className="w-full h-[calc(100svh-70px)] md:h-[calc(100svh-78px)]">
+			<div className="w-full h-[calc(100svh-70px)] min-h-[550px]">
 				<div className="w-full h-[calc(100svh-70px)] sm:rounded sm:h-[500px] sm:mt-10 sm:w-[450px] mx-auto px-[5%] bg-black-default sm:bg-black-70 z-10 relative">
 					<h1 className="text-2xl sm:pt-10 sm:text-4xl text-white">{t("sign-up")}</h1>
 					{loading ? (
-						<div>Loadingg</div>
+						<div>Loading</div>
 					) : (
 						<form onSubmit={handleSubmit} className="flex flex-col gap-5 mt-6">
 							<div>
@@ -68,6 +75,7 @@ const SignUpPage = () => {
 									onChange={handleChange}
 									onBlur={handleBlur}
 									placeholder={t("email")}
+									aria-label={t("email")}
 									name="email"
 									className={`w-full h-10 border ${
 										errors.email && touched.email ? "border-red-default" : "border-bg-hover"
@@ -100,6 +108,7 @@ const SignUpPage = () => {
 									onChange={handleChange}
 									onBlur={handleBlur}
 									placeholder={t("password")}
+									aria-label={t("password")}
 									name="password"
 									className={`w-full h-10 border px-4 rounded bg-transparent ${
 										errors.password && touched.password ? "border-red-default" : "border-bg-hover"
@@ -116,6 +125,7 @@ const SignUpPage = () => {
 									onChange={handleChange}
 									onBlur={handleBlur}
 									placeholder={t("repeat-password")}
+									aria-label={t("repeat-password")}
 									name="passwordRepeat"
 									className={`w-full h-10 border ${
 										errors.passwordRepeat && touched.passwordRepeat ? "border-red-default" : "border-bg-hover"

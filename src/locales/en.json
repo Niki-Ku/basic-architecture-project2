@@ -178,6 +178,12 @@
   "addToWatchlist": "Add this movie to your watchlist",
   "slide-left": "Slide Left",
   "slide-right": "Slide Right",
-  "upcoming": "Upcoming"
+  "upcoming": "Upcoming",
+  "sign-in": "Sign in",
+  "invalid-credential": "Invalid credentials",
+  "sign-out": "Log Out",
+  "loading": "Loading",
+  "remember-me": "Remember me"
+
 }
 

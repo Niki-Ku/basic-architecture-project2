@@ -13,6 +13,7 @@ import { initializeApp } from "firebase/app";
 import { ThemeProvider } from "./context/ThemeContext";
 import "./i18n"
 import { QueryClient, QueryClientProvider } from "react-query";
+import { AuthContextProvider } from "./context/AuthContext";
 
 const queryClient = new QueryClient();
 
@@ -30,9 +31,11 @@ root.render(
 	<ThemeProvider>
 		<Provider store={store}>
 			<Router>
-				<QueryClientProvider client={queryClient}> 
-					<App />
-				</QueryClientProvider>
+				<AuthContextProvider>
+					<QueryClientProvider client={queryClient}> 
+						<App />
+					</QueryClientProvider>
+				</AuthContextProvider>
 			</Router>
 		</Provider>
 	</ThemeProvider>
