@@ -21,6 +21,7 @@ import ErrorPage from "./pages/ErrorPage/ErrorPage";
 import SignUpPage from "./pages/SignUpPage/SignUpPage";
 import SignInPage from "./pages/SignInPage/SignInPage";
 import PrivateRoute from "./context/PrivateRoute";
+import ResetPasswordPage from "./pages/ResetPasswordPage/ResetPasswordPage";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -91,6 +92,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/search" element={<SearchPage />} />
           <Route path="/login" element={<SignInPage />} />
+          <Route path="/reset" element={<ResetPasswordPage />} />
           <Route path="/faq" element={<FaqPage />} />
           <Route path="/privacy" element={<PrivacyPage />} />
           <Route path="/termsofuse" element={<TermsOfUsePage />} />

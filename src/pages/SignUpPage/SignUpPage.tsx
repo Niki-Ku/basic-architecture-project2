@@ -65,7 +65,7 @@ const SignUpPage = () => {
 				<div className="w-full h-[calc(100svh-70px)] sm:rounded sm:h-[500px] sm:mt-10 sm:w-[450px] mx-auto px-[5%] bg-black-default sm:bg-black-70 z-10 relative">
 					<h1 className="text-2xl sm:pt-10 sm:text-4xl text-white">{t("sign-up")}</h1>
 					{loading ? (
-						<div>Loading</div>
+						<div>{t('loading')}</div>
 					) : (
 						<form onSubmit={handleSubmit} className="flex flex-col gap-5 mt-6">
 							<div>
