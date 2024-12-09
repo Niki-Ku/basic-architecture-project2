@@ -3,8 +3,16 @@ module.exports = {
   darkMode: 'class',
   theme: {
     extend: {
+      gridAutoColumns: {
+        mobile: 'calc(50% - 1rem)',
+        sm: 'calc((100% - 1rem * 2) / 3)',
+        md: 'calc((100% - 1rem * 4) / 5)',
+        lg: 'calc((100% - 1rem * 6) / 7)',
+        xxl: 'calc((100% - 1rem * 8) / 9)',
+      },
       backgroundImage: {
-        'error-image': "url('/src/assets/images/error-bg.png')"
+        'error-image': "url('/src/assets/images/error-bg.png')",
+        'posters': "url('/src/assets/images/sign-in.jpg')"
       },
       colors: {
         red: {

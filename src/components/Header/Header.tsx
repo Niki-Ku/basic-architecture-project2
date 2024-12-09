@@ -1,10 +1,13 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 import NetflixLogo from '../../assets/images/netflix-logo.png';
-import { links } from '../../config/routeConfig';
+import { links, unauthorizedLinks } from '../../config/routeConfig';
 import ToggleButton from "../ToggleButton/ToggleButton";
 import BurgerButton from "../BurgerButton/BurgerButton";
 import { useTranslation } from "react-i18next";
+import { useAuth } from "../../context/AuthContext";
+import { doSignOut } from "../../services/firebaseAuth";
+import { useNavigate } from "react-router-dom";
 
 const Header = ({
   darkMode,
@@ -15,6 +18,15 @@ const Header = ({
 }) => {
   const location = useLocation();
   const { t } = useTranslation();
+  const { userLoggedIn } = useAuth();
+  const navigate = useNavigate();
+
+  const showLinks = userLoggedIn ? links : unauthorizedLinks;
+
+  const onLogoutClick = () => {
+    doSignOut();
+    navigate('/');
+  }
 
   const activeClass = ( path:string ) => {
     return location.pathname === path
@@ -45,7 +57,7 @@ const Header = ({
           `}
         >
           {
-            links.map((link) => (
+            showLinks.map((link) => (
               <li key={`li-${link.name}`} className="transform p-4 md:p-0 hover:scale-110 transition duration-200">
                 <Link 
                   key={link.name}
@@ -58,6 +70,11 @@ const Header = ({
               </li>
             ))
           }
+          {userLoggedIn && (
+            <li className="transform p-4 md:p-0 hover:scale-110 transition duration-200">
+              <button className="text-lg font-semibold text-white hover:text-orange-500" onClick={onLogoutClick} >{t('sign-out')}</button>
+            </li>
+          )}
           <li>
             <ToggleButton id="toggle" checked={darkMode === "dark"} onChange={handleDarkModeChange} />
           </li>
