@@ -1,20 +1,10 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { ReactComponent as BookmarkIcon } from "../../assets/icons/BookmarkIcon.svg";
-
-interface cardData {
-	title: string;
-	poster_path: string;
-	genre_ids: number[];
-}
-
-interface IGenre {
-	id: string;
-	name: string;
-}
+import { Film, IGenre } from "../../pages/HomePage/HomePage";
 
 interface movieCardProps {
-	cardData: cardData;
+	cardData: Film;
 	genres: IGenre[];
 	link: string;
 	inWatchlist: boolean;
@@ -28,9 +18,8 @@ const FilmCard: React.FC<movieCardProps> = ({
 	inWatchlist,
 	onBookmarkClick,
 }) => {
-  const { t } = useTranslation();
+	const { t } = useTranslation();
 	return (
-		// <div className="w-[200px] h-300px flex-shrink-0">
 		<div className="snap-start">
 			<Link to={link}>
 				<div className="group overflow-hidden rounded-2xl relative">
@@ -46,7 +35,6 @@ const FilmCard: React.FC<movieCardProps> = ({
 						</button>
 					</div>
 					<img
-						// className="w-[200px] h-[300px] ablsoute object-cover"
 						className="w-full ablsoute object-cover"
 						src={`https://image.tmdb.org/t/p/w500${cardData.poster_path}`}
 						alt={cardData.title + t('movie')}
