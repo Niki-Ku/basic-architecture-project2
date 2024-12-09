@@ -78,22 +78,14 @@ const HomePage = () => {
     setLang(i18n.language)
   }, [i18n.language])
 
-
-// I don't understand why does this function returns error, but the one that is not commented doesn't
-
-  // const moviesFetch = async (options:{}) => {
-  //   try {
-  //     const data = await axios.request(options)
-  //     return data.data
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
-
-  const moviesFetch = async (options: {}) => {
-    const { data } = await axios.request(options);
-    return data; // Make sure this returns the shape you expect
-  };
+  const moviesFetch = async (options:{}) => {
+    try {
+      const data = await axios.request(options)
+      return data.data
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const getGenres = async () => {
     try {
@@ -112,7 +104,7 @@ const HomePage = () => {
 
   const getDataFromDb = async () => {
     const snapshot = await getDocs(colRef);
-    const data:any = []
+    const data:any = []       //remove any
     snapshot.forEach(doc => {
       data.push({ ...doc.data(), id: doc.id })
     })
