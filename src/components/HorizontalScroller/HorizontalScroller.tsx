@@ -61,7 +61,7 @@ const HorizontalScroller: React.FC<IHorizontalScroller> = ({
 						key={film.title}
 						cardData={film}
 						genres={genres}
-						link="#"
+						link={`movies/${film.id}`}
 						inWatchlist={true}
 						onBookmarkClick={onBookmarkClick}
 					/>

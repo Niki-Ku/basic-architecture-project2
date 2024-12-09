@@ -24,6 +24,7 @@ export interface Film {
   title: string;
   poster_path: string;
   genre_ids: number[];
+  id: string;
 }
 
 export interface IGenre {
@@ -49,7 +50,7 @@ const HomePage = () => {
   const genresOptions = fetchGenres(lang);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   
-  const pagination = {
+  const pagination = {    //remove
     clickable: true,
     renderBullet: function (index : number, className: string) {
       return '<span class="' + className + '"></span>';

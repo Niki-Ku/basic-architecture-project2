@@ -3,7 +3,7 @@ const Base_Url = process.env.REACT_APP_TMDB_BASE_URL;
 
 type moviesType = "now_playing" | "top_rated" | "upcoming" | "popular"
 
-export const fetchMovies = (page: number, lang: string, type:moviesType) => {
+export const fetchMovies = (page: number, lang: string, type:moviesType | string) => {
 	return {
 		method: "GET",
 		url: `${Base_Url}movie/${type}`,
