@@ -1,11 +1,11 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { ReactComponent as BookmarkIcon } from "../../assets/icons/BookmarkIcon.svg";
-import { Film, IGenre } from "../../pages/HomePage/HomePage";
+import { Film, Genre } from "../../types/global";
 
 interface movieCardProps {
 	cardData: Film;
-	genres: IGenre[];
+	genres: Genre[];
 	link: string;
 	inWatchlist: boolean;
 	onBookmarkClick: () => void;

@@ -10,6 +10,7 @@ import { useTranslation } from "react-i18next";
 import HorizontalScroller from "../../components/HorizontalScroller/HorizontalScroller";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { swiperMovies } from "../../config/swiperMovies";
+import { Film, Genre } from "../../types/global";
 
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -18,19 +19,6 @@ import './HomePage.css';
 
 // import required modules
 import { Pagination, Autoplay } from 'swiper/modules';
-
-
-export interface Film {
-  title: string;
-  poster_path: string;
-  genre_ids: number[];
-  id: string;
-}
-
-export interface IGenre {
-  id: string;
-  name: string;
-}
 
 // TODO
 // Add banner with a swiper slider      DONE
@@ -109,7 +97,7 @@ const HomePage = () => {
   const { data: topData, isError: topError, isLoading: topLoading } = useQuery<{ results: Film[] }>(['topData', 1, lang], () => moviesFetch(topOptions), {refetchOnWindowFocus: false});
   const { data: playingData, isError: playingError, isLoading: playingLoading } = useQuery<{ results: Film[] }>(['playingData', 1, lang], () => moviesFetch(playingOptions), {refetchOnWindowFocus: false});
   const { data: popularData, isError: popularError, isLoading: popularLoading } = useQuery<{ results: Film[] }>(['popularData', 1, lang], () => moviesFetch(popularOptions), {refetchOnWindowFocus: false});
-  const { data:genersData } = useQuery<{ genres: IGenre[] }>(['genresData', lang], getGenres)
+  const { data:genersData } = useQuery<{ genres: Genre[] }>(['genresData', lang], getGenres)
 
   const getDataFromDb = async () => {
     const snapshot = await getDocs(colRef);

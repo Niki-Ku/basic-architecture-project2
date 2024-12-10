@@ -1,5 +1,5 @@
 import FilmCard from "../FilmCard/FilmCard";
-import { Film, IGenre } from "../../pages/HomePage/HomePage";
+import { Film, Genre } from "../../types/global";
 import "./HorizontalScroller.css";
 import { useRef } from "react";
 import { ReactComponent as ArrowShort } from "../../assets/icons/ArrowDownShort.svg";
@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 
 interface IHorizontalScroller {
 	films: Film[];
-	genres: IGenre[];
+	genres: Genre[];
 	onBookmarkClick: () => void;
 	link?: string;
 	heading?: string;
