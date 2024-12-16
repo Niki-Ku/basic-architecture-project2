@@ -6,6 +6,7 @@ import { Movie } from "../../types/global";
 import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react";
 import useMobile from "../../hooks/useMobile";
+import Button from "../../components/Button/Button";
 
 const moviesFetch = async (options: {}) => {
 	try {
@@ -54,7 +55,7 @@ const MoviePage = () => {
 		return <div>Error loading data or no data available</div>;
 	}
 
-	const { backdrop_path, poster_path } = data;
+	const { backdrop_path, poster_path, title, status, runtime, release_date, genres, overview, tagline } = data;
 
 	return (
 		<div>
@@ -64,16 +65,26 @@ const MoviePage = () => {
 						isMobile ? poster_path : backdrop_path
 					})`}}
         >
-					<div className="absolute w-full bottom-0 left-0 mx-auto max-w-[1680px] z-10 pt-20">
-						<div className="grid">
-							<div className="absolute inset-0 w-full h-full backdrop-saturate-[190%] backdrop-blur-3xl mask-gradient"
+					<div className="absolute w-full bottom-0 left-0 mx-auto max-w-[1680px] pt-20">
+						<div className="flex flex-col md:flex-row gap-4 items-center md:items-start p-6 pb-3 md:p-10 md:pt-6">
+							<div className="absolute inset-0 w-full h-full backdrop-saturate-[190%] backdrop-blur-3xl -z-10 mask-gradient"
 								style={{backgroundColor: "rgba(40, 40, 40, .5)"}}
 							></div>
-							<div className="text-6xl z-10">
-								some content <br />
-								some content <br />
-								some content <br />
-							</div>
+								<div className="md:hidden max-w-[300px] text-text-default text-3xl text-center ">
+									<span>{title}</span>
+								</div>
+								<div className="text-center text-text-secondary text-sm md:text-left md:min-w-[150px] md:order-2">
+									<span>{genres[0].name} </span>
+									<span>{status} </span>
+									<span className="whitespace-nowrap">{release_date} </span>
+									<span>{runtime  + t('min')}</span>
+								</div>
+								<div className="md:order-1 min-w-[150px] ">
+									<Button label={t('toWatchlist')} variant="white"></Button>
+								</div>
+								<div className="text-text-secondary order-3">
+									<span>{overview}</span>
+								</div>
 						</div>
 					</div>
         </div>
