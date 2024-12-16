@@ -14,6 +14,7 @@ import {
 	browserSessionPersistence,
 } from "firebase/auth";
 import useDebounce from "../../hooks/useDebounce";
+import { Link } from "react-router-dom";
 
 interface ISignIn {
 	email: string;
@@ -154,16 +155,19 @@ const SignInPage = () => {
 									isSubmitting || (passwordState.errorCount > 2 && !captchaValue)
 								}
 							/>
-							<div className="flex items-center gap-2">
-								<input
-									type="checkbox"
-									checked={values.rememberMe}
-									name="rememberMe"
-									onChange={handleChange}
-									id="remember"
-									className="h-5 w-5 p-5"
-								/>
-								<label htmlFor="remember">{t('remember-me')}</label>
+							<div className="flex justify-between">
+								<div className="flex items-center gap-2">
+									<input
+										type="checkbox"
+										checked={values.rememberMe}
+										name="rememberMe"
+										onChange={handleChange}
+										id="remember"
+										className="h-5 w-5 p-5"
+									/>
+									<label htmlFor="remember">{t('remember-me')}</label>
+								</div>
+								<Link to="/reset" className="hover:underline">{t('forgot-password')}</Link>
 							</div>
 							{passwordState.errorCount > 2 && (
 								<div>
