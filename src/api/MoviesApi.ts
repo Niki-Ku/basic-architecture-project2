@@ -1,7 +1,8 @@
 const API_Key = process.env.REACT_APP_TMDB_API_KEY;
 const Base_Url = process.env.REACT_APP_TMDB_BASE_URL;
 
-type moviesType = "now_playing" | "top_rated" | "upcoming" | "popular"
+// type moviesType = "now_playing" | "top_rated" | "upcoming" | "popular"
+type moviesType = "now_playing" | "top_rated" | "upcoming" | "popular" | "asdf"
 
 export const fetchMovies = (page: number, lang: string, type:moviesType) => {
 	return {
