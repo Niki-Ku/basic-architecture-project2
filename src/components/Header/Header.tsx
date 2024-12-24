@@ -63,7 +63,7 @@ const Header = ({
                   key={link.name}
                   className={activeClass(`${link.path}`)} 
                   to={link.path}
-                  onClick={() => setOpen(!open)}
+                  onClick={() => setOpen(false)}
                 >
                   {t(link.name)}
                 </Link>

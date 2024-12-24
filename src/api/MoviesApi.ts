@@ -26,3 +26,15 @@ export const fetchGenres = (lang:string) => {
 		},
 	};
 };
+
+export const fetchTrailer = (movieId: string, lang:string) => {
+	return {
+		method: 'GET',
+		url: `${Base_Url}movie/${movieId}/videos`,
+		params: {language: lang},
+		headers: {
+			accept: 'application/json',
+			Authorization: `Bearer ${API_Key}`,
+		}
+	};
+};

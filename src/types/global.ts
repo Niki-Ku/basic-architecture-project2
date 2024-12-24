@@ -59,3 +59,12 @@ export interface Film {
     genre_ids: number[];
     id: string;
   }
+
+export interface Trailer {
+	id:  string;
+	key: string;
+	name: string;
+	site:  string;
+	type: string;
+	official: boolean
+}
