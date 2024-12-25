@@ -1,9 +1,9 @@
-import { Film, IGenre } from "../../pages/HomePage/HomePage";
+import { Film, Genre } from "../../types/global"
 import HorizontalScroller from "../HorizontalScroller/HorizontalScroller";
 
 interface IHorizontalMD {
   movies: Film[] | undefined;
-  genres: IGenre[] | undefined;
+  genres: Genre[] | undefined;
   link: string;
   onBookmarkClick: () => void;
   heading: string;

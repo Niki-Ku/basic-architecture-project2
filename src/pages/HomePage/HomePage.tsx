@@ -14,17 +14,7 @@ import "swiper/css/pagination";
 import "./HomePage.css";
 import { Pagination, Autoplay } from "swiper/modules";
 import { pagination, autoplay } from "../../helpers/sliderUtils";
-
-export interface Film {
-	title: string;
-	poster_path: string;
-	genre_ids: number[];
-}
-
-export interface IGenre {
-	id: string;
-	name: string;
-}
+import { Film, Genre } from "../../types/global";
 
 // TODO
 // use useMobile hook later instead of isMobile. (it is in seperate branch now)
@@ -106,7 +96,7 @@ const HomePage = () => {
 		() => moviesFetch(popularOptions),
 		{ refetchOnWindowFocus: false }
 	);
-	const { data: genersData } = useQuery<{ genres: IGenre[] }>(
+	const { data: genersData } = useQuery<{ genres: Genre[] }>(
 		["genresData", lang],
 		getGenres
 	);

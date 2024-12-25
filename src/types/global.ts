@@ -68,3 +68,8 @@ export interface Trailer {
 	type: string;
 	official: boolean
 }
+
+export interface IGenre {
+	id: string;
+	name: string;
+}
