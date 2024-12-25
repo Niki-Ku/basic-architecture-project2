@@ -22,6 +22,7 @@ import SignUpPage from "./pages/SignUpPage/SignUpPage";
 import SignInPage from "./pages/SignInPage/SignInPage";
 import PrivateRoute from "./context/PrivateRoute";
 import ResetPasswordPage from "./pages/ResetPasswordPage/ResetPasswordPage";
+import MoviePage from "./pages/MoviePage/MoviePage";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -98,6 +99,7 @@ function App() {
           <Route path="/termsofuse" element={<TermsOfUsePage />} />
           <Route path="*" element={<ErrorPage />} />
           <Route path="/sign-up" element={<SignUpPage />} />
+          <Route path="movies/:movieId" element={<MoviePage />} />
           <Route element={<PrivateRoute />}>
             <Route path="/user" element={<UserPage />} />
           </Route>

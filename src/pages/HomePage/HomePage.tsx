@@ -30,8 +30,6 @@ export interface IGenre {
 // use useMobile hook later instead of isMobile. (it is in seperate branch now)
 // style scrollbar
 
-// sometimes when I use links in header navigation a scrollbar on the right disappears, I need to find out why
-
 const HomePage = () => {
 	const { t, i18n } = useTranslation();
 	const [lang, setLang] = useState(i18n.language);
