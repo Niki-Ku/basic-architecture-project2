@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { ReactComponent as BookmarkIcon } from "../../assets/icons/BookmarkIcon.svg";
-import { DbUser, Film, Genre, Wlist } from "../../types/global";
+import { DbUser, Film, Genre } from "../../types/global";
 import { useAuth } from "../../context/AuthContext";
 import { useEffect, useState } from "react";
 import { db } from "../..";
@@ -12,7 +12,7 @@ interface movieCardProps {
 	cardData: Film;
 	genres: Genre[];
 	link: string;
-	user: DbUser | undefined;
+	user?: DbUser;
 }
 
 const FilmCard: React.FC<movieCardProps> = ({
@@ -25,9 +25,9 @@ const FilmCard: React.FC<movieCardProps> = ({
 	const { userLoggedIn } = useAuth();
 	const [inList, setInlist] = useState<boolean>(false);
 
-	const updateInList = (list: Wlist[], obj:Film) => {
-		const movieInList = list.find((m) => m.movie_id === obj.id.toString());
-		movieInList?.movie_id === obj.id.toString()
+	const updateInList = (list: Film[], obj:Film) => {
+		const movieInList = list.find((m) => m.id === obj.id);
+		movieInList?.id === obj.id
 			? setInlist(true)
 			: setInlist(false)
 	}
@@ -42,7 +42,7 @@ const FilmCard: React.FC<movieCardProps> = ({
 		if (user) {
 			const docRef = doc(db, "users", user.docId);
 			const userWatchList = user.watchList;
-			let updatedList: Wlist[] = []
+			let updatedList: Film[] = [];
 			inList
 				? updatedList = removeMovieFromWatchList(userWatchList, cardData)
 				: updatedList = addMovieToWatchList(userWatchList, cardData)
@@ -83,8 +83,10 @@ const FilmCard: React.FC<movieCardProps> = ({
 				</div>
 				<h4 className="font-semibold">{cardData.title}</h4>
 				{genres.map(
-					(genre, index) =>
-						Number(genre.id) === cardData.genre_ids[0] && <p key={genre.id + index} className="text-xs">{genre.name}</p>
+					(genre, index) => {
+						if (cardData.genre_ids)
+							return Number(genre.id) === cardData.genre_ids[0] && <p key={genre.id + index} className="text-xs">{genre.name}</p>
+					}
 				)}
 			</Link>
 		</div>

@@ -1,6 +1,6 @@
 import { addDoc, getDocs, query } from "firebase/firestore";
 import { usersColection} from "../index";
-import { DbUser, FirebaseUser, Film, Wlist } from "../types/global";
+import { DbUser, FirebaseUser, Film } from "../types/global";
 
 export const addToDb = async (user:FirebaseUser | null, name:string) => {
 	if (!user) {
@@ -50,18 +50,11 @@ export const getUserFromDb = async (id: string | undefined) => {
   }
 };
 
-
-export const removeMovieFromWatchList = (list: Wlist[], obj: Film) => {
-  return list.filter(l => l.movie_id !== obj.id.toString())
+export const removeMovieFromWatchList = (list: Film[], obj: Film) => {
+  return list.filter(l => l.id !== obj.id)
 }
 
-export const addMovieToWatchList = (list: Wlist[], obj: Film) => {
-  const newObj:Wlist = {
-    genre: obj.genre_ids[0].toString(),
-    movie_id: obj.id.toString(),
-    title: obj.title,
-    poster_path: obj.poster_path,
-  }
-  list.push(newObj)
+export const addMovieToWatchList = (list: Film[], obj: Film) => {
+  list.push(obj)
   return list
 } 

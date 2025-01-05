@@ -9,7 +9,7 @@ import Button from "../../components/Button/Button";
 import TrailerComponent from "../../components/TrailerComponent/TrailerComponent";
 import { dataFetch } from "../../helpers/fetchUtils";
 import { useAuth } from "../../context/AuthContext";
-import { DbUser, Wlist } from "../../types/global";
+import { DbUser, Film } from "../../types/global";
 import { getUserFromDb } from "../../helpers/firebaseUtils";
 import { addMovieToWatchList, removeMovieFromWatchList } from "../../helpers/firebaseUtils";
 import { db } from "../..";
@@ -28,8 +28,8 @@ const MoviePage = () => {
 	const { userLoggedIn, currentUser } = useAuth();
 	const [inList, setInlist] = useState<boolean>(false);
 
-	const updateInList = (list: Wlist[], movieId: string) => {
-		const movieInList = list.find((m) => m.movie_id === movieId);
+	const updateInList = (list: Film[], movieId: string) => {
+		const movieInList = list.find((m) => m.id.toString() === movieId);
 		movieInList
 			? setInlist(true)
 			: setInlist(false)
@@ -44,14 +44,12 @@ const MoviePage = () => {
 	const onClick = async () => {
 		if (additionalUser && data) {
 			const movieData = {
-				title: data.title,
-				poster_path: data.poster_path,
+				...data,
 				genre_ids: [data.genres[0].id],
-				id: data.id.toString()
 			}
 			const docRef = doc(db, "users", additionalUser.docId);
 			const userWatchList = additionalUser.watchList;
-			let updatedList: Wlist[] = []
+			let updatedList: Film[] = []
 			inList
 				? updatedList = removeMovieFromWatchList(userWatchList, movieData)
 				: updatedList = addMovieToWatchList(userWatchList, movieData)

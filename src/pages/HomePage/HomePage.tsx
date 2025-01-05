@@ -15,12 +15,11 @@ import { pagination, autoplay } from "../../helpers/sliderUtils";
 import { Film, Genre, DbUser } from "../../types/global";
 import { getUserFromDb } from "../../helpers/firebaseUtils";
 import { useAuth } from "../../context/AuthContext";
+import { getGenres } from "../../helpers/fetchUtils";
 
 // TODO
 // use useMobile hook later instead of isMobile. (it is in seperate branch now)
 // style scrollbar
-
-
 
 const HomePage = () => {
 	const { t, i18n } = useTranslation();
@@ -52,15 +51,6 @@ const HomePage = () => {
 	const moviesFetch = async (options: {}) => {
 		try {
 			const data = await axios.request(options);
-			return data.data;
-		} catch (error) {
-			console.log(error);
-		}
-	};
-
-	const getGenres = async () => {
-		try {
-			const data = await axios.request(genresOptions);
 			return data.data;
 		} catch (error) {
 			console.log(error);
@@ -101,7 +91,7 @@ const HomePage = () => {
 	);
 	const { data: genersData } = useQuery<{ genres: Genre[] }>(
 		["genresData", lang],
-		getGenres
+		() => getGenres(genresOptions)
 	);
 
 	const { data: additionalUser2 } = useQuery<DbUser | undefined >(
