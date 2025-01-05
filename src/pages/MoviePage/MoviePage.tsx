@@ -8,27 +8,69 @@ import useMobile from "../../hooks/useMobile";
 import Button from "../../components/Button/Button";
 import TrailerComponent from "../../components/TrailerComponent/TrailerComponent";
 import { dataFetch } from "../../helpers/fetchUtils";
-
+import { useAuth } from "../../context/AuthContext";
+import { DbUser, Wlist } from "../../types/global";
+import { getUserFromDb } from "../../helpers/firebaseUtils";
+import { addMovieToWatchList, removeMovieFromWatchList } from "../../helpers/firebaseUtils";
+import { db } from "../..";
+import { doc, updateDoc } from "firebase/firestore";
 // TODO:
-// maybe make recomendations slider   https://developer.themoviedb.org/reference/movie-recommendations
-
-// when you click on prev/forward buttons in the browser - the whole app crashes			it was beacuse of name inside array for useQurery
 // make all pages scroll to top after changing route
 // CORS error when using iframe to watch trailers. It doesn't affect anything
 
 const MoviePage = () => {
 	const movieId = useParams();
-	const id = movieId.movieId;
+	const [id, setId] = useState<string>()
 	const { t, i18n } = useTranslation();
 	const [lang, setLang] = useState(i18n.language);
 	const isMobile = useMobile();
 	const [trailerOptions, setTrailerOptions] = useState({});
+	const { userLoggedIn, currentUser } = useAuth();
+	const [inList, setInlist] = useState<boolean>(false);
+
+	const updateInList = (list: Wlist[], movieId: string) => {
+		const movieInList = list.find((m) => m.movie_id === movieId);
+		movieInList
+			? setInlist(true)
+			: setInlist(false)
+	}
+	
+	const { data: additionalUser } = useQuery<DbUser | undefined >(
+		["user", currentUser],
+		() => getUserFromDb(currentUser?.uid),
+		{refetchInterval: 10000}
+	)
+
+	const onClick = async () => {
+		if (additionalUser && data) {
+			const movieData = {
+				title: data.title,
+				poster_path: data.poster_path,
+				genre_ids: [data.genres[0].id],
+				id: data.id.toString()
+			}
+			const docRef = doc(db, "users", additionalUser.docId);
+			const userWatchList = additionalUser.watchList;
+			let updatedList: Wlist[] = []
+			inList
+				? updatedList = removeMovieFromWatchList(userWatchList, movieData)
+				: updatedList = addMovieToWatchList(userWatchList, movieData)
+			try {
+				await updateDoc(docRef, {
+					watchList: updatedList
+				});
+				updateInList(updatedList, movieData.id);
+			} catch (error) {
+				console.log("Error when trying to add movie to watchlist: " + error)
+			}
+		}
+	}
 	
 	let options = {}
-	if (id) options = fetchMovies(1, lang, id);     // is it okay to handle id value here like this???
+	if (id) options = fetchMovies(1, lang, id);
 
 	const { data, isError, isLoading } = useQuery<Movie>(
-		["movieData", 1, lang],
+		["movieData", 1, lang, id],
 		() => dataFetch(options),
 		{ refetchOnWindowFocus: false }
 	);
@@ -45,8 +87,15 @@ const MoviePage = () => {
 	const trailer = trailersData?.results.find((t) => t.type === "Trailer");             
 
 	useEffect(() => {
-		if (data?.id && id) setTrailerOptions(() => fetchTrailer(id, lang));
-	}, [data, id, lang, i18n.language])
+		if (id) setTrailerOptions(() => fetchTrailer(id, lang));
+		if (additionalUser && data) {
+			updateInList(additionalUser.watchList, data.id.toString());
+		};
+	}, [data, id, lang, i18n.language, additionalUser])
+
+	useEffect(() => {
+		if (movieId) setId(movieId.movieId)
+	}, [])
 
 	useEffect(() => {
 		setLang(i18n.language);
@@ -88,9 +137,11 @@ const MoviePage = () => {
 									<span className="whitespace-nowrap">{release_date} </span>
 									<span>{runtime  + t('min')}</span>
 								</div>
-								<div className="md:order-1 min-w-[150px] ">
-									<Button label={t('toWatchlist')} variant="white"></Button>
-								</div>
+								{userLoggedIn && 		
+									<div className="md:order-1 min-w-[150px] ">
+										<Button label={inList ? t('inWatchlist') : t('toWatchlist')} onClick={onClick} variant="white"></Button>
+									</div>
+								}
 								<div className="text-text-secondary order-3">
 									<span>{overview}</span>
 								</div>

@@ -1,6 +1,4 @@
 import { Link } from "react-router-dom";
-import { usersColection } from "../..";    // maybe remove it in the end
-import { getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useQuery } from "react-query";
@@ -14,11 +12,15 @@ import "swiper/css/pagination";
 import "./HomePage.css";
 import { Pagination, Autoplay } from "swiper/modules";
 import { pagination, autoplay } from "../../helpers/sliderUtils";
-import { Film, Genre } from "../../types/global";
+import { Film, Genre, DbUser } from "../../types/global";
+import { getUserFromDb } from "../../helpers/firebaseUtils";
+import { useAuth } from "../../context/AuthContext";
 
 // TODO
 // use useMobile hook later instead of isMobile. (it is in seperate branch now)
 // style scrollbar
+
+
 
 const HomePage = () => {
 	const { t, i18n } = useTranslation();
@@ -28,8 +30,9 @@ const HomePage = () => {
 	const popularOptions = fetchMovies(1, lang, "popular");
 	const topOptions = fetchMovies(1, lang, "top_rated");
 	const genresOptions = fetchGenres(lang);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-
+	const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+	const { currentUser } = useAuth();
+	
 	useEffect(() => {
 		const handleResize = () => {
 			setIsMobile(window.innerWidth < 768);
@@ -101,23 +104,11 @@ const HomePage = () => {
 		getGenres
 	);
 
-	const getDataFromDb = async () => {
-		// remove it later at all from here
-		const snapshot = await getDocs(usersColection);
-		const data: any = []; //remove any
-		snapshot.forEach((doc) => {
-			data.push({ ...doc.data(), id: doc.id });
-		});
-		console.log(data); // remove this log
-	};
-
-	useEffect(() => {
-		try {
-			getDataFromDb();
-		} catch (err) {
-			console.log(err);
-		}
-  }, []);
+	const { data: additionalUser2 } = useQuery<DbUser | undefined >(
+		["user", currentUser],
+		() => getUserFromDb(currentUser?.uid),
+		{refetchInterval: 10000}
+	)
   
 	const movieSections = [
 		{ data: topData, heading: "top-rated", loading: topLoading, error: topError },
@@ -162,9 +153,10 @@ const HomePage = () => {
 						genres={genersData?.genres}
             heading={section.heading}
 						link="/"
-            onBookmarkClick={() => console.log("temporary nothing")}
             loading={section?.loading}
-            error={section?.error}
+						error={section?.error}
+						// user={additionalUser.current}
+						user={additionalUser2}
 					/>
         ))}
 			</div>

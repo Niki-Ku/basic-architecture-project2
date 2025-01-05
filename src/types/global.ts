@@ -77,3 +77,17 @@ export interface IGenre {
 export interface FirebaseUser {
 	uid: string;
 }
+
+export interface Wlist {
+	genre: string;
+	movie_id: string;
+	poster_path: string;
+	title: string;
+}
+
+export interface DbUser {
+	name: string;
+	uid: string;
+	watchList: Wlist[];
+	docId: string;
+}
