@@ -85,3 +85,8 @@ export interface DbUser {
 	watchList: Film[];
 	docId: string;
 }
+
+export interface Links {
+	name: string;
+	path: string;
+}
