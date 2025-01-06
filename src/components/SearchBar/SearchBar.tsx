@@ -13,11 +13,13 @@ interface SearchBarProps {
     name: string;
     path: string;
   }[];
+  query: string;
+  setQuery: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ links }) => {
+const SearchBar: React.FC<SearchBarProps> = ({ links, query, setQuery }) => {
   const { t } = useTranslation();
-  const [query, setQuery] = useState("");
+  // const [query, setQuery] = useState("");
   const filteredItems = links.filter(item => item.name.toLocaleLowerCase().includes(query.toLocaleLowerCase()));
   const debouncedFilteredItems = useDebounce(filteredItems);
 
