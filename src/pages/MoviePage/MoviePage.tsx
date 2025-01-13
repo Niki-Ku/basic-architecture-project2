@@ -128,7 +128,7 @@ const MoviePage = () => {
 									<h2>{title}</h2>
 								</div>
 								<div className="text-center text-text-secondary text-sm md:text-left md:min-w-[150px] md:order-2">
-									{genres && 
+									{genres.length > 0 && 
 										<span>{genres[0].name} </span>
 									}
 									<span>{status} </span>

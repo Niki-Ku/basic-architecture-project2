@@ -90,3 +90,10 @@ export interface Links {
 	name: string;
 	path: string;
 }
+
+export interface Data {
+  page: number;
+  results: Movie[];
+  total_pages: number;
+  total_results: number;
+}

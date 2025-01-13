@@ -5,6 +5,7 @@ import { Links } from "../../types/global";
 
 import "./SearchBar.css";
 import { useTranslation } from "react-i18next";
+import { useState } from "react";
 
 // ask Yra why does removing of x from search input worked from SearchBar.css and didn't from index.css
 
@@ -20,6 +21,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ links, query, setQuery, onSubmit 
   const { t } = useTranslation();
   const filteredItems = links.filter(item => item.name.toLocaleLowerCase().includes(query.toLocaleLowerCase()));
   const debouncedFilteredItems = useDebounce(filteredItems);
+  const [isFocused, setIsFocused] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,7 +29,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ links, query, setQuery, onSubmit 
       onSubmit(e)
     }
   }
-
+  
   return (
     <div className={`h-max w-full rounded p-0.5 z-10 relative text-left
       bg-gradient-to-r from-[#e50914] from-[-0.08%] via-[#c94ff5] via-[81%] to-[#5b79f1] to-[99.92%]
@@ -37,6 +39,8 @@ const SearchBar: React.FC<SearchBarProps> = ({ links, query, setQuery, onSubmit 
         <form className="relative" onSubmit={(e) => handleSubmit(e)}>
           <input 
             onChange={(e) => setQuery(e.target.value)} 
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
             type="search" 
             value={query}
             placeholder={t('typeQuestionTopicOrIssue')}
@@ -47,7 +51,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ links, query, setQuery, onSubmit 
         <div className=" absolute left-0 w-full block rounded-br rounded-bl bg-gradient-to-r from-[#e50914] from-[-0.08%] via-[#c94ff5] via-[81%] to-[#5b79f1] to-[99.92%]">
           <div className="bg-bg-primary mt-0 m-[2px] rounded-br rounded-bl">
             <ul className={`${filteredItems.length > 0 && query.length > 0 && "flex flex-col gap-2 p-1 border-t border-black-10"}`}>
-              {query.length > 0 && debouncedFilteredItems.slice(0, 5).map((link, index) => (
+              {isFocused && query.length > 0 && debouncedFilteredItems.slice(0, 5).map((link, index) => (
                   <li 
                     key={`seach-item-${link.name}-${index}`} 
                     className="bg-bg-primary text-text-default mx-4 hover:bg-bg-secondary cursor-pointer border-b border-text-transparent-10 last:border-0 py-[9px]"
