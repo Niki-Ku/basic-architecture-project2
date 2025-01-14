@@ -197,6 +197,8 @@
   "name-min": "Korisničko ime mora imati najmanje 2 znaka.",
   "name-max": "Korisničko ime ne smije imati više od 32 znaka.",
   "name": "Ime",
-  "inWatchlist": "Na popisu"
+  "inWatchlist": "Na popisu",
+  "page": "Stranica",
+  "yourWatchlist": "Vaša lista za gledanje"
 
 }

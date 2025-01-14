@@ -198,7 +198,9 @@
   "name-min": "The username must be at least 2 characters long.",
   "name-max": "The username must be no more than 32 characters long.",
   "name": "Name",
-  "inWatchlist": "In Watchlist"
+  "inWatchlist": "In Watchlist",
+  "page": "Page",
+  "yourWatchlist": "Your Watchlist"
 
 }
 

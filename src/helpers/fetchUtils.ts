@@ -8,3 +8,12 @@ export const dataFetch = async (options: {}) => {
 		console.log(error);
 	}
 };
+
+export const getGenres = async (genresOptions: {}) => {
+	try {
+		const data = await axios.request(genresOptions);
+		return data.data;
+	} catch (error) {
+		console.log(error);
+	}
+};

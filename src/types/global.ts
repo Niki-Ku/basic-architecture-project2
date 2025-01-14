@@ -35,7 +35,7 @@ export interface Movie {
 	backdrop_path: string;
 	budget: number;
 	genres: Genre[];
-	id: number;
+	id: string;
 	imdb_id: string;
 	origin_country: string[];
 	original_language: string;
@@ -50,13 +50,14 @@ export interface Movie {
 	tagline: string;
 	title: string;
 	vote_average: number;
-    vote_count: number;
+	vote_count: number;
 }
 
 export interface Film {
     title: string;
     poster_path: string;
-    genre_ids: number[];
+    genre_ids?: number[];
+    genres: Genre[];
     id: string;
   }
 
@@ -78,16 +79,9 @@ export interface FirebaseUser {
 	uid: string;
 }
 
-export interface Wlist {
-	genre: string;
-	movie_id: string;
-	poster_path: string;
-	title: string;
-}
-
 export interface DbUser {
 	name: string;
 	uid: string;
-	watchList: Wlist[];
+	watchList: Film[];
 	docId: string;
 }
