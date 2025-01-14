@@ -1,38 +1,79 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { ReactComponent as BookmarkIcon } from "../../assets/icons/BookmarkIcon.svg";
-import { Film, Genre } from "../../types/global";
+import { DbUser, Film, Genre, Wlist } from "../../types/global";
+import { useAuth } from "../../context/AuthContext";
+import { useEffect, useState } from "react";
+import { db } from "../..";
+import { doc, updateDoc } from "firebase/firestore";
+import { addMovieToWatchList, removeMovieFromWatchList } from "../../helpers/firebaseUtils";
 
 interface movieCardProps {
 	cardData: Film;
 	genres: Genre[];
 	link: string;
-	inWatchlist: boolean;
-	onBookmarkClick: () => void;
+	user: DbUser | undefined;
 }
 
 const FilmCard: React.FC<movieCardProps> = ({
 	cardData,
 	genres,
 	link,
-	inWatchlist,
-	onBookmarkClick,
+	user
 }) => {
 	const { t } = useTranslation();
+	const { userLoggedIn } = useAuth();
+	const [inList, setInlist] = useState<boolean>(false);
+
+	const updateInList = (list: Wlist[], obj:Film) => {
+		const movieInList = list.find((m) => m.movie_id === obj.id.toString());
+		movieInList?.movie_id === obj.id.toString()
+			? setInlist(true)
+			: setInlist(false)
+	}
+
+	useEffect(() => {
+		if (user) {
+			updateInList(user.watchList, cardData);
+		};
+	}, [cardData, user])
+
+	const onClick = async () => {
+		if (user) {
+			const docRef = doc(db, "users", user.docId);
+			const userWatchList = user.watchList;
+			let updatedList: Wlist[] = []
+			inList
+				? updatedList = removeMovieFromWatchList(userWatchList, cardData)
+				: updatedList = addMovieToWatchList(userWatchList, cardData)
+			try {
+				await updateDoc(docRef, {
+					watchList: updatedList
+				});
+				updateInList(updatedList, cardData);
+			} catch (error) {
+				console.log("Error when trying to add movie to watchlist: " + error)
+			}
+		}
+	}
+
 	return (
-		<div className="snap-start">
+		<div className="group snap-start relative">
+			{userLoggedIn && 			
+				<button
+					onClick={() => onClick()}
+					className="w-7 h-7 absolute top-5 right-2 bg-gray-static rounded-full justify-center items-center z-10 hidden group-hover:flex"
+					aria-label={t('')}   
+				>
+					<BookmarkIcon
+						className={`w-5 h-5`}
+						style={inList ? {} : {fill: "transparent",}}
+					/>
+				</button>
+			}
 			<Link to={link}>
-				<div className="group overflow-hidden rounded-2xl relative">
-					<div className="absolute w-full h-full bg-black-black-30 -top-full group-hover:top-0 right-0">
-						<button
-							onClick={onBookmarkClick}
-              className="w-7 h-7 absolute top-5 right-2 bg-gray-static rounded-full flex justify-center items-center"
-              aria-label={t('')}   
-						>
-							<BookmarkIcon
-								className={`w-5 h-5 ${inWatchlist ? "" : "fill-transparent"}`}
-							/>
-						</button>
+				<div className=" overflow-hidden rounded-2xl relative">
+					<div className="absolute w-full h-full pointer-events-none bg-black-black-30 -top-full group-hover:top-0 right-0 z-10">
 					</div>
 					<img
 						className="w-full ablsoute object-cover"

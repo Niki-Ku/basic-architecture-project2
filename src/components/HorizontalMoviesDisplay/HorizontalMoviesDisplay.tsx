@@ -1,17 +1,17 @@
-import { Film, Genre } from "../../types/global"
+import { DbUser, Film, Genre } from "../../types/global"
 import HorizontalScroller from "../HorizontalScroller/HorizontalScroller";
 
 interface IHorizontalMD {
   movies: Film[] | undefined;
   genres: Genre[] | undefined;
   link: string;
-  onBookmarkClick: () => void;
   heading: string;
   loading: boolean | undefined;
   error: boolean | undefined;
+  user: DbUser | undefined;
 }
 
-const HorizontalMoviesDisplay:React.FC<IHorizontalMD> = ({ movies, genres, link, onBookmarkClick, heading, loading, error }) => {
+const HorizontalMoviesDisplay:React.FC<IHorizontalMD> = ({ movies, genres, link, heading, loading, error, user }) => {
 
   if (error) return <div>Error fetching data...</div>
   if (loading) return <div>Loading...</div>
@@ -20,7 +20,7 @@ const HorizontalMoviesDisplay:React.FC<IHorizontalMD> = ({ movies, genres, link,
     <div className="first:mt-4">
       {
         movies && genres && movies?.length > 0 && 
-          <HorizontalScroller link={link} heading={heading} films={movies} genres={genres} onBookmarkClick={onBookmarkClick} />
+          <HorizontalScroller link={link} heading={heading} films={movies} genres={genres} user={user} />
       }
     </div>
   )

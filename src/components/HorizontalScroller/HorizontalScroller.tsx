@@ -1,5 +1,5 @@
 import FilmCard from "../FilmCard/FilmCard";
-import { Film, Genre } from "../../types/global";
+import { DbUser, Film, Genre } from "../../types/global";
 import "./HorizontalScroller.css";
 import { useRef } from "react";
 import { ReactComponent as ArrowShort } from "../../assets/icons/ArrowDownShort.svg";
@@ -10,17 +10,17 @@ import { Link } from "react-router-dom";
 interface IHorizontalScroller {
 	films: Film[];
 	genres: Genre[];
-	onBookmarkClick: () => void;
 	link?: string;
 	heading?: string;
+	user: DbUser | undefined;
 }
 
 const HorizontalScroller: React.FC<IHorizontalScroller> = ({
 	films,
 	genres,
-	onBookmarkClick,
 	link,
-	heading
+	heading,
+	user
 }) => {
 	const { t } = useTranslation();
 	const scrollContainerRef = useRef<HTMLDivElement | null>(null);
@@ -62,8 +62,7 @@ const HorizontalScroller: React.FC<IHorizontalScroller> = ({
 						cardData={film}
 						genres={genres}
 						link={`movies/${film.id}`}
-						inWatchlist={true}
-						onBookmarkClick={onBookmarkClick}
+						user={user}
 					/>
 				))}
 			</div>

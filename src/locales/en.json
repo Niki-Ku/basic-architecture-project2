@@ -197,7 +197,8 @@
   "popular": "Popular",
   "name-min": "The username must be at least 2 characters long.",
   "name-max": "The username must be no more than 32 characters long.",
-  "name": "Name"
+  "name": "Name",
+  "inWatchlist": "In Watchlist"
 
 }
 
