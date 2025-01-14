@@ -5,7 +5,7 @@ import { getUserFromDb } from "../../helpers/firebaseUtils";
 import { useTranslation } from "react-i18next";
 import FilmCard from "../../components/FilmCard/FilmCard";
 import { useState, useEffect } from "react";
-import { getGenres } from "../../helpers/fetchUtils";
+import { dataFetch } from "../../helpers/fetchUtils";
 import { fetchGenres } from "../../api/MoviesApi";
 
 const UserPage = () => {
@@ -22,7 +22,7 @@ const UserPage = () => {
 
   const { data: genersData } = useQuery<{ genres: Genre[] }>(
     ["genresData", lang],
-    () => getGenres(genresOptions)
+    () => dataFetch(genresOptions)
   );
 
   useEffect(() => {

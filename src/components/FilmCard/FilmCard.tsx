@@ -8,7 +8,7 @@ import { db } from "../..";
 import { doc, updateDoc } from "firebase/firestore";
 import { addMovieToWatchList, removeMovieFromWatchList } from "../../helpers/firebaseUtils";
 
-interface movieCardProps {
+export interface movieCardProps {
 	cardData: Film;
 	genres: Genre[];
 	link: string;

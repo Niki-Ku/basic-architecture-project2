@@ -15,7 +15,7 @@ import { pagination, autoplay } from "../../helpers/sliderUtils";
 import { Film, Genre, DbUser } from "../../types/global";
 import { getUserFromDb } from "../../helpers/firebaseUtils";
 import { useAuth } from "../../context/AuthContext";
-import { getGenres } from "../../helpers/fetchUtils";
+import { dataFetch } from "../../helpers/fetchUtils";
 
 // TODO
 // use useMobile hook later instead of isMobile. (it is in seperate branch now)
@@ -91,7 +91,7 @@ const HomePage = () => {
 	);
 	const { data: genersData } = useQuery<{ genres: Genre[] }>(
 		["genresData", lang],
-		() => getGenres(genresOptions)
+		() => dataFetch(genresOptions)
 	);
 
 	const { data: additionalUser2 } = useQuery<DbUser | undefined >(

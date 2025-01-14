@@ -39,3 +39,15 @@ export const fetchTrailer = (movieId: string, lang:string) => {
 		}
 	};
 };
+
+export const fetchSearchResults = (q: string, lang: string, page: number) => {
+	return {
+		method: 'GET',
+		url: `${Base_Url}search/movie`,
+		params: {query: q, include_adult: 'false', language: lang, page: page.toString()},
+		headers: {
+			accept: 'application/json',
+			Authorization: `Bearer ${API_Key}`
+		}
+	}
+};
