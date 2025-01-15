@@ -1,47 +1,5 @@
 import SidebarDropdown from "../SidebarDropdown/SidebarDropdown";
-
-const sidebarDropdownLinks = [
-  {
-    title: 'contactingUs',
-    id: 'contacting-us',
-  },
-  {
-    title: 'sectionA',
-    id: 'section-a',
-    subLinks: [
-      {
-        title: "theCategoriesOfPersonalInformationWeCollect",
-        id: "the-categories-of-personal-information-we-collect",
-      },
-      {
-        title: "whereWeCollectPersonalInformationFrom",
-        id: "where-we-collect-personal-information-from",
-      },
-      {
-        title: "howWeUseYourPersonalInformation",
-        id: "how-we-use-your-personal-information",
-      },
-    ]
-  },
-  {
-    title: 'sectionB',
-    id: 'section-b',
-    subLinks: [
-      {
-        title: "yourPrivacyRights",
-        id: "your-privacy-rights",
-      },
-      {
-        title: "communicationAndMarketingPreferences",
-        id: "communication-and-marketing-preferences",
-      },
-      {
-        title: "advertisingChoices",
-        id: "advertising-choices",
-      },
-    ]
-  },
-]
+import { sidebarDropdownLinks } from "../../config/routeConfig";
 
 interface ISidebarNavigation {
   activeTopic: string;

@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { db } from "../..";
 import { doc, updateDoc } from "firebase/firestore";
 import { addMovieToWatchList, removeMovieFromWatchList } from "../../helpers/firebaseUtils";
+import NoImage from "../../assets/images/no-image.jpg";
 
 export interface movieCardProps {
 	cardData: Film;
@@ -71,13 +72,13 @@ const FilmCard: React.FC<movieCardProps> = ({
 					/>
 				</button>
 			}
-			<Link to={link}>
+			<Link onClick={() => window.scrollTo({top: 0,})} to={link}>
 				<div className=" overflow-hidden rounded-2xl relative">
 					<div className="absolute w-full h-full pointer-events-none bg-black-black-30 -top-full group-hover:top-0 right-0 z-10">
 					</div>
 					<img
 						className="w-full ablsoute object-cover"
-						src={`https://image.tmdb.org/t/p/w500${cardData.poster_path}`}
+						src={cardData.poster_path ? `https://image.tmdb.org/t/p/w500${cardData.poster_path}` : NoImage}
 						alt={cardData.title + t('movie')}
 					/>
 				</div>

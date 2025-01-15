@@ -97,3 +97,13 @@ export interface Data {
   total_pages: number;
   total_results: number;
 }
+
+export interface ISubCategories {
+  subCategoryName: string;
+  subCategoryPath: string;
+}
+
+export interface ICategory {
+  categoryTitle: string;
+  subCategories: ISubCategories[];
+}

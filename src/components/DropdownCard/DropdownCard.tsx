@@ -1,19 +1,8 @@
 import Dropdown from '../Dropdown/Dropdown'
 import { icons } from '../../config/dynamicIcons';
+import { ICategory } from '../../types/global';
 
-// make interfaces, make separate file with related interfaces
-
-interface ISubCategories {
-  subCategoryName: string;
-  subCategoryPath: string;
-}
-
-interface ICategory {
-  categoryTitle: string;
-  subCategories: ISubCategories[];
-}
-
-interface IDropdownCard {
+export interface IDropdownCard {
   title: string;
   icon: keyof typeof icons;
   iconColor: string;

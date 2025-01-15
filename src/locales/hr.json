@@ -199,6 +199,9 @@
   "name": "Ime",
   "inWatchlist": "Na popisu",
   "page": "Stranica",
-  "yourWatchlist": "Vaša lista za gledanje"
+  "yourWatchlist": "Vaša lista za gledanje",
+  "searchMovies": "Pretraži Filmove",
+  "loadMore": "Učitaj Više",
+  "systemStatus": "Status Sustava"
 
 }

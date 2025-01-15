@@ -39,7 +39,13 @@ const ResetPasswordPage = () => {
           {isSendReset ?
             <div className="pt-10">
               <p className="text-lg">{t('we-sent-you-letter')}</p>
-              <Link className="text-blue-500 hover:underline pt-4 inline-block" to="/login" >{t('back-to-login-page')}</Link>
+              <Link
+                className="text-blue-500 hover:underline pt-4 inline-block"
+                to="/login"
+                onClick={() => window.scrollTo({top: 0,})}
+              >
+                {t('back-to-login-page')}
+              </Link>
             </div>
           :
             <div>

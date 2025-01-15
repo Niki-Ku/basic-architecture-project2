@@ -5,17 +5,9 @@ import DropdownCard from "../../components/DropdownCard/DropdownCard";
 import { ReactComponent as ArrowDown } from "../../assets/icons/ArrowDownFull.svg";
 import { accountAndBilling, startWork, Fix, Watching, quickLinks, popularTopicsLinks } from '../../config/helpCenterConfig';
 import { quickLinksIcons } from '../../config/dynamicIcons';
-// temporary imports
 import { footerLinks } from "../../config/routeConfig";
 import "./FaqPage.css";
 import { useTranslation } from 'react-i18next';
-
-// TODO
-// make links for searchBar    
-// try to make an animation with a help of tailwind
-// try to reasign md: sm: xl: ... screen breakpoints for more comfortable working
-
-// cant make space after coma in Popular topics like this ", "   (line 42)
 
 const FaqPage = () => {
   const { t } = useTranslation();
@@ -59,7 +51,13 @@ const FaqPage = () => {
                 <div className="inline">
                   {popularTopicsLinks.map(topic => (
                     <div key={topic.title} className="inline font-medium mr-1 after:content-[','] last:after:content-['']">
-                      <Link to={topic.link} className="underline hover:text-text-accent">{t(topic.title)}</Link>
+                      <Link
+                        to={topic.link}
+                        onClick={() => window.scrollTo({ top: 0, })}
+                        className="underline hover:text-text-accent"
+                      >
+                        {t(topic.title)}
+                      </Link>
                     </div>
                   ))}
                 </div>

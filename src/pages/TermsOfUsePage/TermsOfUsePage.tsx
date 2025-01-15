@@ -15,7 +15,13 @@ const { t } = useTranslation();
               <ArrowDownFull className="w-5 h-5 mr-2 rotate-90 fill-text-default" />
             </li>
             <li>
-              <Link to="/faq" className="hover:underline hover:text-black-70">{t('backToHelpHome')}</Link>
+              <Link
+                onClick={() => window.scrollTo({ top: 0, })}
+                to="/faq"
+                className="hover:underline hover:text-black-70"
+              >
+                {t('backToHelpHome')}
+              </Link>
             </li>
           </ul>
           <div className="mb-8 self-start">

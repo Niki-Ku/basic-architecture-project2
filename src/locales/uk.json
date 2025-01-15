@@ -199,6 +199,10 @@
   "name": "Ім'я",
   "inWatchlist": "У списку",
   "page": "Сторінка",
-  "yourWatchlist": "Ваш список перегляду"
+  "yourWatchlist": "Ваш список перегляду",
+  "searchMovies": "Пошук Фільмів",
+  "loadMore": "Завантажити Більше",
+  "systemStatus": "Стан Системи"
+
 
 }

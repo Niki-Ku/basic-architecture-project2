@@ -41,7 +41,7 @@ const Header = ({
   return (
     <header className="md:flex md:justify-between z-20 md:items-center bg-black-default text-center p-6 fixed top-0 left-0 w-full relative">
       <div className="max-w-max">
-        <Link to="/">
+        <Link onClick={() => window.scrollTo({top: 0,})} to="/">
           <img src={NetflixLogo} alt="Netflix Logo" />
         </Link>
       </div>
@@ -52,7 +52,7 @@ const Header = ({
         <ul 
           className={`
           bg-slate-900 absolute w-full left-0 top-0 pt-10 h-screen z-[-1]
-          ease-in transition durarion-1000 ${open ? '' : '-translate-y-[100vh]'} 
+          ease-in transition durarion-1000 md:duration-0 ${open ? '' : '-translate-y-[100vh]'} 
           md:flex md:h-auto md:p-0 gap-5 md:static md:z-auto md:translate-y-0 md:bg-transparent 
           `}
         >
@@ -63,7 +63,7 @@ const Header = ({
                   key={link.name}
                   className={activeClass(`${link.path}`)} 
                   to={link.path}
-                  onClick={() => setOpen(false)}
+                  onClick={() => { setOpen(false); window.scrollTo({top: 0,}) }}
                 >
                   {t(link.name)}
                 </Link>
@@ -75,7 +75,7 @@ const Header = ({
               <button className="text-lg font-semibold text-white hover:text-orange-500" onClick={onLogoutClick} >{t('sign-out')}</button>
             </li>
           )}
-          <li>
+          <li className="mx-auto inline-block">
             <ToggleButton id="toggle" checked={darkMode === "dark"} onChange={handleDarkModeChange} />
           </li>
         </ul>

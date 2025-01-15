@@ -51,9 +51,13 @@ const SidebarDropdown:React.FC<ISidebarDropdown> = ({ title, subLinks, id, activ
       >
         <summary 
             className={`text-base p-2 cursor-pointer list-none`}
-            style={activeTopic === id ? {color: "rgb(var(--text-accent))", backgroundColor: "rgb(var(--bg-accent))"} : {}}
+            style={activeTopic === id ? {color: "rgb(var(--text-default-reverce))", backgroundColor: "rgb(var(--bg-accent))"} : {}}
           >
-            <Link to="#collectCategories" className="flex justify-between">
+          <Link
+            onClick={() => window.scrollTo({ top: 0, })}
+            to="#collectCategories"
+            className="flex justify-between"
+          >
             <p>{t(title)}</p>
             {subLinks && (
               <ArrowDownShort 
@@ -70,7 +74,7 @@ const SidebarDropdown:React.FC<ISidebarDropdown> = ({ title, subLinks, id, activ
                 <li 
                   onClick={(e) => handleDetailsChildClick(e, link.id)}
                   className={`p-2 inline-block w-full text-wrap cursor-pointer`}
-                  style={activeTopic === link.id ? {color: "rgb(var(--text-accent))", backgroundColor: "rgb(var(--bg-accent))"} : {}}
+                  style={activeTopic === link.id ? {color: "rgb(var(--text-default-reverce))", backgroundColor: "rgb(var(--bg-accent))"} : {}}
                 >
                   {t(link.title)}
                 </li>

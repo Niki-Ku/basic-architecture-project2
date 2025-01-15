@@ -14,6 +14,7 @@ const Footer = () => {
             return (
               <li key={link.name} className="inline-block w-3/12 min-w-[100px] mb-4 pr-[22px] text-[13px] text-text-secondary ">
                 <Link 
+                  onClick={() => window.scrollTo({top: 0,})}
                   key={`link-${link.name}`} 
                   to={link.path}
                   className="hover:underline"

@@ -200,7 +200,10 @@
   "name": "Name",
   "inWatchlist": "In Watchlist",
   "page": "Page",
-  "yourWatchlist": "Your Watchlist"
+  "yourWatchlist": "Your Watchlist",
+  "searchMovies": "Search Movies",
+  "loadMore": "Load More",
+  "systemStatus": "System Status"
 
 }
 
