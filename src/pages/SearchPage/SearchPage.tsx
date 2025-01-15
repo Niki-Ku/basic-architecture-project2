@@ -12,12 +12,6 @@ import FilmCard from "../../components/FilmCard/FilmCard";
 import Button from "../../components/Button/Button";
 import { getMultiplePages } from "../../helpers/fetchUtils";
 
-// additional: add placeholder as prop to searchbar
-// deal with line 135
-// clear comments
-// use or delete some variables from useInfiniteQuery
-// add translation where it is needed
-
 const SearchPage = () => {
 	const { t, i18n } = useTranslation();
 	const [lang, setLang] = useState(i18n.language);
@@ -42,20 +36,15 @@ const SearchPage = () => {
 	const {
 		data: searchData,
 		error,
-		fetchNextPage,
-		hasNextPage,
-		isFetching,
 		isFetchingNextPage,
-		status,
 	} = useInfiniteQuery({
-		// maybe add dependancies and make dynamic cache value insteat of 'searchData'
 		queryKey: [
 			`searchData-${debouncedSearchValue}`,
 			searchValue,
-			searchPageNumber,
+      searchPageNumber,
+      lang
 		],
 		queryFn: () => getMultiplePages(searchPageNumber, searchValue, lang),
-		getNextPageParam: (lastPage: any, allPages: any) => lastPage.nextCursor,
 	});
 
 	const { data: genersData } = useQuery<{ genres: Genre[] }>(
@@ -112,16 +101,19 @@ const SearchPage = () => {
 
 	useEffect(() => {
 		setLang(i18n.language);
-	}, [i18n.language]);
-
+  }, [i18n.language]);
+  
+  if (error) return <div>Error loading data...</div>
+  
 	return (
-		<div className="w-[90%] min-h-[100svh] mx-auto">
+		<div className="w-[90%] min-h-[100svh] max-w-[1640px] mx-auto">
 			<div className="my-4">
 				<SearchBar
 					links={searchLinks.current}
 					query={searchValue}
 					setQuery={setSearchValue}
-					onSubmit={onSearchSubmit}
+          onSubmit={onSearchSubmit}
+          placeholder="searchMovies"
 				/>
 			</div>
 			<div className="flex gap-10 sm:gap-4 flex-wrap pt-4 mb-4">
@@ -129,10 +121,9 @@ const SearchPage = () => {
 			</div>
 			{totalSearchPagesNumber > searchPageNumber && !isFetchingNextPage && (
 				<div className="mb-20">
-					<Button label="loadMore" onClick={onLoadMoreClick} wide></Button>
+					<Button label={t('loadMore')} onClick={onLoadMoreClick} wide></Button>
 				</div>
 			)}
-			{/* <Link to="https://nclone.instatus.com/" className="underline">System Status Page</Link> */}
 		</div>
 	);
 };

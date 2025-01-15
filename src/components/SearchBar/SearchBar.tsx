@@ -2,29 +2,31 @@ import { Link } from "react-router-dom";
 import { ReactComponent as SearchIcon } from "../../assets/icons/SearchIcon.svg";
 import useDebounce from "../../hooks/useDebounce";
 import { Links } from "../../types/global";
-
 import "./SearchBar.css";
 import { useTranslation } from "react-i18next";
-import { useState } from "react";
-
-// ask Yra why does removing of x from search input worked from SearchBar.css and didn't from index.css
+import { useState, useRef } from "react";
 
 interface SearchBarProps {
   links: Links[];
   query: string;
   setQuery: React.Dispatch<React.SetStateAction<string>>;
   onSubmit?: (e: React.FormEvent) => void;
-
+  placeholder?: string;
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ links, query, setQuery, onSubmit }) => {
+const SearchBar: React.FC<SearchBarProps> = ({ links, query, setQuery, onSubmit, placeholder }) => {
   const { t } = useTranslation();
   const filteredItems = links.filter(item => item.name.toLocaleLowerCase().includes(query.toLocaleLowerCase()));
   const debouncedFilteredItems = useDebounce(filteredItems);
   const [isFocused, setIsFocused] = useState(false);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setIsFocused(false);
+    if (inputRef.current) {
+      inputRef.current.blur()
+    }
     if (onSubmit) {
       onSubmit(e)
     }
@@ -40,10 +42,10 @@ const SearchBar: React.FC<SearchBarProps> = ({ links, query, setQuery, onSubmit 
           <input 
             onChange={(e) => setQuery(e.target.value)} 
             onFocus={() => setIsFocused(true)}
-            onBlur={() => setIsFocused(false)}
+            ref={inputRef}
             type="search" 
             value={query}
-            placeholder={t('typeQuestionTopicOrIssue')}
+            placeholder={placeholder ? t(placeholder) :t('typeQuestionTopicOrIssue')}
             className="w-full bg-bg-primary text-text-default placeholder:text-text-secondary text-base pl-[52px] appearance-none pr-4 py-[9px] focus:outline-none"
           />
           <SearchIcon className="w-6 h-6 fill-text-default absolute top-[9px] left-3.5 pointer-events-none" />
@@ -56,7 +58,11 @@ const SearchBar: React.FC<SearchBarProps> = ({ links, query, setQuery, onSubmit 
                     key={`seach-item-${link.name}-${index}`} 
                     className="bg-bg-primary text-text-default mx-4 hover:bg-bg-secondary cursor-pointer border-b border-text-transparent-10 last:border-0 py-[9px]"
                   >
-                    <Link to={link.path} className="text-base">
+                  <Link
+                    onClick={() => window.scrollTo({ top: 0, })}
+                    to={link.path}
+                    className="text-base w-full h-full block z-10"
+                  >
                       {t(link.name)}
                     </Link>
                   </li>

@@ -14,9 +14,6 @@ import { getUserFromDb } from "../../helpers/firebaseUtils";
 import { addMovieToWatchList, removeMovieFromWatchList } from "../../helpers/firebaseUtils";
 import { db } from "../..";
 import { doc, updateDoc } from "firebase/firestore";
-// TODO:
-// make all pages scroll to top after changing route
-// CORS error when using iframe to watch trailers. It doesn't affect anything
 
 const MoviePage = () => {
 	const movieId = useParams();
@@ -148,12 +145,10 @@ const MoviePage = () => {
         </div>        
 			</div>
 			{/* trailer component */}
-			<div className="w-full h-[300px] md:h-[500px] px-5 md:px-10 my-20">
 				{trailer
 					? <TrailerComponent src={trailer.key} title={trailer.name} isError={trailerError} isLoading={trailerLoading} />
 					: <></>
 				}
-			</div>
 		</div>
 	);
 };

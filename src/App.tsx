@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, fetchData } from "../src/store/actions/dataActions";
 import "./App.css";
 import { RootState } from "./store/index";
-
 import { Route, Routes } from "react-router-dom";
 import SearchPage from "./pages/SearchPage/SearchPage";
 import HomePage from "./pages/HomePage/HomePage";
@@ -23,12 +22,26 @@ import SignInPage from "./pages/SignInPage/SignInPage";
 import PrivateRoute from "./context/PrivateRoute";
 import ResetPasswordPage from "./pages/ResetPasswordPage/ResetPasswordPage";
 import MoviePage from "./pages/MoviePage/MoviePage";
+import { getFromLocalStorage, setToLocalStorage } from "./helpers/storageUtils";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
   const [isBannerVisible, setIsBannerVisible] = useState(false);
-  const [isPromotionalBannerVisible, setIsPromotionalBannerVisible] = useState(true);
+  const [isPromotionalBannerVisible, setIsPromotionalBannerVisible] = useState<boolean>();
   const darkMode = useThemeContext();
+
+  const date = new Date()
+  const bannerShowedDate = getFromLocalStorage('bannerDate');
+  useEffect(() => {
+    const diffInMilliseconds = date.getTime() - bannerShowedDate;
+    const diffInDays = diffInMilliseconds / (1000 * 60 * 60 * 24);
+    if (diffInDays > 1) {
+      setToLocalStorage('bannerDate', date.getTime());
+      setIsPromotionalBannerVisible(true);
+    } else {
+      setIsPromotionalBannerVisible(false);
+    }
+  }, [])
 
   useEffect(() => {
     const theme = localStorage.getItem('theme');

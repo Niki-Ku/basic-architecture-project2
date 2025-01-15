@@ -16,10 +16,7 @@ import { Film, Genre, DbUser } from "../../types/global";
 import { getUserFromDb } from "../../helpers/firebaseUtils";
 import { useAuth } from "../../context/AuthContext";
 import { dataFetch } from "../../helpers/fetchUtils";
-
-// TODO
-// use useMobile hook later instead of isMobile. (it is in seperate branch now)
-// style scrollbar
+import useMobile from "../../hooks/useMobile";
 
 const HomePage = () => {
 	const { t, i18n } = useTranslation();
@@ -29,21 +26,9 @@ const HomePage = () => {
 	const popularOptions = fetchMovies(1, lang, "popular");
 	const topOptions = fetchMovies(1, lang, "top_rated");
 	const genresOptions = fetchGenres(lang);
-	const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+	const isMobile = useMobile();
 	const { currentUser } = useAuth();
 	
-	useEffect(() => {
-		const handleResize = () => {
-			setIsMobile(window.innerWidth < 768);
-		};
-
-		window.addEventListener("resize", handleResize);
-
-		return () => {
-			window.removeEventListener("resize", handleResize);
-		};
-	}, []);
-
 	useEffect(() => {
 		setLang(i18n.language);
 	}, [i18n.language]);
@@ -94,7 +79,7 @@ const HomePage = () => {
 		() => dataFetch(genresOptions)
 	);
 
-	const { data: additionalUser2 } = useQuery<DbUser | undefined >(
+	const { data: additionalUser } = useQuery<DbUser | undefined >(
 		["user", currentUser],
 		() => getUserFromDb(currentUser?.uid),
 		{refetchInterval: 10000}
@@ -126,7 +111,7 @@ const HomePage = () => {
 								}}
 							>
 								<div className="absolute bottom-5 left-5">
-									<Link to={m.link}>
+									<Link onClick={() => window.scrollTo({top: 0,})} to={m.link}>
 										<p className="text-3xl md:text-6xl">{t(m.title)}</p>
 									</Link>
 								</div>
@@ -145,8 +130,7 @@ const HomePage = () => {
 						link="/"
             loading={section?.loading}
 						error={section?.error}
-						// user={additionalUser.current}
-						user={additionalUser2}
+						user={additionalUser}
 					/>
         ))}
 			</div>

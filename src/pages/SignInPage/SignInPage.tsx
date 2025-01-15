@@ -167,7 +167,13 @@ const SignInPage = () => {
 									/>
 									<label htmlFor="remember">{t('remember-me')}</label>
 								</div>
-								<Link to="/reset" className="hover:underline">{t('forgot-password')}</Link>
+								<Link 
+									onClick={() => window.scrollTo({top: 0,})}
+									to="/reset" 
+									className="hover:underline"
+								>
+									{t('forgot-password')}
+								</Link>
 							</div>
 							{passwordState.errorCount > 2 && (
 								<div>

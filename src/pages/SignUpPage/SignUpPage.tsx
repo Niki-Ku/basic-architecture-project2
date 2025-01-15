@@ -41,7 +41,7 @@ const SignUpPage = () => {
 			await addToDb(user, values.name);
 			setLoading(false);
 			navigate("/");
-		} catch (error: any) {			// is it okay to make error typeof any???
+		} catch (error: any) {
 			console.log(error);
 			setFirebaseError(error?.code)
 		}
@@ -173,6 +173,7 @@ const SignUpPage = () => {
 									{t("i-agree-to")}
 									{" "}
 									<Link
+										onClick={() => window.scrollTo({top: 0,})}
 										to="/termsofuse"
 										target="blank"
 										className="text-blue-600 hover:underline"
@@ -183,6 +184,7 @@ const SignUpPage = () => {
 									{t("and")}
 									{" "}
 									<Link
+										onClick={() => window.scrollTo({top: 0,})}
 										to="/privacy"
 										target="blank"
 										className="text-blue-600 hover:underline"

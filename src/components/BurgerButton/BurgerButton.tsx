@@ -21,16 +21,10 @@ const BurgerButton: React.FC<BurgerButtonProps> = ({
       black: 'bg-black-default inline-block p-2 cursor-pointer rounded',
       transparent: 'bg-transparent inline-block p-2 cursor-pointer rounded',
     }
-    // const buttonStyles = {
-    //   burger: `burger-icon ${isOpen ? 'active' : ''} relative`,
-    //   burgerBlack: `burger-icon-black ${isOpen ? 'active' : ''} relative`,
-    // };
     return (
         <div className={divStyles[background]} onClick={onClick}>
           <button
             className={`relative block w-[30px] h-[24px]`}
-            // className={`burger-icon ${isOpen ? 'active' : ''} relative block w-[30px] h-[24px]`}
-            // className={buttonStyles[variant]}
             aria-label={ariaLabel}
           >   
             <span className={`

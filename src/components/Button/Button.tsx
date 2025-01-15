@@ -35,7 +35,7 @@ const Button: React.FC<ButtonProps> = ({
         backgroundColor: disabled ? '#d1d5db' : '',
         color: disabled ? '#222222' : '',
       };
-    let Icon: any;
+    let Icon: React.FunctionComponent<React.SVGProps<SVGSVGElement>> | null;
     icon ? Icon = buttonIcons[icon] : Icon = null;
     return (
         <button
@@ -45,7 +45,7 @@ const Button: React.FC<ButtonProps> = ({
             disabled={disabled}
             style={styles}
         >   
-            {icon && <Icon className={iconStyles[iconVariant]} />}
+            {icon && Icon && <Icon className={iconStyles[iconVariant]} />}
             {label}
         </button>
     );

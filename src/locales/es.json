@@ -199,7 +199,10 @@
   "name": "Nombre",
   "inWatchlist": "En lista",
   "page": "Página",
-  "yourWatchlist": "Tu lista de seguimiento"
+  "yourWatchlist": "Tu lista de seguimiento",
+  "searchMovies": "Buscar Películas",
+  "loadMore": "Cargar Más",
+  "systemStatus": "Estado del Sistema"
   
 }
 
