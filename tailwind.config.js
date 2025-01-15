@@ -1,24 +1,61 @@
 module.exports = {
   purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
-  darkMode: false, 
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
-        gray: 'rgb(115, 115, 115)',
-        darkGray: 'rgb(24, 24, 24)',
-        red: 'rgb(229, 9, 20)',
-        graySecondary: 'rgb(76, 73, 72)',
-        transparentGray: '#80808033',
-        transparentGray4: 'rgba(128, 128, 128, .4)',
-        transparentGray2: 'rgba(128, 128, 128, .2)',
-        transparentBlack1: 'rgba(0, 0, 0, .1)',
-        transparentBlack7: 'rgba(0, 0, 0, .7)',
-        transparentBlack9: 'rgba(0, 0, 0, .9)',
+        red: {
+          default: 'rgb(var(--color-red))',
+          secondary: 'rgb(var(--color-red-secondary))',
+        },
+        gray: {
+          default: 'rgb(var(--color-gray))',
+          dark: 'rgb(var(--color-gray-dark))',
+          light: 'rgb(var(--color-gray-light))',
+          secondary: 'rgb(var(--color-gray-secondary))',
+          white: 'rgb(var(--color-gray-white))',
+          40: 'rgba(var(--color-gray-40), 0.4)',
+          static: 'rgba(var(--color-gray-static), 0.4)',
+        },
+        black: {
+          black: {
+            absolute: 'rgb(var(--color-black-total))',
+            10: 'rgba(var(--color-black-total), 0.1)',
+            30: 'rgba(var(--color-black-total), 0.3)',
+          },
+          default: 'rgb(var(--color-black))',
+          10: 'rgba(var(--color-black), 0.1)',
+          30: 'rgba(var(--color-black), 0.3)',
+          70: 'rgba(var(--color-black), 0.7)',
+          90: 'rgba(var(--color-black), 0.9)',
+        },
+        toggle: {
+          bg: 'rgb(var(--toggle-bg))',
+          border: 'rgb(var(--toggle-border))',
+          active: 'rgb(var(--toggle-active))',
+          hover: 'rgb(var(--toggle-hover))',
+          text: 'rgb(var(--toggle-text))',
+        },
+        bg: {
+          primary: 'rgb(var(--color-gray-dark))',
+          secondary: 'rgb(var(--bg-secondary))',
+          hover: 'rgb(var(--color-gray-hover))',
+          accent: 'rgb(var(--bg-accent))',
+        },
+        text: {
+          default: 'rgb(var(--text-default))',
+          secondary: 'rgb(var(--text-secondary))',
+          highlight: 'rgb(var(--text-highlight))',
+          hover: 'rgb(var(--text-hover))',
+          accent: 'rgb(var(--text-accent))',
+          transparent: {
+            90: 'rgba(var(--text-default), 0.9)',
+            70: 'rgba(var(--text-default), 0.7)',
+            40: 'rgba(var(--text-default), 0.4)',
+            10: 'rgba(var(--text-default), 0.1)',
+          }
+        }
       },
     },
   },
-  variants: {
-    extend: {},
-  },
-  plugins: [],
-}
+};
